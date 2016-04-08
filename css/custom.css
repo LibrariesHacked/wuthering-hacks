@@ -1,0 +1,17 @@
+﻿body {
+    margin-top: 70px;
+}
+
+#divMap {
+    height: 200px;
+}
+
+div.circle {
+    background-color: #ff7800;
+    border-color: black;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    width: 10px;
+    height: 10px;
+}
