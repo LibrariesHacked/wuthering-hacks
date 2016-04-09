@@ -6,17 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Wuthering Hacks</title>
-
+    <!-- Material Design fonts -->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!-- Bootstrap Material Design -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-material-design.css">
+    <link rel="stylesheet" type="text/css" href="css/ripples.min.css">
     <!-- DC JS -->
     <link href="css/dc.min.css" rel="stylesheet">
-
     <link href="css/custom.css" rel="stylesheet" />
-
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-    
+
     <!-- Bootstrap starter template stuff -->
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,7 +28,7 @@
     <![endif]-->
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -41,41 +43,24 @@
     </nav>
 
     <div class="container">
-        <div class="jumbotron">
-            <h1>Wuthering Hacks</h1>
-            <p>A data dashboard for library usage data.  This is powered by the data releases published at <a href="http://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-sets" target="_blank">Newcastle Libraries datasets</a>.</p>
-        </div>
-        
+        <h1>Wuthering Hacks</h1>
+        <p>A data dashboard for library usage data.  This is powered by the data releases published at <a href="http://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-sets" target="_blank">Newcastle Libraries datasets</a>.</p>
+
         <h3>Libraries</h3>
         <hr />
         <div class="row">
             <div class="col-lg-4">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Branch</h3>
-                    </div>
+                <div class="panel panel-default">
                     <div id="divMap"></div>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title" id="hBranchTitle">Branch details</h3>
-                    </div>
                     <div class="panel-body">
-                        <p class="lead" id="pComputerProvision"></p>
-                        <p class="lead" id="pNoOfPCs"></p>
-                        <p class="lead" id="pWiFiProvision"></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Area Profile</h3>
-                    </div>
-                    <div class="panel-body">
-                        Area profiles are taken from Office for National Statistics data for the area the library serves.
+                        <h4 id="hBranchTitle"></h4>
+                        <p id="pComputerProvision">Select a branch on the map to view more details.</p>
+                        <p id="pNoOfPCs"></p>
+                        <p id="pWiFiProvision"></p>
                     </div>
                 </div>
             </div>
@@ -85,54 +70,98 @@
         <hr />
         <div class="row">
             <div class="col-lg-4">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Issues</h3>
-                    </div>
+                <div class="panel panel-default">
                     <div class="panel-body" id="chartIssuesContainer">
+                        <h4>Count</h4>
                         <div id="chartIssues"></div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Branch</h3>
-                    </div>
-                    <div class="panel-body">
+                <div class="panel panel-default">
+                    <div class="panel-body" id="chartIssuesBranchContainer">
+                        <h4>By branch</h4>
                         <div id="chartIssuesBranch"></div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="panel panel-warning">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Year</h3>
-                    </div>
+                <div class="panel panel-default">
                     <div class="panel-body" id="chartIssuesYearContainer">
+                        <h4>By year</h4>
                         <div id="chartIssuesYear"></div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="panel panel-danger">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Month</h3>
-                    </div>
-                    <div class="panel-body">
+                <div class="panel panel-default">
+                    <div class="panel-body" id="chartIssuesMonthContainer">
+                        <h4>By month</h4>
                         <div id="chartIssuesMonth"></div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="display: none">
             <div class="col-lg-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Data</h3>
-                    </div>
                     <div class="panel-body">
-                        <div id="chartIssuesData"></div>
+                        <h4>Detail</h4>
+                        <table id="tableIssues" class="table">
+                            <thead>
+                                <tr>
+                                    <td>Month</td>
+                                    <td>Number of issues</td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3>Visits</h3>
+        <hr />
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-body" id="chartVisitsContainer">
+                        <h4>Count</h4>
+                        <div id="chartVisits"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-body" id="chartVisitsBranchContainer">
+                        <h4>By branch</h4>
+                        <div id="chartVisitsBranch"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-body" id="chartVisitsYearContainer">
+                        <h4>By year</h4>
+                        <div id="chartVisitsYear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-body" id="chartVisitsMonthContainer">
+                        <h4>By month</h4>
+                        <div id="chartVisitsMonth"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="display: none">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h4>Detail</h4>
+                        <table id="tableVisits"></table>
                     </div>
                 </div>
             </div>
@@ -142,132 +171,50 @@
         <hr />
         <div class="row">
             <div class="col-lg-4">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Usage</h3>
-                    </div>
-                    <div class="panel-body">
-                        Panel content
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Branch</h3>
-                    </div>
-                    <div class="panel-body">
-                        Panel content
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="panel panel-warning">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Year</h3>
-                    </div>
-                    <div class="panel-body">
-                        Panel content
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="panel panel-danger">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Month</h3>
-                    </div>
-                    <div class="panel-body">
-                        Panel content
+                <div class="panel panel-default">
+                    <div class="panel-body" id="chartPcsContainer">
+                        <h4>Percent utilised</h4>
+                        <div id="chartPcs"></div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Data</h3>
+                    <div class="panel-body" id="chartPcsBranchContainer">
+                        <h4>By branch</h4>
+                        <div id="chartPcsBranch"></div>
                     </div>
-                    <div class="panel-body">
-                        Panel content
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-body" id="chartPcsYearContainer">
+                        <h4>By year</h4>
+                        <div id="chartPcsYear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-body" id="chartPcsMonthContainer">
+                        <h4>By month</h4>
+                        <div id="chartPcsMonth"></div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <h3>Membership</h3>
-        <hr />
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Members</h3>
-                    </div>
-                    <div class="panel-body">
-                        Panel content
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Branch</h3>
-                    </div>
-                    <div class="panel-body">
-                        Panel content
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="panel panel-success">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Membership Category</h3>
-                    </div>
-                    <div class="panel-body">
-                        Panel content
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="panel panel-success">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Age</h3>
-                    </div>
-                    <div class="panel-body">
-                        Panel content
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="panel panel-warning">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Year</h3>
-                    </div>
-                    <div class="panel-body">
-                        Panel content
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="panel panel-danger">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Month</h3>
-                    </div>
-                    <div class="panel-body">
-                        Panel content
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
+        <div class="row" style="display: none">
+            <div class="col-lg-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Data</h3>
-                    </div>
                     <div class="panel-body">
-                        Panel content
+                        <h4>Detail</h4>
+                        <table id="tablePcs"></table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -279,5 +226,7 @@
     <script src="js/dc.min.js"></script>
     <script src="js/melt.js"></script>
     <script src="js/dashboard.js"></script>
+    <script src="js/material.min.js"></script>
+    <script src="js/ripples.min.js"></script>
 </body>
 </html>

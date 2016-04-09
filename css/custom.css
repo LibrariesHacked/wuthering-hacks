@@ -7,11 +7,15 @@
 }
 
 div.circle {
-    background-color: #ff7800;
-    border-color: black;
+    background-color: #3182BD;
+    border-color: #ffffff;
     border-radius: 5px;
     border-style: solid;
     border-width: 1px;
     width: 10px;
     height: 10px;
+}
+
+.dc-chart g.row text {
+    fill: black;
 }
