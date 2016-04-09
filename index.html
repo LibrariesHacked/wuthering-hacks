@@ -39,6 +39,14 @@
                 </button>
                 <a class="navbar-brand" href="#">Wuthering Hacks</a>
             </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="#libraries">Libraries</a></li>
+                    <li><a href="#issues">Issues</a></li>
+                    <li><a href="#visits">Visits</a></li>
+                    <li><a href="#pcusage">PC Usage</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -46,7 +54,7 @@
         <h1>Wuthering Hacks</h1>
         <p>A data dashboard for library usage data.  This is powered by the data releases published at <a href="http://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-sets" target="_blank">Newcastle Libraries datasets</a>.</p>
         <p class="lead">Draft Version!</p>
-        <h3>Libraries</h3>
+        <h3>Libraries</h3><a name="libraries"></a>
         <hr />
         <div class="row">
             <div class="col-lg-4">
@@ -66,7 +74,7 @@
             </div>
         </div>
 
-        <h3>Issues</h3>
+        <h3>Issues</h3><a name="issues"></a>
         <hr />
         <div class="row">
             <div class="col-lg-4">
@@ -96,7 +104,7 @@
             <div class="col-lg-4">
                 <div class="panel panel-default">
                     <div class="panel-body" id="chartIssuesMonthContainer">
-                        <h4>By month <a class="reset" id="resetChartIssuesYear" href="#">Reset</a></h4>
+                        <h4>By month <a class="reset" id="resetChartIssuesMonth" href="#">Reset</a></h4>
                         <div id="chartIssuesMonth"></div>
                     </div>
                 </div>
@@ -120,7 +128,7 @@
             </div>
         </div>
 
-        <h3>Visits</h3>
+        <h3>Visits</h3><a name="visits"></a>
         <hr />
         <div class="row">
             <div class="col-lg-4">
@@ -134,7 +142,7 @@
             <div class="col-lg-4">
                 <div class="panel panel-default">
                     <div class="panel-body" id="chartVisitsBranchContainer">
-                        <h4>By branch<a class="reset" id="resetChartVisitsBranch" href="#">Reset</a></h4>
+                        <h4>By branch <a class="reset" id="resetChartVisitsBranch" href="#">Reset</a></h4>
                         <div id="chartVisitsBranch"></div>
                     </div>
                 </div>
@@ -167,7 +175,7 @@
             </div>
         </div>
 
-        <h3>PC Usage</h3>
+        <h3>PC Usage</h3><a name="pcusage"></a>
         <hr />
         <div class="row">
             <div class="col-lg-4">
@@ -181,7 +189,7 @@
             <div class="col-lg-4">
                 <div class="panel panel-default">
                     <div class="panel-body" id="chartPcsBranchContainer">
-                        <h4>By branch<a class="reset" id="resetChartPcsBranch" href="#">Reset</a></h4>
+                        <h4>By branch <a class="reset" id="resetChartPcsBranch" href="#">Reset</a></h4>
                         <div id="chartPcsBranch"></div>
                     </div>
                 </div>
@@ -189,7 +197,7 @@
             <div class="col-lg-4">
                 <div class="panel panel-default">
                     <div class="panel-body" id="chartPcsYearContainer">
-                        <h4>By year<a class="reset" id="resetChartPcsYear" href="#">Reset</a></h4>
+                        <h4>By year <a class="reset" id="resetChartPcsYear" href="#">Reset</a></h4>
                         <div id="chartPcsYear"></div>
                     </div>
                 </div>

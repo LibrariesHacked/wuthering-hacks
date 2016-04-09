@@ -176,14 +176,26 @@
             issuesLineChart.x(d3.time.scale().domain([issuesMinDate2, issuesMaxDate2]));
             issuesLineChart.redraw();
         });
-
-        window.onresize = function (event) {
+        $(window).on('resize', function () {
             var newIssuesLineChartWidth = document.getElementById('chartIssuesContainer').offsetWidth;
+            var newIssuesYearChartWidth = document.getElementById('chartIssuesYearContainer').offsetWidth;
+            var newIssuesRowChartWidth = document.getElementById('chartIssuesBranchContainer').offsetWidth;
+            var newIssuesMonthBarChartWidth = document.getElementById('chartIssuesMonthContainer').offsetWidth;
+
             issuesLineChart
                 .width(newIssuesLineChartWidth)
                 .transitionDuration(0);
+            issuesYearChart
+                .width(newIssuesYearChartWidth)
+                .transitionDuration(0);
+            issuesRowChart
+                .width(newIssuesRowChartWidth)
+                .transitionDuration(0);
+            issuesMonthBarChart
+                .width(newIssuesLineChartWidth)
+                .transitionDuration(0);
             dc.renderAll();
-        };
+        });
 
         dc.renderAll();
     });
@@ -237,29 +249,36 @@
             .elasticX(true)
             .elasticY(true)
             .x(d3.time.scale().domain([visitsMinDate, visitsMaxDate]));
+        $('#resetChartVisits').on('click', function () {
+            visitsLineChart.filterAll();
+            dc.redrawAll();
+            return false;
+        });
 
         // Visits Year Pie
         var visitsYearChart = dc.pieChart("#chartVisitsYear");
         var visitsYearChartWidth = document.getElementById('chartVisitsYearContainer').offsetWidth;
         var visitsYearDim = visitsNdx.dimension(function (d) { return +d.year; });
         var visitsYearTotal = visitsYearDim.group().reduceSum(function (d) { return d.numVisits; });
-
         visitsYearChart
             .width(visitsYearChartWidth)
             .height(300)
-            //.radius(80)
             .dimension(visitsYearDim)
             .group(visitsYearTotal)
             .renderLabel(true)
             .innerRadius(10)
             .transitionDuration(500);
+        $('#resetChartVisitsYear').on('click', function () {
+            visitsYearChart.filterAll();
+            dc.redrawAll();
+            return false;
+        });
 
         // Visits branches row chart
         var visitsRowChart = dc.rowChart("#chartVisitsBranch");
         var visitsRowChartWidth = document.getElementById('chartVisitsBranchContainer').offsetWidth;
         var visitsBranchDim = visitsNdx.dimension(function (d) { return d.branch; });
         var visitsBranchTotal = visitsBranchDim.group().reduceSum(dc.pluck('numVisits'));
-
         visitsRowChart
             .width(visitsRowChartWidth)
             .height(300)
@@ -267,18 +286,20 @@
             .dimension(visitsBranchDim)
             .elasticX(true)
             .xAxis().ticks(4);
+        $('#resetChartVisitsBranch').on('click', function () {
+            visitsRowChart.filterAll();
+            dc.redrawAll();
+            return false;
+        });
 
         // Visits month bar chart
         var visitsMonthBarChart = dc.barChart("#chartVisitsMonth");
         var visitsMonthBarChartWidth = document.getElementById('chartVisitsMonthContainer').offsetWidth;
         var visitsMonthDim = visitsNdx.dimension(function (d) { return d.month; });
         var visitsMonthTotal = visitsMonthDim.group().reduceSum(dc.pluck('numVisits'));
-
         visitsMonthBarChart
             .width(visitsMonthBarChartWidth)
             .height(300)
-            //.outerPadding(0)
-            //.gap(1)
             .margins({ top: 10, right: 50, bottom: 30, left: 60 })
             .group(visitsMonthTotal)
             .dimension(visitsMonthDim)
@@ -287,21 +308,43 @@
             .brushOn(false)
             .x(d3.scale.ordinal())
             .renderHorizontalGridLines(true);
+        $('#resetChartVisitsMonth').on('click', function () {
+            visitsMonthBarChart.filterAll();
+            dc.redrawAll();
+            return false;
+        });
 
 
-
-
-        dc.renderAll();
-
-        window.onresize = function (event) {
+        $('#chartVisitsYear,#chartVisitsBranch,#chartVisitsMonth').on('click', function () {
+            var visitsMinDate2 = issuesDateDim.bottom(1)[0].date;
+            var visitsMaxDate2 = issuesDateDim.top(1)[0].date;
+            visitsLineChart.x(d3.time.scale().domain([visitsMinDate2, visitsMaxDate2]));
+            visitsLineChart.redraw();
+        });
+        $(window).on('resize', function () {
             var newVisitsLineChartWidth = document.getElementById('chartVisitsContainer').offsetWidth;
+            var newVisitsYearChartWidth = document.getElementById('chartVisitsYearContainer').offsetWidth;
+            var newVisitsRowChartWidth = document.getElementById('chartVisitsBranchContainer').offsetWidth;
+            var newVisitsMonthBarChartWidth = document.getElementById('chartVisitsMonthContainer').offsetWidth;
+
             visitsLineChart
                 .width(newVisitsLineChartWidth)
                 .transitionDuration(0);
-            dc.renderAll();
-        };
-    });
+            visitsYearChart
+                .width(newVisitsYearChartWidth)
+                .transitionDuration(0);
+            visitsRowChart
+                .width(newVisitsRowChartWidth)
+                .transitionDuration(0);
+            visitsMonthBarChart
+                .width(newVisitsLineChartWidth)
+                .transitionDuration(0);
 
+            dc.renderAll();
+        });
+
+        dc.renderAll();
+    });
 
     ///////////////////////////////////////////////////////////////////////////////
     // PCs
@@ -352,29 +395,36 @@
             .elasticX(true)
             .elasticY(true)
             .x(d3.time.scale().domain([pcsMinDate, pcsMaxDate]));
+        $('#resetChartPcs').on('click', function () {
+            pcsLineChart.filterAll();
+            dc.redrawAll();
+            return false;
+        });
 
         // Pcs Year Pie
         var pcsYearChart = dc.pieChart("#chartPcsYear");
         var pcsYearChartWidth = document.getElementById('chartPcsYearContainer').offsetWidth;
         var pcsYearDim = pcsNdx.dimension(function (d) { return +d.year; });
         var pcsYearTotal = pcsYearDim.group().reduceSum(function (d) { return d.numPcs; });
-
         pcsYearChart
             .width(pcsYearChartWidth)
             .height(300)
-            //.radius(80)
             .dimension(pcsYearDim)
             .group(pcsYearTotal)
             .renderLabel(true)
             .innerRadius(10)
             .transitionDuration(500);
+        $('#resetChartPcsYear').on('click', function () {
+            pcsYearChart.filterAll();
+            dc.redrawAll();
+            return false;
+        });
 
         // Pcs branches row chart
         var pcsRowChart = dc.rowChart("#chartPcsBranch");
         var pcsRowChartWidth = document.getElementById('chartPcsBranchContainer').offsetWidth;
         var pcsBranchDim = pcsNdx.dimension(function (d) { return d.branch; });
         var pcsBranchTotal = pcsBranchDim.group().reduceSum(dc.pluck('numPcs'));
-
         pcsRowChart
             .width(pcsRowChartWidth)
             .height(300)
@@ -382,18 +432,20 @@
             .dimension(pcsBranchDim)
             .elasticX(true)
             .xAxis().ticks(4);
+        $('#resetChartPcsBranch').on('click', function () {
+            pcsRowChart.filterAll();
+            dc.redrawAll();
+            return false;
+        });
 
         // Pcs month bar chart
         var pcsMonthBarChart = dc.barChart("#chartPcsMonth");
         var pcsMonthBarChartWidth = document.getElementById('chartPcsMonthContainer').offsetWidth;
         var pcsMonthDim = pcsNdx.dimension(function (d) { return d.month; });
         var pcsMonthTotal = pcsMonthDim.group().reduceSum(dc.pluck('numPcs'));
-
         pcsMonthBarChart
             .width(pcsMonthBarChartWidth)
             .height(300)
-            //.outerPadding(0)
-            //.gap(1)
             .margins({ top: 10, right: 50, bottom: 30, left: 60 })
             .group(pcsMonthTotal)
             .dimension(pcsMonthDim)
@@ -402,15 +454,40 @@
             .brushOn(false)
             .x(d3.scale.ordinal())
             .renderHorizontalGridLines(true);
+        $('#resetChartPcsMonth').on('click', function () {
+            pcsMonthBarChart.filterAll();
+            dc.redrawAll();
+            return false;
+        });
 
-        dc.renderAll();
-
-        window.onresize = function (event) {
+        $('#chartPcsYear,#chartPcsBranch,#chartPcsMonth').on('click', function () {
+            var visitsMinDate2 = issuesDateDim.bottom(1)[0].date;
+            var visitsMaxDate2 = issuesDateDim.top(1)[0].date;
+            visitsLineChart.x(d3.time.scale().domain([visitsMinDate2, visitsMaxDate2]));
+            visitsLineChart.redraw();
+        });
+        $(window).on('resize', function () {
             var newPcsLineChartWidth = document.getElementById('chartPcsContainer').offsetWidth;
+            var newPcsYearChartWidth = document.getElementById('chartPcsYearContainer').offsetWidth;
+            var newPcsRowChartWidth = document.getElementById('chartPcsBranchContainer').offsetWidth;
+            var newPcsMonthBarChartWidth = document.getElementById('chartPcsMonthContainer').offsetWidth;
+
             pcsLineChart
                 .width(newPcsLineChartWidth)
                 .transitionDuration(0);
+            pcsYearChart
+                .width(newPcsYearChartWidth)
+                .transitionDuration(0);
+            pcsRowChart
+                .width(newPcsRowChartWidth)
+                .transitionDuration(0);
+            pcsMonthBarChart
+                .width(newPcsLineChartWidth)
+                .transitionDuration(0);
+
             dc.renderAll();
-        };
+        });
+
+        dc.renderAll();
     });
 });
