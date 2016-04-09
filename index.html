@@ -45,7 +45,7 @@
     <div class="container">
         <h1>Wuthering Hacks</h1>
         <p>A data dashboard for library usage data.  This is powered by the data releases published at <a href="http://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-sets" target="_blank">Newcastle Libraries datasets</a>.</p>
-
+        <p class="lead">Draft Version!</p>
         <h3>Libraries</h3>
         <hr />
         <div class="row">
@@ -72,7 +72,7 @@
             <div class="col-lg-4">
                 <div class="panel panel-default">
                     <div class="panel-body" id="chartIssuesContainer">
-                        <h4>Count</h4>
+                        <h4>Count <a class="reset" id="resetChartIssues" href="#">Reset</a></h4>
                         <div id="chartIssues"></div>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
             <div class="col-lg-4">
                 <div class="panel panel-default">
                     <div class="panel-body" id="chartIssuesBranchContainer">
-                        <h4>By branch</h4>
+                        <h4>By branch <a class="reset" id="resetChartIssuesBranch" href="#">Reset</a></h4>
                         <div id="chartIssuesBranch"></div>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
             <div class="col-lg-4">
                 <div class="panel panel-default">
                     <div class="panel-body" id="chartIssuesYearContainer">
-                        <h4>By year</h4>
+                        <h4>By year <a class="reset" id="resetChartIssuesYear" href="#">Reset</a></h4>
                         <div id="chartIssuesYear"></div>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
             <div class="col-lg-4">
                 <div class="panel panel-default">
                     <div class="panel-body" id="chartIssuesMonthContainer">
-                        <h4>By month</h4>
+                        <h4>By month <a class="reset" id="resetChartIssuesYear" href="#">Reset</a></h4>
                         <div id="chartIssuesMonth"></div>
                     </div>
                 </div>
@@ -126,7 +126,7 @@
             <div class="col-lg-4">
                 <div class="panel panel-default">
                     <div class="panel-body" id="chartVisitsContainer">
-                        <h4>Count</h4>
+                        <h4>Count <a class="reset" id="resetChartVisits" href="#">Reset</a></h4>
                         <div id="chartVisits"></div>
                     </div>
                 </div>
@@ -134,7 +134,7 @@
             <div class="col-lg-4">
                 <div class="panel panel-default">
                     <div class="panel-body" id="chartVisitsBranchContainer">
-                        <h4>By branch</h4>
+                        <h4>By branch<a class="reset" id="resetChartVisitsBranch" href="#">Reset</a></h4>
                         <div id="chartVisitsBranch"></div>
                     </div>
                 </div>
@@ -142,7 +142,7 @@
             <div class="col-lg-4">
                 <div class="panel panel-default">
                     <div class="panel-body" id="chartVisitsYearContainer">
-                        <h4>By year</h4>
+                        <h4>By year <a class="reset" id="resetChartVisitsYear" href="#">Reset</a></h4>
                         <div id="chartVisitsYear"></div>
                     </div>
                 </div>
@@ -150,7 +150,7 @@
             <div class="col-lg-4">
                 <div class="panel panel-default">
                     <div class="panel-body" id="chartVisitsMonthContainer">
-                        <h4>By month</h4>
+                        <h4>By month <a class="reset" id="resetChartVisitsMonth" href="#">Reset</a></h4>
                         <div id="chartVisitsMonth"></div>
                     </div>
                 </div>
@@ -173,7 +173,7 @@
             <div class="col-lg-4">
                 <div class="panel panel-default">
                     <div class="panel-body" id="chartPcsContainer">
-                        <h4>Percent utilised</h4>
+                        <h4>Percent utilised <a class="reset" id="resetChartPcs" href="#">Reset</a></h4>
                         <div id="chartPcs"></div>
                     </div>
                 </div>
@@ -181,7 +181,7 @@
             <div class="col-lg-4">
                 <div class="panel panel-default">
                     <div class="panel-body" id="chartPcsBranchContainer">
-                        <h4>By branch</h4>
+                        <h4>By branch<a class="reset" id="resetChartPcsBranch" href="#">Reset</a></h4>
                         <div id="chartPcsBranch"></div>
                     </div>
                 </div>
@@ -189,7 +189,7 @@
             <div class="col-lg-4">
                 <div class="panel panel-default">
                     <div class="panel-body" id="chartPcsYearContainer">
-                        <h4>By year</h4>
+                        <h4>By year<a class="reset" id="resetChartPcsYear" href="#">Reset</a></h4>
                         <div id="chartPcsYear"></div>
                     </div>
                 </div>
@@ -197,7 +197,7 @@
             <div class="col-lg-4">
                 <div class="panel panel-default">
                     <div class="panel-body" id="chartPcsMonthContainer">
-                        <h4>By month</h4>
+                        <h4>By month <a class="reset" id="resetChartPcsMonth" href="#">Reset</a></h4>
                         <div id="chartPcsMonth"></div>
                     </div>
                 </div>

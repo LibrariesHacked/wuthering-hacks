@@ -88,7 +88,6 @@
         issuesTable
             .dimension(issuesDateDim)
             .group(function (d) { return d.year; })
-            // dynamic columns creation using an array of closures
             .columns([
                 function (d) { return d.month },
                 function (d) { return d.numIssues; }
@@ -103,32 +102,39 @@
             .dimension(issuesDateDim)
             .group(issuesTotal)
             .margins({ top: 10, right: 50, bottom: 30, left: 60 })
-            .elasticX(true)
+            .elasticX(false)
             .elasticY(true)
             .x(d3.time.scale().domain([issuesMinDate, issuesMaxDate]));
+        $('#resetChartIssues').on('click', function () {
+            issuesLineChart.filterAll();
+            dc.redrawAll();
+            return false;
+        });
 
         // Issues Year Pie
         var issuesYearChart = dc.pieChart("#chartIssuesYear");
         var issuesYearChartWidth = document.getElementById('chartIssuesYearContainer').offsetWidth;
         var issuesYearDim = issuesNdx.dimension(function (d) { return +d.year; });
         var issuesYearTotal = issuesYearDim.group().reduceSum(function (d) { return d.numIssues; });
-        
         issuesYearChart
             .width(issuesYearChartWidth)
             .height(300)
-            //.radius(80)
             .dimension(issuesYearDim)
             .group(issuesYearTotal)
             .renderLabel(true)
             .innerRadius(10)
             .transitionDuration(500);
+        $('#resetChartIssuesYear').on('click', function () {
+            issuesYearChart.filterAll();
+            dc.redrawAll();
+            return false;
+        });
 
         // Issues branches row chart
         var issuesRowChart = dc.rowChart("#chartIssuesBranch");
         var issuesRowChartWidth = document.getElementById('chartIssuesBranchContainer').offsetWidth;
         var issuesBranchDim = issuesNdx.dimension(function (d) { return d.branch; });
         var issuesBranchTotal = issuesBranchDim.group().reduceSum(dc.pluck('numIssues'));
-
         issuesRowChart
             .width(issuesRowChartWidth)
             .height(300)
@@ -136,18 +142,20 @@
             .dimension(issuesBranchDim)
             .elasticX(true)
             .xAxis().ticks(4);
+        $('#resetChartIssuesBranch').on('click', function () {
+            issuesRowChart.filterAll();
+            dc.redrawAll();
+            return false;
+        });
 
         // Issues month bar chart
         var issuesMonthBarChart = dc.barChart("#chartIssuesMonth");
         var issuesMonthBarChartWidth = document.getElementById('chartIssuesMonthContainer').offsetWidth;
         var issuesMonthDim = issuesNdx.dimension(function (d) { return d.month; });
         var issuesMonthTotal = issuesMonthDim.group().reduceSum(dc.pluck('numIssues'));
-
         issuesMonthBarChart
             .width(issuesMonthBarChartWidth)
             .height(300)
-            //.outerPadding(0)
-            //.gap(1)
             .margins({ top: 10, right: 50, bottom: 30, left: 60 })
             .group(issuesMonthTotal)
             .dimension(issuesMonthDim)
@@ -156,8 +164,18 @@
             .brushOn(false)
             .x(d3.scale.ordinal())
             .renderHorizontalGridLines(true);
+        $('#resetChartIssuesMonth').on('click', function () {
+            issuesMonthBarChart.filterAll();
+            dc.redrawAll();
+            return false;
+        });
 
-        dc.renderAll();
+        $('#chartIssuesYear,#chartIssuesBranch,#chartIssuesMonth').on('click', function () {
+            var issuesMinDate2 = issuesDateDim.bottom(1)[0].date;
+            var issuesMaxDate2 = issuesDateDim.top(1)[0].date;
+            issuesLineChart.x(d3.time.scale().domain([issuesMinDate2, issuesMaxDate2]));
+            issuesLineChart.redraw();
+        });
 
         window.onresize = function (event) {
             var newIssuesLineChartWidth = document.getElementById('chartIssuesContainer').offsetWidth;
@@ -166,9 +184,9 @@
                 .transitionDuration(0);
             dc.renderAll();
         };
+
+        dc.renderAll();
     });
-
-
 
     ///////////////////////////////////////////////////////////////////////////////
     // Visits
