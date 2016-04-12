@@ -7,6 +7,7 @@ A data dashboard done from Newcastle public libraries open data.
 Before the event the basic page was set up along with the supporting technologies.  The following technologies (with supporting licences) are included.
 
 | Technology | Used for | Link | Licence |
+| ---------- | -------- | ---- | ------- |
 | Bootstrap | To provide the page structure | [Bootstrap](http://getbootstrap.com/) | [MIT](https://github.com/twbs/bootstrap/blob/master/LICENSE) |
 | jQuery | Required by bootstrap and to provide JavaScript code shortcuts | [jQuery](https://jquery.com/) | [MIT](https://jquery.org/license/) |
 | DC JS | Dimensional Charting JavaScript library - used for the dynamic charts | |
