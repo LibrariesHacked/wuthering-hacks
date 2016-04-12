@@ -39,7 +39,7 @@
     // Load the library locations data.
     // Use D3 to load in the CSV data
     // Fields are: Library,Type,Computer Provision,No of PCs,Wi-Fi Provision,Latitude,Longitude
-    d3.csv("data/newcastle_libraries.csv", function (data) {
+    d3.csv(config.librariesCsv, function (data) {
         $.each(data, function () {
             if (this.Latitude && this.Longitude) {
                 var marker = L.marker([this.Latitude, this.Longitude], {
@@ -65,7 +65,7 @@
     // Load the issues data Use D3 to load in the CSV
     // Fields are: Library,2008-04,2008-05,2008-06,2008-07
     // So the data really needs to be pivoted (using melt) to Library,Month,Count
-    d3.csv("data/newcastle_monthlyissues.csv", function (data) {
+    d3.csv(config.issuesCsv, function (data) {
 
         // Set up the data and crossfilter to use in all the charts
         var issues = melt(data, ["Library"], "Date");
@@ -208,7 +208,7 @@
     // Load the visits data Use D3 to load in the CSV
     // Fields are: Library,2008-04,2008-05,2008-06,2008-07
     // So the data really needs to be pivoted (using melt) to Library,Month,Count
-    d3.csv("data/newcastle_monthlyvisits.csv", function (data) {
+    d3.csv(config.visitsCsv, function (data) {
 
         // Set up the data and crossfilter to use in all the charts
         var visits = melt(data, ["Library"], "Date");
@@ -354,7 +354,7 @@
     // Load the computer usage data Use D3 to load in the CSV
     // Fields are: Library,2008-04,2008-05,2008-06,2008-07
     // So the data really needs to be pivoted (using melt) to Library,Month,Count
-    d3.csv("data/newcastle_computerusage.csv", function (data) {
+    d3.csv(config.computersCsv, function (data) {
 
         // Set up the data and crossfilter to use in all the charts
         var pcs = melt(data, ["Library"], "Date");

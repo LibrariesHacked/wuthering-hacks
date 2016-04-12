@@ -6,14 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Wuthering Hacks</title>
-    <!-- Material Design fonts -->
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
     <!-- Bootstrap -->
-    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <!-- Bootstrap Material Design -->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-material-design.css">
-    <link rel="stylesheet" type="text/css" href="css/ripples.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <!-- DC JS -->
     <link href="css/dc.min.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet" />
@@ -28,32 +22,11 @@
     <![endif]-->
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Wuthering Hacks</a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="#libraries">Libraries</a></li>
-                    <li><a href="#issues">Issues</a></li>
-                    <li><a href="#visits">Visits</a></li>
-                    <li><a href="#pcusage">PC Usage</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
     <div class="container">
         <h1>Wuthering Hacks</h1>
         <p>A data dashboard for library usage data.  This is powered by the data releases published at <a href="http://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-sets" target="_blank">Newcastle Libraries datasets</a>.</p>
-        <p class="lead">Draft Version!</p>
+        <p><a class="btn btn-link" href="#libraries">Libraries</a> <a class="btn btn-link" href="#issues">Issues</a><a class="btn btn-link" href="#visits">Visits</a><a class="btn btn-link" href="#pcusage">PC Usage</a></p>
         <h3>Libraries</h3><a name="libraries"></a>
         <hr />
         <div class="row">
@@ -223,7 +196,6 @@
         </div>
     </div>
 
-
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -233,8 +205,7 @@
     <script src="js/crossfilter.min.js"></script>
     <script src="js/dc.min.js"></script>
     <script src="js/melt.js"></script>
+    <script src="js/config.js"></script>
     <script src="js/dashboard.js"></script>
-    <script src="js/material.min.js"></script>
-    <script src="js/ripples.min.js"></script>
 </body>
 </html>
