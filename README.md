@@ -19,12 +19,16 @@ Before the event the basic page was set up along with the supporting technologie
 
 The dashboard directly links to 6 CSVs published by Newcastle libraries under the Open Government Licence.
 
-- Current Libraries - https://www.newcastle.gov.uk/sites/default/files/wwwfileroot/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-sets/libraries_ncc-libraries-current_csv.csv
-- Monthly enquiries - https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-enquiries-csv
-- Monthly issues - https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-issues-csv
-- Monthly visits - https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-visits-csv
-- Monthly computer usage - https://www.newcastle.gov.uk/libraries-2008-2016-monthly-computer-use
-- Members - On Library Box
+| Data | Link | More info |
+| ---- | ---- | --------- |
+| Current Libraries | [CSV](https://www.newcastle.gov.uk/sites/default/files/wwwfileroot/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-sets/libraries_ncc-libraries-current_csv.csv)
+| Monthly enquiries | [CSV](https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-enquiries-csv)
+| Monthly issues | [CSV](https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-issues-csv)
+| Monthly visits | [CSV](https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-visits-csv)
+| Monthly computer usage | [CSV](https://www.newcastle.gov.uk/libraries-2008-2016-monthly-computer-use)
+| Members | On Library Box
+
+To avoid any cross domain issues, the code does not link directly to these files but links to copies held within the project.  
 
 ## Data definitions 
 
@@ -33,6 +37,7 @@ The dashboard is designed to not mess with that data in any way - if that's how 
 ### Libraries
 
 | Field | Description | Example |
+| ----- | ----------- | ------- |
 | Library | The name of the library | Blakelaw |
 | Type | The type of library (Library/Partnership Library/Library and Customer Service Centre) | Library |
 | Computer Provision | The provision of computers to the public | Public Computer Access |
@@ -44,6 +49,7 @@ The dashboard is designed to not mess with that data in any way - if that's how 
 ### Monthly enquiries
 
 | Field | Description | Example |
+| ----- | ----------- | ------- |
 | Library | The name of the library |  |
 | 2008-04 | The number of enquiries for the month | 312 |
 
@@ -52,6 +58,7 @@ The dashboard is designed to not mess with that data in any way - if that's how 
 ### Monthly issues
 
 | Field | Description | Example |
+| ----- | ----------- | ------- |
 | Library | The name of the library |  |
 | 2008-04 | The number of issues for the month | 1048 |
 
@@ -60,6 +67,7 @@ The dashboard is designed to not mess with that data in any way - if that's how 
 ### Monthly visits
 
 | Field | Description | Example |
+| ----- | ----------- | ------- |
 | Library | The name of the library |  |
 | 2008-04 | The number of visits for the month | 1768 |
 
@@ -68,6 +76,7 @@ The dashboard is designed to not mess with that data in any way - if that's how 
 ### Monthly computer usage
 
 | Field | Description | Example |
+| ----- | ----------- | ------- |
 | Library | The name of the library |  |
 | 2008-04 | The percentage of computer utilisation | 50% |
 
@@ -76,6 +85,7 @@ The dashboard is designed to not mess with that data in any way - if that's how 
 ### Members
 
 | Field | Description | Example |
+| ----- | ----------- | ------- |
 | Postcode | The postcode district of the member | AB10 |
 | Library Registered At | The library the member is registered at | CITY |
 | Date Added | The date the user was added as a member | 04/09/15 |
