@@ -6,4 +6,5 @@
     visitsCsv: 'data/newcastle_monthlyvisits.csv',
     computersCsv: 'data/newcastle_computerusage.csv',
     membersCsv: 'data/newcastle_members.csv',
+    mapTiles: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
 };

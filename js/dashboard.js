@@ -9,18 +9,11 @@
     ///////////////////////////////////////////////////////////////////////////////
     // Library Locations.
     // The locations are defined in a file called [publisher]_locations.csv
-    // The library location data uses a web service to CartoDB in order to retrieve the relevant LSOA
     ///////////////////////////////////////////////////////////////////////////////
 
     // Set up the library locations map.
-    var layer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
-    });
-    var map = L.map('divMap', {
-        scrollWheelZoom: false,
-        center: [52, -2],
-        zoom: 6
-    });
+    var layer = L.tileLayer(config.mapTiles, { attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>' });
+    var map = L.map('divMap', { scrollWheelZoom: false, center: [52, -2], zoom: 6 });
     map.addLayer(layer);
     var libMarkersGroup = new L.featureGroup([]).addTo(map);
 
@@ -57,12 +50,19 @@
                         title: this.Library
                     }).addTo(libMarkersGroup).on('click', markerClick);
                     marker.libData = this;
-
                 }
-
             });
             map.fitBounds(libMarkersGroup.getBounds());
         });
+
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        // Library monthly usage data.
+        /////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 
         /////////////////////////////////////////////////////////////////////////////////////////////
         // Library Issues
