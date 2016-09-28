@@ -27,6 +27,18 @@
         $('#pWiFiProvision').text(e.target.libData['Wi-Fi Provision']);
     };
 
+
+
+    $.when($.ajax(config.librariesCsv), config.)
+        .then(function () {
+
+
+        },function () { });
+
+
+
+
+
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Libraries
     // Load the library locations data.
