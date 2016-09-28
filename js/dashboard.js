@@ -12,9 +12,9 @@
     ///////////////////////////////////////////////////////////////////////////////
 
     // Set up the library locations map.
-    var layer = L.tileLayer(config.mapTiles, { attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>' });
+    
     var map = L.map('divMap', { scrollWheelZoom: false, center: [52, -2], zoom: 6 });
-    map.addLayer(layer);
+    L.tileLayer(config.mapTiles, { attribution: config.mapAttribution }).addTo(map);
     var libMarkersGroup = new L.featureGroup([]).addTo(map);
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -86,7 +86,7 @@
 
             var issuesNdx = crossfilter(issues);
             var issuesDateDim = issuesNdx.dimension(function (d) { return d.date; });
-            var issuesTotal = issuesDateDim.group().reduceSum(dc.pluck('numIssues'));
+            var issuesTotal = issuesDateDim.group().reduceSum(function(d){ return d['numIssues'] });
             var issuesMinDate = issuesDateDim.bottom(1)[0].date;
             var issuesMaxDate = issuesDateDim.top(1)[0].date;
 
@@ -136,7 +136,7 @@
                 .group(issuesYearTotal)
                 .renderLabel(false)
                 .renderTitle(false)
-                .legend(dc.legend().x((issuesYearChartWidth/2)-20).y(70).itemHeight(13).gap(5))
+                .legend(dc.legend().x((issuesYearChartWidth / 2) - 20).y(70).itemHeight(13).gap(5))
                 .innerRadius((issuesYearChartWidth / 4))
                 .transitionDuration(500);
             $('#resetChartIssuesYear').on('click', function () {
@@ -149,7 +149,7 @@
             var issuesRowChart = dc.rowChart("#chartIssuesBranch");
             var issuesRowChartWidth = document.getElementById('chartIssuesBranchContainer').offsetWidth;
             var issuesBranchDim = issuesNdx.dimension(function (d) { return d.branch; });
-            var issuesBranchTotal = issuesBranchDim.group().reduceSum(dc.pluck('numIssues'));
+            var issuesBranchTotal = issuesBranchDim.group().reduceSum(function(d) { return d['numIssues'] });
             issuesRowChart
                 .width(issuesRowChartWidth)
                 .height(300)
@@ -167,7 +167,7 @@
             var issuesMonthBarChart = dc.barChart("#chartIssuesMonth");
             var issuesMonthBarChartWidth = document.getElementById('chartIssuesMonthContainer').offsetWidth;
             var issuesMonthDim = issuesNdx.dimension(function (d) { return d.month; });
-            var issuesMonthTotal = issuesMonthDim.group().reduceSum(dc.pluck('numIssues'));
+            var issuesMonthTotal = issuesMonthDim.group().reduceSum(function(d){ return d['numIssues'] });
             issuesMonthBarChart
                 .width(issuesMonthBarChartWidth)
                 .height(300)
@@ -237,7 +237,7 @@
 
             var visitsNdx = crossfilter(visits);
             var visitsDateDim = visitsNdx.dimension(function (d) { return d.date; });
-            var visitsTotal = visitsDateDim.group().reduceSum(dc.pluck('numVisits'));
+            var visitsTotal = visitsDateDim.group().reduceSum(function(d){ return d['numVisits'] });
             var visitsMinDate = visitsDateDim.bottom(1)[0].date;
             var visitsMaxDate = visitsDateDim.top(1)[0].date;
 
@@ -293,7 +293,7 @@
             var visitsRowChart = dc.rowChart("#chartVisitsBranch");
             var visitsRowChartWidth = document.getElementById('chartVisitsBranchContainer').offsetWidth;
             var visitsBranchDim = visitsNdx.dimension(function (d) { return d.branch; });
-            var visitsBranchTotal = visitsBranchDim.group().reduceSum(dc.pluck('numVisits'));
+            var visitsBranchTotal = visitsBranchDim.group().reduceSum(function(d){ return d['numVisits']} );
             visitsRowChart
                 .width(visitsRowChartWidth)
                 .height(300)
@@ -311,7 +311,7 @@
             var visitsMonthBarChart = dc.barChart("#chartVisitsMonth");
             var visitsMonthBarChartWidth = document.getElementById('chartVisitsMonthContainer').offsetWidth;
             var visitsMonthDim = visitsNdx.dimension(function (d) { return d.month; });
-            var visitsMonthTotal = visitsMonthDim.group().reduceSum(dc.pluck('numVisits'));
+            var visitsMonthTotal = visitsMonthDim.group().reduceSum(function(d){ return d['numVisits'] });
             visitsMonthBarChart
                 .width(visitsMonthBarChartWidth)
                 .height(300)
@@ -383,7 +383,9 @@
 
             var pcsNdx = crossfilter(pcs);
             var pcsDateDim = pcsNdx.dimension(function (d) { return d.date; });
-            var pcsTotal = pcsDateDim.group().reduceSum(dc.pluck('numPcs'));
+            var pcsTotal = pcsDateDim.group().reduceSum(function(d) {
+                return d['numPcs'];
+            });
             var pcsMinDate = pcsDateDim.bottom(1)[0].date;
             var pcsMaxDate = pcsDateDim.top(1)[0].date;
 
@@ -439,7 +441,7 @@
             var pcsRowChart = dc.rowChart("#chartPcsBranch");
             var pcsRowChartWidth = document.getElementById('chartPcsBranchContainer').offsetWidth;
             var pcsBranchDim = pcsNdx.dimension(function (d) { return d.branch; });
-            var pcsBranchTotal = pcsBranchDim.group().reduceSum(dc.pluck('numPcs'));
+            var pcsBranchTotal = pcsBranchDim.group().reduceSum(function(d) { return d['numPcs'] });
             pcsRowChart
                 .width(pcsRowChartWidth)
                 .height(300)
@@ -457,7 +459,7 @@
             var pcsMonthBarChart = dc.barChart("#chartPcsMonth");
             var pcsMonthBarChartWidth = document.getElementById('chartPcsMonthContainer').offsetWidth;
             var pcsMonthDim = pcsNdx.dimension(function (d) { return d.month; });
-            var pcsMonthTotal = pcsMonthDim.group().reduceSum(dc.pluck('numPcs'));
+            var pcsMonthTotal = pcsMonthDim.group().reduceSum(function(d){ return d['numPcs'] });
             pcsMonthBarChart
                 .width(pcsMonthBarChartWidth)
                 .height(300)

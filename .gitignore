@@ -1,2 +1,3 @@
 website.publishproj
 *.pubxml
+bower_components

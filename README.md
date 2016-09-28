@@ -1,6 +1,6 @@
 # Wuthering Hacks
 
-A data dashboard done from Newcastle public libraries open data.
+A data dashboard from Newcastle public libraries open data.
 
 ## Technologies used and licences
 
@@ -13,7 +13,7 @@ Before the event the basic page was set up along with the supporting technologie
 | DC JS | Dimensional Charting JavaScript library - used for the dynamic charts | |
 | Crossfilter | Required by DC JS, provides the cross flitering functionality | |  |
 | D3 | Required by DC JS, provides the data driven graphs | | |
-| Melt | JavaScript library to pivot data |  |  |
+| Melt | JavaScript library to pivot data |  | Apache 2 |
 
 ## Data provided
 
@@ -92,3 +92,6 @@ The dashboard is designed to not mess with that data in any way - if that's how 
 | Time Added | The time the user was added as a member | 8:45:00 |
 | Last Used Date | The date the member last used services | 04/09/15 |
 | Last Used Time | The time the member last used services | 8:45:00 |
+
+### Online resources
+

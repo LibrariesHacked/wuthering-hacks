@@ -1,0 +1,24 @@
+{
+  "name": "wuthering-hacks",
+  "homepage": "https://github.com/LibrariesHacked/wuthering-hacks",
+  "authors": [
+    "Dave <dave_roweuk@yahoo.co.uk>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "bootswatch": "^3.3.7",
+    "melt": "*",
+    "dcjs": "^1.7.5",
+    "leaflet": "^1.0.0"
+  }
+}
