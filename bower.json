@@ -18,7 +18,8 @@
     "bootstrap": "^3.3.7",
     "bootswatch": "^3.3.7",
     "melt": "*",
-    "dcjs": "^1.7.5",
-    "leaflet": "^1.0.0"
+    "leaflet": "^1.0.0",
+    "jquery-csv": "^0.8.2",
+    "dcjs": "2.0.0-beta.32"
   }
 }

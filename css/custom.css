@@ -18,3 +18,9 @@ div.circle {
 .dc-chart g.row text {
     fill: black;
 }
+
+.row .col h4 {
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: right;
+}
