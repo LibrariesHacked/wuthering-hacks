@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>wuthering hacks | hacked projects</title>
+    <link href="bower_components/bootswatch/sandstone/bootstrap.min.css" rel="stylesheet" />
+    <link href="bower_components/cartodb.js/themes/css/cartodb.css" rel="stylesheet" />
+    <style>
+        #map, #map2 {
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">{ libraries: newcastle }</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Library usage <span class="sr-only">(current)</span></a></li>
+                    <li><a href="/membersanimation.html">Members over time</a></li>
+                    <li class="active"><a href="/members.html">Members by library</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right"></ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h3>Members</h3>
+        <div class="form-group">
+            <select id="selLibrary" class="form-control">
+                <option value="ALL"></option>
+                <option value="BLAKELAW">Blakelaw</option>
+                <option value="BUSINESS INTELLECTUAL PROPERTY CENTRE">BIPC</option>
+                <option value="CITY">City</option>
+                <option value="CITY STACK">City stack</option>
+                <option value="CITY STOCK RESERVE">City stock reserve</option>
+                <option value="CRUDDAS PARK">Cruddas park</option>
+                <option value="DENTON BURN">Denton burn</option>
+                <option value="DINNINGTON">Dinnington</option>
+                <option value="EAST END">East End</option>
+                <option value="FAWDON">Fawdon</option>
+                <option value="FENHAM">Fenham</option>
+                <option value="GOSFORTH">Gosforth</option>
+                <option value="HIGH HEATON">High Heaton</option>
+                <option value="JESMOND">Jesmond</option>
+                <option value="KENTON">Kenton</option>
+                <option value="LOCAL STUDIES">Local Studies</option>
+                <option value="MOORSIDE">Moorside</option>
+                <option value="NEWBIGGIN HALL">Newbiggin Hall</option>
+                <option value="NEWBURN">Newburn</option>
+                <option value="OUTER WEST LIBRARY">Outer West Library</option>
+                <option value="PLAYGROUP">Playgroup</option>
+                <option value="PRIORITY SERVICES">Priority Services</option>
+                <option value="SUPPORT SERVICES">Support Services</option>
+                <option value="WALKER">Walker</option>
+                <option value="WEST END">West End</option>
+                <option value="ZBUSINESS & SCIENCE">Business &amp; Science</option>
+                <option value="ZBYKER">Byker</option>
+                <option value="ZCITY MOBILE">City mobile</option>
+                <option value="ZMOBILE">Mobile</option>
+                <option value="ZMONTAGU">Montagu</option>
+                <option value="ZNEW CITY LIBRARY">New City Library</option>
+                <option value="ZOLD CITY STOCK">Old City Stock</option>
+                <option value="ZSCOTSWOOD">Scotswood</option>
+                <option value="ZTOURIST INFORMATION CENTRE">Tourist Information Centre</option>
+                <option value="ZWALKERVILLE">Walkerville</option>
+            </select>
+        </div>
+        <div id="map"></div>
+    </div>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/cartodb.js/cartodb.js"></script>
+    <script src="js/members.js"></script>
+</body>
+</html>

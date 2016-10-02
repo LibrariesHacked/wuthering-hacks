@@ -5,6 +5,8 @@
     ///////////////////////////////////////////////////////////////////////////////
     var parseDate = d3.time.format("%Y-%m").parse;
 
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
     // Load in all the CSVs
     $.when($.ajax(config.librariesCsv), $.ajax(config.librariesExtendedCsv), $.ajax(config.enquiriesCsv), $.ajax(config.issuesCsv), $.ajax(config.visitsCsv), $.ajax(config.computersCsv), $.ajax(config.membersCsv))
         .then(function (libs, libsExt, enquiries, iss, vis, computers, members) {
@@ -55,11 +57,11 @@
                 .dimension(usageDateDim)
                 .group(function (d) { return d.year; })
                 .columns([
-                    function (d) { return d.Library },
-                    function (d) { return d.month },
-                    function (d) { return d.Issues; },
-                    function (d) { return d.Visits; },
-                    function (d) { return d.Sessions; }
+                    { label: 'Name', format: function (d) { return d.Library } },
+                    { label: 'Month', format: function (d) { return d.month } },
+                    { label: 'Issues', format: function (d) { return d.Issues; } },
+                    { label: 'Visits', format: function (d) { return d.Visits; } },
+                    { label: 'PC Utilisation', format: function (d) { return d.Sessions; } }
                 ]);
 
             var usageLineChart = dc.compositeChart("#chtUsageTrend");
@@ -195,10 +197,10 @@
                 usageLineChart.redraw()
             });
             $(window).on('resize', function () {
-                var newIssuesLineChartWidth = document.getElementById('chartIssuesContainer').offsetWidth;
-                var newIssuesYearChartWidth = document.getElementById('chartIssuesYearContainer').offsetWidth;
-                var newIssuesRowChartWidth = document.getElementById('chartIssuesBranchContainer').offsetWidth;
-                var newIssuesMonthBarChartWidth = document.getElementById('chartIssuesMonthContainer').offsetWidth;
+                var newUsageLineWidth = document.getElementById('divUsageTrendContainer').offsetWidth;
+                var newUsageBranchChartWidth = document.getElementById('divUsageBranchContainer').offsetWidth;
+                var newUsageYearChartWidth = document.getElementById('divUsageYearContainer').offsetWidth;
+                var newUsageMonthChartWidth = document.getElementById('divUsageMonthContainer').offsetWidth;
 
                 issuesLineChart
                     .width(newIssuesLineChartWidth)
