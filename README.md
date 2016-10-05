@@ -2,37 +2,24 @@
 
 A data dashboard from Newcastle public libraries open data.
 
-## Technologies used and licences
-
-Before the event the basic page was set up along with the supporting technologies.  The following technologies (with supporting licences) are included.
-
-| Technology | Used for | Link | Licence |
-| ---------- | -------- | ---- | ------- |
-| Bootstrap | To provide the page structure | [Bootstrap](http://getbootstrap.com/) | [MIT](https://github.com/twbs/bootstrap/blob/master/LICENSE) |
-| jQuery | Required by bootstrap and to provide JavaScript code shortcuts | [jQuery](https://jquery.com/) | [MIT](https://jquery.org/license/) |
-| DC JS | Dimensional Charting JavaScript library - used for the dynamic charts | |
-| Crossfilter | Required by DC JS, provides the cross flitering functionality | |  |
-| D3 | Required by DC JS, provides the data driven graphs | | |
-| Melt | JavaScript library to pivot data |  | Apache 2 |
-
 ## Data provided
 
-The dashboard directly links to 6 CSVs published by Newcastle libraries under the Open Government Licence.
+The dashboard uses 6 (unmodified) CSVs published by Newcastle libraries under the Open Government Licence.
 
 | Data | Link | More info |
 | ---- | ---- | --------- |
-| Current Libraries | [CSV](https://www.newcastle.gov.uk/sites/default/files/wwwfileroot/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-sets/libraries_ncc-libraries-current_csv.csv)
-| Monthly enquiries | [CSV](https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-enquiries-csv)
-| Monthly issues | [CSV](https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-issues-csv)
-| Monthly visits | [CSV](https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-visits-csv)
-| Monthly computer usage | [CSV](https://www.newcastle.gov.uk/libraries-2008-2016-monthly-computer-use)
-| Members | On Library Box
+| Current Libraries | [CSV](https://www.newcastle.gov.uk/sites/default/files/wwwfileroot/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-sets/libraries_ncc-libraries-current_csv.csv) |
+| Monthly enquiries | [CSV](https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-enquiries-csv) |
+| Monthly issues | [CSV](https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-issues-csv) |
+| Monthly visits | [CSV](https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-visits-csv) |
+| Monthly computer usage | [CSV](https://www.newcastle.gov.uk/libraries-2008-2016-monthly-computer-use) |
+| Members | [CSV]() |
 
 To avoid any cross domain issues, the code does not link directly to these files but links to copies held within the project.  
 
 ## Data definitions 
 
-The dashboard is designed to not mess with that data in any way - if that's how it's published then the dashboard has to deal with it.  In a future project it would be useful to standardise those outputs into schemas that provide as much information as possible and that could be used by all authorities - providing a dashboard of all libraries.
+The dashboard is designed to not mess with the Newcastle data in any way - if that's how it's published then the dashboard has to deal with it.  In a future project it would be useful to standardise those outputs into schemas that provide as much information as possible, in the most useful/efficient format.
 
 ### Libraries
 
@@ -88,10 +75,25 @@ The dashboard is designed to not mess with that data in any way - if that's how 
 | ----- | ----------- | ------- |
 | Postcode | The postcode district of the member | AB10 |
 | Library Registered At | The library the member is registered at | CITY |
-| Date Added | The date the user was added as a member | 04/09/15 |
-| Time Added | The time the user was added as a member | 8:45:00 |
+| Date Added | The date the user was added as a member | 04/09/15 or 04/08/2005 |
+| Time Added | The time the user was added as a member | 8:45:00 or Empty |
 | Last Used Date | The date the member last used services | 04/09/15 |
 | Last Used Time | The time the member last used services | 8:45:00 |
 
 ### Online resources
 
+## Technologies used and licences
+
+The following technologies (with supporting licences) are included.
+
+| Technology | Used for | Link | Licence |
+| ---------- | -------- | ---- | ------- |
+| Bootstrap | To provide the page structure | [Bootstrap](http://getbootstrap.com/) | [MIT](https://github.com/twbs/bootstrap/blob/master/LICENSE) |
+| Bootswatch | A set of custom themes for Bootstrap. | [Bootswatch](https://bootswatch.com/) | [MIT](https://github.com/thomaspark/bootswatch/blob/gh-pages/LICENSE) |
+| jQuery | Required by bootstrap and to provide JavaScript code shortcuts | [jQuery](https://jquery.com/) | [MIT](https://jquery.org/license/) |
+| DC JS | Dimensional Charting JavaScript library - used for the dynamic charts | [dc.js](https://dc-js.github.io/dc.js/) | [Apache](https://github.com/dc-js/dc.js/blob/develop/LICENSE) |
+| Crossfilter | Required by DC JS, provides the cross flitering functionality | [Crossfilter](http://square.github.io/crossfilter/) | [Apache](https://github.com/square/crossfilter/blob/master/LICENSE) |
+| D3 | Required by DC JS, provides the data driven graphs | [D3JS](https://d3js.org/) | [BSD](https://github.com/d3/d3/blob/master/LICENSE) |
+| Melt | JavaScript library to pivot data | [MeltJS](https://github.com/jrideout/melt.js) | [Apache](https://github.com/jrideout/melt.js/blob/master/LICENSE) |
+| Leaflet | JavaScript library for mapping. |  |  |
+| CartoJS | Specific functions for mappping using data stored in Carto. |  |  |

@@ -23,30 +23,40 @@
                 d.date = parseDate(d.Date);
                 d.year = d.date.getFullYear();
                 d.month = d.date.getMonth();
+                // PC Sessions are in percentages - remove the sign
                 d.Sessions ? d.PCSessions = +d.Sessions.replace('%', '') : d.PCSessions = 0;
             });
 
+            var removeEmpty = function (group) {
+                return {
+                    all: function () {
+                        return group.all().filter(function (d) {
+                            return d.value != 0;
+                        });
+                    }
+                };
+            };
+
+
             var usageNdx = crossfilter(usage);
             var usageDateDim = usageNdx.dimension(function (d) { return d.date; });
-            var issuesTotal = usageDateDim.group().reduceSum(function (d) { return d['Issues'] });
-            var visitsTotal = usageDateDim.group().reduceSum(function (d) { return d['Visits'] });
-            var sessionsTotal = usageDateDim.group().reduce(reduceAdd, reduceRemove, reduceInitial);
+            var issuesTotal = removeEmpty(usageDateDim.group().reduceSum(function (d) { return d['Issues'] }));
+            var visitsTotal = removeEmpty(usageDateDim.group().reduceSum(function (d) { return d['Visits'] }));
+            var sessionsTotal = removeEmpty(usageDateDim.group().reduce(reduceAdd, reduceRemove, reduceInitial));
 
-            function reduceAdd(p, v) {
+            var reduceAdd = function(p, v) {
                 ++p.count;
                 p.total += +v.PCSessions;
                 return p;
             }
 
-            function reduceRemove(p, v) {
+            var reduceRemove = function (p, v) {
                 --p.count;
                 p.total -= +v.PCSessions;
                 return p;
             }
 
-            function reduceInitial() {
-                return { count: 0, total: 0 };
-            }
+            function reduceInitial() { return { count: 0, total: 0 } }
 
             var minDate = usageDateDim.bottom(1)[0].date;
             var maxDate = usageDateDim.top(1)[0].date;
@@ -177,6 +187,7 @@
                 .group(usageMonthTotal)
                 .dimension(usageMonthDim)
                 .elasticY(true)
+                .elasticX(true)
                 .xUnits(dc.units.ordinal)
                 .brushOn(false)
                 .x(d3.scale.ordinal())
