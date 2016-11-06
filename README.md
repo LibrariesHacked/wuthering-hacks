@@ -1,21 +1,35 @@
 # Wuthering Hacks
 
-A data dashboard from Newcastle public libraries open data.
+A data dashboard to display Newcastle libraries open data.
+
+## What is it?
+
+Newcastle public libraries publish as much of their data as possible under a (very open) Public Domain licence (https://creativecommons.org/publicdomain/zero/1.0/).  Details of existing datasets can be found at 
+
+Libraries data sets(https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-sets)
+
+They also have a GitHub account at ToonLibraries(https://github.com/ToonLibraries) and an open data repository within this account at library-open-data(https://github.com/ToonLibraries/library-open-data)
 
 ## Data provided
 
-The dashboard uses 6 (unmodified) CSVs published by Newcastle libraries under the Open Government Licence.
+The dashboard uses 6 (unmodified) CSVs published by Newcastle libraries under the Public Domain licence.
 
-| Data | Link | More info |
+| Data | Link | Description |
 | ---- | ---- | --------- |
-| Current Libraries | [CSV](https://www.newcastle.gov.uk/sites/default/files/wwwfileroot/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-sets/libraries_ncc-libraries-current_csv.csv) |
-| Monthly enquiries | [CSV](https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-enquiries-csv) |
-| Monthly issues | [CSV](https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-issues-csv) |
-| Monthly visits | [CSV](https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-visits-csv) |
-| Monthly computer usage | [CSV](https://www.newcastle.gov.uk/libraries-2008-2016-monthly-computer-use) |
+| Current Libraries | [CSV](https://www.newcastle.gov.uk/sites/default/files/wwwfileroot/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-sets/libraries_ncc-libraries-current_csv.csv) | Location of current Newcastle City Council Libraries along with number of public access computers and Wi-Fi provision |
+| Monthly computer usage | [CSV](https://www.newcastle.gov.uk/libraries-2008-2016-monthly-computer-use) | Monthly computer usage figures by branch for April 2008 to Present |
+| Monthly enquiries | [CSV](https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-enquiries-csv) | Monthly enquiry figures by branch for April 2008 to Present |
+| Monthly issues | [CSV](https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-issues-csv) | Monthly loan figures (number of items issued) by branch for April 2008 to Present |
+| Online resources usage |  | Monthly usage figures for online resources including databases and e-book platforms when available, for January 2005 to present |
+| Monthly visits | [CSV](https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-visits-csv) | Monthly issue figures by branch for April 2008 to Present |
+| City library energy consumption |  | Monthly electricity consumption at Newcastle City Library for January 2011 to December 2015 |
+| City library gas consumption |  | Monthly gas consumption at Newcastle City Library for January 2011 to December 2015 |
+| City library water consumption |  | Monthly water consumption at Newcastle City Library for January 2011 to December 2015 |
+
+
 | Members | [CSV]() |
 
-To avoid any cross domain issues, the code does not link directly to these files but links to copies held within the project.  
+To avoid any cross domain issues, the code does not link directly to these files but uses a copy held within the project.  This does mean that updates to those open data files currently need to be manually copied into this project.  
 
 ## Data definitions 
 
@@ -25,13 +39,13 @@ The dashboard is designed to not mess with the Newcastle data in any way - if th
 
 | Field | Description | Example |
 | ----- | ----------- | ------- |
-| Library | The name of the library | Blakelaw |
-| Type | The type of library (Library/Partnership Library/Library and Customer Service Centre) | Library |
-| Computer Provision | The provision of computers to the public | Public Computer Access |
-| No of PCs | The number of public access PCs |  |
-| Wi-Fi Provision | The provision of Wi-Fi to the public | Public Wi-Fi |
-| Latitude | The latitude geocoordinate of the library | 54.984162 |
-| Longitude | The longitude geocoordinate of the library | -1.660813 |
+| Library | The name of the library | *Blakelaw* |
+| Type | The type of library (Library/Partnership Library/Library and Customer Service Centre) | *Library* |
+| Computer Provision | The provision of computers to the public | *Public Computer Access* |
+| No of PCs | The number of public access PCs | *8* |
+| Wi-Fi Provision | The provision of Wi-Fi to the public | *Public Wi-Fi* |
+| Latitude | The latitude geo-coordinate of the library | *54.984162* |
+| Longitude | The longitude geo-coordinate of the library | *-1.660813* |
 
 ### Monthly enquiries
 
