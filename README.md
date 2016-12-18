@@ -4,11 +4,9 @@ A data dashboard to display Newcastle libraries open data.
 
 ## What is it?
 
-Newcastle public libraries publish as much of their data as possible under a (very open) Public Domain licence (https://creativecommons.org/publicdomain/zero/1.0/).  Details of existing datasets can be found at 
+Newcastle public libraries publish as much of their data as possible under a (very open) Public Domain licence (https://creativecommons.org/publicdomain/zero/1.0/).  Details of existing datasets can be found at [Libraries data sets](https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-sets)
 
-Libraries data sets(https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-sets)
-
-They also have a GitHub account at ToonLibraries(https://github.com/ToonLibraries) and an open data repository within this account at library-open-data(https://github.com/ToonLibraries/library-open-data)
+They also have a GitHub account at [ToonLibraries](https://github.com/ToonLibraries) and an open data repository within this account at [library-open-data](https://github.com/ToonLibraries/library-open-data).
 
 ## Data provided
 
