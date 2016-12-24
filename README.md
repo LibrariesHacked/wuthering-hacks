@@ -89,7 +89,16 @@ That way  the structure would be fixed to three columns and would increase in ro
 
 ...the columns go on to cover each month in the form of YYYY-MM.
 
-### Members
+### Online resources usage
+
+| Field | Description | Example |
+| ----- | ----------- | ------- |
+| Online Resource | The type of online resource | *19th Century British Library Newspapers* |
+| Jan-05 | The usage figure for the month | *300* |
+
+...the columns go on to cover each month in the form of Month-YY.
+
+### Membership
 
 | Field | Description | Example |
 | ----- | ----------- | ------- |
@@ -99,14 +108,6 @@ That way  the structure would be fixed to three columns and would increase in ro
 | Time Added | The time the user was added as a member | *8:45:00* or Empty |
 | Last Used Date | The date the member last used services | *04/09/15* |
 | Last Used Time | The time the member last used services | *8:45:00* |
-
-### Online resources
-
-| Field | Description | Example |
-| ----- | ----------- | ------- |
-| Online Resource | The type of online resource | *19th Century British Library Newspapers* |
-| Jan-05 | The usage figure for the month | *300* |
-	...the columns go on to cover each month in the form of Month-YY.
 
 ## Technologies used and licences
 
