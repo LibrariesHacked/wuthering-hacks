@@ -115,25 +115,25 @@ That way  the structure would be fixed to three columns and would increase in ro
 
 | Field | Description | Example |
 | ----- | ----------- | ------- |
-| rcn | The record number | ** |
-| isbn | The ISBN of the title record | ** |
-| publ_y | The published year | ** |
-| author | The author of the catalogue record | ** |
-| title | The title of the catalogue record | ** |
-| price |  | ** |
-| langua |  | ** |
-| editio |  | ** |
-| class |  | ** |
-| publisher |  | ** |
-| firstcopydate |  | ** |
-| acpy |  | ** |
+| rcn | Unique identifier for the title | ** |
+| isbn | The International Standard Book Number of the title record | ** |
+| publ_y | The year the title was published | ** |
+| author | Main author of the work | ** |
+| title | Main title as on title page or equivalent | ** |
+| price | Price of 1 copy | ** |
+| langua | Main language of the work. Note: for most works in English the language is not specified. | ** |
+| editio | Edition or version of the work | ** |
+| class | Main classification allocated by library staff or by the supplier for the title | ** |
+| publisher | Name of the publisher | ** |
+| firstcopydate | Date the first copy was added. Note: field rarely used. | ** |
+| acpy | Number of copies in stock for that ISBN | ** |
 
 ### Items
 
 | Field | Description | Example |
 | ----- | ----------- | ------- |
 | item | A unique ID for the item. | ** |
-| rcn | The record number for the item (links to the catalogue data above). | ** |
+| rcn | The unique title record (links to the catalogue title data above). | ** |
 | catego | A category ID for the item. | ** |
 | text | Text for the category ID. | ** |
 | homebr | An ID for the item branch. | ** |
@@ -146,24 +146,26 @@ That way  the structure would be fixed to three columns and would increase in ro
 
 ## Combining and aggregating catalogue and items
 
-Both the catalogue and items extracts are considerable files (29MB and 27MB).  Given that this project mainly processes data on the client-side (the web browser has to download it) - those files are too large to expect users to wait to be downloaded.
+Both the catalogue and item extracts are fairly large files (29MB and 27MB).  Given that this project mainly processes data on the client-side (the web browser) - those files are too large to expect users to wait to be downloaded.
 
-For data dashboard purposes we mainly need aggregated data (e.g. x thousand items, x thousand items of a particular category).  For this purpose I have created a single aggregated dataset for catalogue and items.
+For data dashboard purposes we mainly need aggregated data (e.g. x thousand items, x thousand items of a particular category).  For this purpose I have created a single aggregated dataset for catalogue and items.  This is made smaller by using Ids for category and branch.  These are then included as a lookup in separate exports.
 
 | Field | Description | Example |
 |------ | ----------- | ------- |
-| CategoryId | Taken from the **catego** field in the item data.  |  |
-| BranchId | Derived from the **homebr** field from the item table. |  |
-| Added |  The month the items were added to the catalogue.  |  |
+| CategoryId | Derived from the **text** field in the item data.  | *1* |
+| BranchId | Derived from the **name** field from the item table. | *1* |
+| Added |  Month the items were added to the catalogue.  |  |
 | Count | A count of the number of items. |   |
-| Issues  | A count of the number of issues |  |
-| Renewals | A count of the number of renewals |  |
-| Price | Taken from the price field of the title data, a total price for the items. |  |
+| Issues  | A count of the number of issues | **419757** |
+| Renewals | A count of the number of renewals | **605263** |
+| Price | Taken from the price field of the title data, in this case a total price for the items. | **462969.67** |
+
+In the example above, 
 
 | Field | Description | Example |
 |------ | ----------- | ------- | 
-| CategoryId | An integer ID of the category type. | ** |
-| Category | The textual name of the category. | ** |
+| CategoryId | An integer ID of the category type. | *1* |
+| Category | The textual name of the category. | *ADULT NON FICTION* |
 
 | Field | Description | Example |
 |------ | ----------- | ------- | 
