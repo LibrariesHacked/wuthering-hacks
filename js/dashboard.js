@@ -31,20 +31,13 @@
                 return {
                     all: function () {
                         return group.all().filter(function (d) {
-                            return d.value != 0;
+                            return (d && d.value != 0);
                         });
                     }
                 };
             };
 
-
-            var usageNdx = crossfilter(usage);
-            var usageDateDim = usageNdx.dimension(function (d) { return d.date; });
-            var issuesTotal = removeEmpty(usageDateDim.group().reduceSum(function (d) { return d['Issues'] }));
-            var visitsTotal = removeEmpty(usageDateDim.group().reduceSum(function (d) { return d['Visits'] }));
-            var sessionsTotal = removeEmpty(usageDateDim.group().reduce(reduceAdd, reduceRemove, reduceInitial));
-
-            var reduceAdd = function(p, v) {
+            var reduceAdd = function (p, v) {
                 ++p.count;
                 p.total += +v.PCSessions;
                 return p;
@@ -56,7 +49,21 @@
                 return p;
             }
 
-            function reduceInitial() { return { count: 0, total: 0 } }
+            var reduceInitial = function () { return { count: 0, total: 0 } }
+
+            var usageNdx = crossfilter(usage);
+            var usageDateDim = usageNdx.dimension(function (d) {
+                return d.date;
+            });
+            var issuesTotal = removeEmpty(usageDateDim.group().reduceSum(function (d) {
+                return d['Issues']
+            }));
+            var visitsTotal = removeEmpty(usageDateDim.group().reduceSum(function (d) {
+                return d['Visits']
+            }));
+            var sessionsTotal = removeEmpty(usageDateDim.group().reduce(reduceAdd, reduceRemove, reduceInitial));
+
+            
 
             var minDate = usageDateDim.bottom(1)[0].date;
             var maxDate = usageDateDim.top(1)[0].date;
@@ -78,7 +85,7 @@
             var usageLineChartWidth = document.getElementById('divUsageTrendContainer').offsetWidth;
             usageLineChart
                 .width(usageLineChartWidth)
-                .height(300)
+                .height(280)
                 .dimension(usageDateDim)
                 .margins({ top: 20, right: 100, bottom: 30, left: 60 })
                 .mouseZoomable(true)
@@ -145,14 +152,14 @@
             var usageYearTotal = usageYearDim.group().reduceSum(function (d) { return d.Issues; });
             usageYearChart
                 .width(usageYearChartWidth)
-                .height(300)
+                .height(180)
                 .dimension(usageYearDim)
                 .group(usageYearTotal)
                 .renderLabel(false)
                 .renderTitle(false)
-                .legend(dc.legend().x((usageYearChartWidth / 2) - 20).y(70).itemHeight(13).gap(5))
-                .innerRadius((usageYearChartWidth / 4))
-                .transitionDuration(500);
+                .legend(dc.legend().x(0).y(0).itemHeight(13).gap(5))
+                .innerRadius((usageYearChartWidth / 5))
+                .transitionDuration(300);
             $('#resetChartIssuesYear').on('click', function () {
                 usageYearChart.filterAll();
                 dc.redrawAll();
@@ -165,7 +172,7 @@
             var usageBranchTotal = usageBranchDim.group().reduceSum(function (d) { return d['Issues'] });
             usageRowBranchChart
                 .width(usageRowBranchChartWidth)
-                .height(300)
+                .height(400)
                 .group(usageBranchTotal)
                 .dimension(usageBranchDim)
                 .elasticX(true)
@@ -182,7 +189,7 @@
             var usageMonthTotal = usageMonthDim.group().reduceSum(function (d) { return d['Issues'] });
             usageMonthBarChart
                 .width(document.getElementById('divUsageMonthContainer').offsetWidth)
-                .height(300)
+                .height(180)
                 .margins({ top: 10, right: 50, bottom: 30, left: 60 })
                 .group(usageMonthTotal)
                 .dimension(usageMonthDim)

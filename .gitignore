@@ -1,3 +1,5 @@
 website.publishproj
 *.pubxml
 bower_components
+.vscode/launch.json
+.vscode/settings.json

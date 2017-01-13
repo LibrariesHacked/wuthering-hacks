@@ -1,8 +1,28 @@
 ﻿body {
 }
 
+#main {
+    padding-top: 70px;
+}
+
+nav {
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+}
+
 #divMap {
     height: 200px;
+}
+
+.grey {
+    background-color: #F2F4F8 !important;
+}
+
+.strong {
+    font-weight: 700;
+}
+
+.card-title {
+    font-weight: 700;
 }
 
 div.circle {
@@ -17,10 +37,4 @@ div.circle {
 
 .dc-chart g.row text {
     fill: black;
-}
-
-.row .col h4 {
-    text-transform: uppercase;
-    font-weight: 700;
-    text-align: right;
 }

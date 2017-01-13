@@ -4,74 +4,88 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>wuthering hacks | hacked projects</title>
-    <link href="bower_components/bootswatch/sandstone/bootstrap.min.css" rel="stylesheet" />
+    <title>newcastle | librarydata</title>
+    <link href="bower_components/tether/dist/css/tether.min.css" rel="stylesheet" />
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="bower_components/dcjs/dc.min.css" rel="stylesheet" />
     <link href="bower_components/leaflet/dist/leaflet.css" rel="stylesheet" />
     <link href="css/custom.css" rel="stylesheet" />
 </head>
 <body>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-fixed-top navbar-light bg-faded">
         <div class="container">
-            <div class="navbar-header">
-                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">{ libraries: newcastle }</a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"></button>
+            <div class="collapse navbar-toggleable-md" id="navbarResponsive">
+                <a class="navbar-brand" href="/"><span class="text-danger strong">newcastle</span></a>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/">Library usage <span class="sr-only">(current)</span></a></li>
-                    <li><a href="/membersanimation.html">Members over time</a></li>
-                    <li><a href="/members.html">Members by library</a></li>
+                    <li class="nav-item active"><a class="nav-link active" href="/"></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/map"></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about"></a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right"></ul>
             </div>
         </div>
     </nav>
-    <div class="container">
+    <div id="main" class="container main">
         <div class="row">
             <div class="col col-sm-9">
-                <h4 class="text-success">Trend over time</h4>
-                <div class="panel panel-success">
-                    <div class="panel-body" id="divUsageTrendContainer">
-                        <div id="chtUsageTrend"></div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-block">
+                                <h4 class="card-title text-success">usage</h4>
+                                <h6 class="card-subtitle text-muted">issues, vists, and computer use.</h6>
+                            </div>
+                            <div class="card-block" id="divUsageTrendContainer">
+                                <div id="chtUsageTrend"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-sm-6">
+                        <div class="card">
+                            <div class="card-block">
+                                <h4 class="card-title text-info">by year</h4>
+                                <h6 class="card-subtitle text-muted"></h6>
+                            </div>
+                            <div class="card-block" id="divUsageYearContainer">
+                                <div id="chtUsageYear"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-sm-6">
+                        <div class="card">
+                            <div class="card-block">
+                                <h4 class="card-title text-info">by month</h4>
+                                <h6 class="card-subtitle text-muted">displaying usage trends for issues</h6>
+                            </div>
+                            <div class="card-block" id="divUsageMonthContainer">
+                                <div id="chtUsageMonth"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col col-sm-3">
-                <h4 class="text-info">By branch</h4>
-                <div class="panel panel-info">
-                    <div class="panel-body" id="divUsageBranchContainer">
+                <div class="card">
+                    <div class="card-block">
+                        <h4 class="card-title text-info">by branch</h4>
+                        <h6 class="card-subtitle text-muted">displaying usage trends for issues</h6>
+                    </div>
+                    <div class="card-block" id="divUsageBranchContainer">
                         <div id="chtUsageBranch"></div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col col-sm-4">
-                <h4 class="text-warning">By year</h4>
-                <div class="panel panel-warning">
-                    <div class="panel-body" id="divUsageYearContainer">
-                        <div id="chtUsageYear"></div>
+            <div class="col col-sm-12">
+                <div class="card">
+                    <div class="card-block">
+                        <h4 class="card-title text-info">usage detail</h4>
+                        <h6 class="card-subtitle text-muted">displaying usage trends for issues</h6>
                     </div>
-                </div>
-            </div>
-            <div class="col col-sm-4">
-                <h4 class="text-danger">By month</h4>
-                <div class="panel panel-danger">
-                    <div class="panel-body" id="divUsageMonthContainer">
-                        <div id="chtUsageMonth"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col col-sm-4">
-                <h4 class="text-primary">Usage detail</h4>
-                <div class="panel panel-primary">
-                    <div class="panel-body">
+                    <div class="card-block">
                         <table id="tblUsageDetail" class="table table-hover table-condensed"></table>
                     </div>
                 </div>
@@ -79,6 +93,7 @@
         </div>
     </div>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/tether/dist/js/tether.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/leaflet/dist/leaflet.js"></script>
     <script src="bower_components/d3/d3.min.js"></script>

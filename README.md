@@ -24,8 +24,10 @@ The dashboard uses 6 (unmodified) CSVs published by Newcastle libraries under th
 | City library gas consumption | [CSV](https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-se-32) | Monthly gas consumption at Newcastle City Library for January 2011 to December 2015 |
 | City library water consumption | [CSV](https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-se-10) | Monthly water consumption at Newcastle City Library for January 2011 to December 2015 |
 | Members | [CSV](https://raw.githubusercontent.com/ToonLibraries/library-open-data/master/membership/active%20members%20branch%20%26%20postcode%202016-04-06.csv) | Anonymised member data including postcode district, library registered at, date added and last used. |
+| Catalogue |
+| Items | 
 
-To avoid any cross domain issues, the code does not link directly to these files but uses a copy held within the project.  This does mean that updates to those open data files currently need to be manually copied into this project.  
+The code does not link directly to these files but uses a copy held within the project.  This does mean that updates to those open data files currently need to be manually copied into this project.  
 
 ## Data definitions 
 
@@ -60,7 +62,7 @@ Comments on structure:  It would be nice to have this dataset with the month in 
 | Month | The month | *2008-04* |
 | Enquiries | The number of enquiries for the month | *312* |
 
-That way  the structure would be fixed to three columns and would increase in row count as new months are added.  The same applies to the following datasets.
+That way  the structure would be fixed to three columns and would increase in rows (rather than columns) as new months are added.  The same applies to the following datasets on usage.
 
 ### Monthly issues
 
@@ -108,6 +110,73 @@ That way  the structure would be fixed to three columns and would increase in ro
 | Time Added | The time the user was added as a member | *8:45:00* or Empty |
 | Last Used Date | The date the member last used services | *04/09/15* |
 | Last Used Time | The time the member last used services | *8:45:00* |
+
+### Catalogue
+
+| Field | Description | Example |
+| ----- | ----------- | ------- |
+| rcn | The record number | ** |
+| isbn | The ISBN of the title record | ** |
+| publ_y | The published year | ** |
+| author | The author of the catalogue record | ** |
+| title | The title of the catalogue record | ** |
+| price |  | ** |
+| langua |  | ** |
+| editio |  | ** |
+| class |  | ** |
+| publisher |  | ** |
+| firstcopydate |  | ** |
+| acpy |  | ** |
+
+### Items
+
+| Field | Description | Example |
+| ----- | ----------- | ------- |
+| item | A unique ID for the item. | ** |
+| rcn | The record number for the item (links to the catalogue data above). | ** |
+| catego | A category ID for the item. | ** |
+| text | Text for the category ID. | ** |
+| homebr | An ID for the item branch. | ** |
+| name | Name of the item location. | ** |
+| added | Date added to the catalogue. | ** |
+| issues current branch | Number of issues at the current branch. | ** |
+| issues previous branch | Number of issues at the previous branch. | ** |
+| renewals current branch | Number of renewals at the current branch. | ** |
+| renewals previous branch | Number of renewals at the previous branch. | ** |
+
+## Combining and aggregating catalogue and items
+
+Both the catalogue and items extracts are considerable files (29MB and 27MB).  Given that this project mainly processes data on the client-side (the web browser has to download it) - those files are too large to expect users to wait to be downloaded.
+
+For data dashboard purposes we mainly need aggregated data (e.g. x thousand items, x thousand items of a particular category).  For this purpose I have created a single aggregated dataset for catalogue and items.
+
+| Field | Description | Example |
+|------ | ----------- | ------- |
+| CategoryId | Taken from the **catego** field in the item data.  |  |
+| BranchId | Derived from the **homebr** field from the item table. |  |
+| Added |  The month the items were added to the catalogue.  |  |
+| Count | A count of the number of items. |   |
+| Issues  | A count of the number of issues |  |
+| Renewals | A count of the number of renewals |  |
+| Price | Taken from the price field of the title data, a total price for the items. |  |
+
+| Field | Description | Example |
+|------ | ----------- | ------- | 
+| CategoryId | An integer ID of the category type. | ** |
+| Category | The textual name of the category. | ** |
+
+| Field | Description | Example |
+|------ | ----------- | ------- | 
+| BranchId | An integer ID of the branch. | ** |
+| Branch | The textual name of the location. | ** |
+
+The data is created using a python script.  This is included in the scripts directory of this project and prduces 3 files.
+
+- dashboard_catalogue.csv
+- dashboard_catalogue_branches.csv
+- dashboard_catalogue_categories.csv
+
+These files are then used in the Catalogue page of the data dashboard.
 
 ## Technologies used and licences
 
