@@ -5,6 +5,7 @@ import re
 import numpy as np
 from datetime import datetime
 cat_records = {}
+
 catreader = csv.DictReader(open(os.path.join(os.path.dirname(__file__), '..\\data\\newcastle_catalogue.csv'), 'r'), delimiter=',', quotechar='"', lineterminator='\n')
 for row in catreader:
     cat_records[row['rcn']] = { 'price': round(float(re.sub(r'[^\d.]+', '', row['price'])), 2) }

@@ -146,9 +146,9 @@ That way  the structure would be fixed to three columns and would increase in ro
 
 ## Combining and aggregating catalogue and items
 
-Both the catalogue and item extracts are fairly large files (29MB and 27MB).  Given that this project mainly processes data on the client-side (the web browser) - those files are too large to expect users to wait to be downloaded.
+Both the catalogue and item extracts are fairly large files (29MB and 27MB).  Given that this project mainly processes data client-side (the web browser), those files are too large to expect users to download.
 
-For data dashboard purposes we mainly need aggregated data (e.g. x thousand items, x thousand items of a particular category).  For this purpose I have created a single aggregated dataset for catalogue and items.  This is made smaller by using Ids for category and branch.  These are then included as a lookup in separate exports.
+We mainly need aggregated data (e.g. x thousand items, x thousand items of a particular category).  For this purpose I have created a single aggregated dataset for catalogue and items.  This is made smaller by using Ids for category and branch.  These are then included as a lookup in separate exports.
 
 | Field | Description | Example |
 |------ | ----------- | ------- |
