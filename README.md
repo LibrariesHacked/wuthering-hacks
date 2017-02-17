@@ -4,7 +4,7 @@ A data dashboard to display Newcastle libraries open data.
 
 ## What is it?
 
-Newcastle public libraries publish as much of their data as possible under a (very open) Public Domain licence (https://creativecommons.org/publicdomain/zero/1.0/).  Details of existing datasets can be found at [Libraries data sets](https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-sets)
+Newcastle public libraries publish as much of their data as possible under a (very open) Public Domain licence (https://creativecommons.org/publicdomain/zero/1.0/).  Details of existing datasets can be found at [Libraries data sets](https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-sets).
 
 They also have a GitHub account at [ToonLibraries](https://github.com/ToonLibraries), and an open data repository within this account at [library-open-data](https://github.com/ToonLibraries/library-open-data).
 
@@ -23,11 +23,11 @@ The dashboard uses 6 (unmodified) CSVs published by Newcastle libraries under th
 | City library electricity consumption | [CSV](https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-set-1) | Monthly electricity consumption at Newcastle City Library for January 2011 to December 2015 |
 | City library gas consumption | [CSV](https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-se-32) | Monthly gas consumption at Newcastle City Library for January 2011 to December 2015 |
 | City library water consumption | [CSV](https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-se-10) | Monthly water consumption at Newcastle City Library for January 2011 to December 2015 |
-| Members | [CSV](https://raw.githubusercontent.com/ToonLibraries/library-open-data/master/membership/active%20members%20branch%20%26%20postcode%202016-04-06.csv) | Anonymised member data including postcode district, library registered at, date added and last used. |
-| Catalogue |
-| Items | 
+| Members | [CSV](https://raw.githubusercontent.com/ToonLibraries/library-open-data/master/membership/active%20members%20branch%20%26%20postcode%202016-04-06.csv) | Anonymised member data including postcode district, library registered at, date added and last used |
+| Catalogue | [CSV](https://www.newcastle.gov.uk/sites/default/files/wwwfileroot/catalogue190916.csv) | Extract from the libraries' Library Management System (LMS) catalogue |
+| Items | [CSV](https://www.newcastle.gov.uk/sites/default/files/wwwfileroot/items190916.csv) | Items in the libraries' Library Management System (LMS) catalogue |
 
-The code does not link directly to these files but uses a copy held within the project.  This does mean that updates to those open data files currently need to be manually copied into this project.  
+The code does not link directly to these files but uses a copy held within the project.  This does mean that updates to those open data files need to be manually copied into this project.
 
 ## Data definitions 
 
