@@ -10,7 +10,7 @@ They also have a GitHub account at [ToonLibraries](https://github.com/ToonLibrar
 
 ## Data provided
 
-The dashboard uses 6 (unmodified) CSVs published by Newcastle libraries under the Public Domain licence.
+The dashboard uses 6 CSVs published by Newcastle libraries under the Public Domain licence.
 
 | Data | Link | Description |
 | ---- | ---- | --------- |
@@ -27,11 +27,13 @@ The dashboard uses 6 (unmodified) CSVs published by Newcastle libraries under th
 | Catalogue | [CSV](https://www.newcastle.gov.uk/sites/default/files/wwwfileroot/catalogue190916.csv) | Extract from the libraries' Library Management System (LMS) catalogue |
 | Items | [CSV](https://www.newcastle.gov.uk/sites/default/files/wwwfileroot/items190916.csv) | Items in the libraries' Library Management System (LMS) catalogue |
 
-The code does not link directly to these files but uses a copy held within the project.  This does mean that updates to those open data files need to be manually copied into this project.
+The code does not link directly to these files but uses a copy held within the project.  This means that updates to those open data files need to be manually copied into this project.  See Build section for instructions.
 
 ## Data definitions 
 
-The dashboard is designed to mess with the Newcastle data as little as possible - if that's how it's published then the dashboard should deal with it.  In a future project it would be useful to standardise those outputs into schemas that provide as much information as possible, in the most useful/efficient format.
+The data that the dashboard uses is converted from the source data, and put into a format that is most efficient for the code to use.
+
+However, the original data can be copied into this project as it is published.  The definitions of the datasets used are included below.
 
 ### Libraries
 
@@ -54,7 +56,7 @@ The dashboard is designed to mess with the Newcastle data as little as possible 
 
 ...the columns go on to cover each month in the form of YYYY-MM.
 
-Comments on structure:  It would be nice to have this dataset with the month in a row rather than a column header.  For example:
+Comments:  It would be nice to have this dataset with the month in a row, rather than a column header.  For example:
 
 | Field | Description | Example |
 | ----- | ----------- | ------- |
@@ -115,18 +117,26 @@ That way  the structure would be fixed to three columns and would increase in ro
 
 | Field | Description | Example |
 | ----- | ----------- | ------- |
-| rcn | Unique identifier for the title | ** |
-| isbn | The International Standard Book Number of the title record | ** |
-| publ_y | The year the title was published | ** |
-| author | Main author of the work | ** |
-| title | Main title as on title page or equivalent | ** |
-| price | Price of 1 copy | ** |
+| rcn | Unique identifier for the title | *1716069* |
+| isbn | The International Standard Book Number of the title record | *9780001001367* |
+| publ_y | The year the title was published | *1964* |
+| author | Main author of the work | *Buxtehude, Dietrich* |
+| title | Main title as on title page or equivalent | *Triosonate : for violin, viola da gamba, [or] vi* |
+| price | Price of 1 copy | *9.5* |
 | langua | Main language of the work. Note: for most works in English the language is not specified. | ** |
-| editio | Edition or version of the work | ** |
+| editio | Edition or version of the work | *Abridg* |
 | class | Main classification allocated by library staff or by the supplier for the title | ** |
 | publisher | Name of the publisher | ** |
 | firstcopydate | Date the first copy was added. Note: field rarely used. | ** |
 | acpy | Number of copies in stock for that ISBN | ** |
+
+Comments: Probably down to the tool used to create the CSV, the header is on the second row.  The first row includes a timestamp.
+
+'''
+__ Mon Sep,19 13:33:20 2016,______
+'''
+
+Never mind though, as a script is running through the file it'll be easy enough to ignore.
 
 ### Items
 
