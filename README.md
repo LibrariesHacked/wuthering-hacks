@@ -1,6 +1,8 @@
 # Wuthering Hacks
 
-A data dashboard to display Newcastle libraries open data.
+A data dashboard to display Newcastle libraries open data.  Currently published at:
+
+[https://newcastle.librarydata.uk](https://newcastle.librarydata.uk)
 
 ## What is it?
 

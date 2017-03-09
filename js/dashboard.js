@@ -5,7 +5,8 @@
     ///////////////////////////////////////////////////////////////////////////////
     var parseDate = d3.time.format("%Y-%m").parse;
 
-    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var months = ['Ja', 'Fe', 'Mr', 'Ap', 'My', 'Jn', 'Jl', 'Au', 'Se', 'Oc', 'Nv', 'De'];
+    var monthsFull = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     // Load in all the CSVs
     $.when($.ajax(config.librariesCsv), $.ajax(config.librariesExtendedCsv), $.ajax(config.enquiriesCsv), $.ajax(config.issuesCsv), $.ajax(config.visitsCsv), $.ajax(config.computersCsv), $.ajax(config.membersCsv))
@@ -13,6 +14,7 @@
             var issues = melt($.csv.toObjects(iss[0]), ["Library"], "Date", "Issues", true);
             var visits = melt($.csv.toObjects(vis[0]), ["Library"], "Date", "Visits", true);
             var pcs = melt($.csv.toObjects(computers[0]), ["Library"], "Date", "Sessions", true);
+
             // Merge the usage data together
             var usage = $.map(issues, function (item) {
                 var withVisits = $.extend(item, $.grep(visits, function (e) { return e.Library == item.Library && e.Date == item.Date; })[0]);
@@ -23,7 +25,6 @@
                 d.date = parseDate(d.Date);
                 d.year = d.date.getFullYear();
                 d.month = d.date.getMonth();
-                // PC Sessions are in percentages - remove the sign
                 d.Sessions ? d.PCSessions = +d.Sessions.replace('%', '') : d.PCSessions = 0;
             });
 
@@ -31,6 +32,7 @@
                 return {
                     all: function () {
                         return group.all().filter(function (d) {
+                            if (d.value.count == 0) return false;
                             return (d && d.value != 0);
                         });
                     }
@@ -63,8 +65,6 @@
             }));
             var sessionsTotal = removeEmpty(usageDateDim.group().reduce(reduceAdd, reduceRemove, reduceInitial));
 
-            
-
             var minDate = usageDateDim.bottom(1)[0].date;
             var maxDate = usageDateDim.top(1)[0].date;
 
@@ -75,7 +75,7 @@
                 .group(function (d) { return d.year; })
                 .columns([
                     { label: 'Name', format: function (d) { return d.Library } },
-                    { label: 'Month', format: function (d) { return d.month } },
+                    { label: 'Month', format: function (d) { return monthsFull[d.month] } },
                     { label: 'Issues', format: function (d) { return d.Issues; } },
                     { label: 'Visits', format: function (d) { return d.Visits; } },
                     { label: 'PC Utilisation', format: function (d) { return d.Sessions; } }
@@ -187,6 +187,7 @@
             var usageMonthBarChart = dc.barChart("#chtUsageMonth");
             var usageMonthDim = usageNdx.dimension(function (d) { return d.month; });
             var usageMonthTotal = usageMonthDim.group().reduceSum(function (d) { return d['Issues'] });
+
             usageMonthBarChart
                 .width(document.getElementById('divUsageMonthContainer').offsetWidth)
                 .height(180)
@@ -198,7 +199,8 @@
                 .xUnits(dc.units.ordinal)
                 .brushOn(false)
                 .x(d3.scale.ordinal())
-                .renderHorizontalGridLines(true);
+                .renderHorizontalGridLines(true)
+                .xAxis().tickFormat(function (d) { return months[d]; });
             $('#resetChartIssuesMonth').on('click', function () {
                 usageMonthBarChart.filterAll();
                 dc.redrawAll();
