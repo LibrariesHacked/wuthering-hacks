@@ -1,8 +1,7 @@
-﻿body {
-}
+﻿body { }
 
 #main {
-    padding-top: 70px;
+    padding-top: 30px;
 }
 
 nav {
@@ -19,6 +18,10 @@ nav {
 
 .strong {
     font-weight: 700;
+}
+
+.card {
+    margin-bottom: 20px;
 }
 
 .card-title {
