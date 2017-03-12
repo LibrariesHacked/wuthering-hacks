@@ -12,7 +12,7 @@ They also have a GitHub account at [ToonLibraries](https://github.com/ToonLibrar
 
 ## Data provided
 
-The dashboard uses 6 CSVs published by Newcastle libraries under the Public Domain licence.
+The dashboard uses CSVs published by Newcastle libraries under the Public Domain licence.
 
 | Data | Link | Description |
 | ---- | ---- | --------- |
@@ -35,7 +35,7 @@ The code does not link directly to these files but uses a copy held within the p
 
 The data that the dashboard uses is converted from the source data, and put into a format that is most efficient for the code to use.
 
-However, the original data can be copied into this project as it is published.  The definitions of the datasets used are included below.
+However, the original data can be copied into this project when it is published.  The definitions of the datasets used are included below.
 
 ### Libraries
 
@@ -56,9 +56,11 @@ However, the original data can be copied into this project as it is published.  
 | Library | The name of the library | *Blakelaw* |
 | 2008-04 | The number of enquiries for the month | *312* |
 
-...the columns go on to cover each month in the form of YYYY-MM.
+The columns go on to cover each month in the form of YYYY-MM.
 
-Comments:  It would be nice to have this dataset with the month in a row, rather than a column header.  For example:
+#### Comments
+
+It would be nice to have this dataset with the month in a row, rather than a column header.  For example:
 
 | Field | Description | Example |
 | ----- | ----------- | ------- |
@@ -66,7 +68,7 @@ Comments:  It would be nice to have this dataset with the month in a row, rather
 | Month | The month | *2008-04* |
 | Enquiries | The number of enquiries for the month | *312* |
 
-That way  the structure would be fixed to three columns and would increase in rows (rather than columns) as new months are added.  The same applies to the following datasets on usage.
+That way the structure would be fixed to three columns and would increase in rows (rather than columns) as new months are added.  The same applies to the following datasets on usage.
 
 ### Monthly issues
 
@@ -75,16 +77,12 @@ That way  the structure would be fixed to three columns and would increase in ro
 | Library | The name of the library | *Blakelaw* |
 | 2008-04 | The number of issues for the month | *1048* |
 
-...the columns go on to cover each month in the form of YYYY-MM.
-
 ### Monthly visits
 
 | Field | Description | Example |
 | ----- | ----------- | ------- |
 | Library | The name of the library | *Blakelaw* |
 | 2008-04 | The number of visits for the month | *1768* |
-
-...the columns go on to cover each month in the form of YYYY-MM.
 
 ### Monthly computer usage
 
@@ -93,16 +91,12 @@ That way  the structure would be fixed to three columns and would increase in ro
 | Library | The name of the library | *Blakelaw* |
 | 2008-04 | The percentage of computer utilisation | *50%* |
 
-...the columns go on to cover each month in the form of YYYY-MM.
-
 ### Online resources usage
 
 | Field | Description | Example |
 | ----- | ----------- | ------- |
 | Online Resource | The type of online resource | *19th Century British Library Newspapers* |
 | Jan-05 | The usage figure for the month | *300* |
-
-...the columns go on to cover each month in the form of Month-YY.
 
 ### Membership
 
@@ -119,60 +113,71 @@ That way  the structure would be fixed to three columns and would increase in ro
 
 | Field | Description | Example |
 | ----- | ----------- | ------- |
-| rcn | Unique identifier for the title | *1716069* |
-| isbn | The International Standard Book Number of the title record | *9780001001367* |
-| publ_y | The year the title was published | *1964* |
-| author | Main author of the work | *Buxtehude, Dietrich* |
-| title | Main title as on title page or equivalent | *Triosonate : for violin, viola da gamba, [or] vi* |
-| price | Price of 1 copy | *9.5* |
+| rcn | Unique identifier for the title | *413396703* |
+| isbn | The International Standard Book Number of the title record | *9780413396709* |
+| publ_y | The year the title was published | *1980* |
+| author | Main author of the work | *Osborne, Charles* |
+| title | Main title as on title page or equivalent | *W.H. Auden : the life of a poet* |
+| price | Price of 1 copy | *£0.0* |
 | langua | Main language of the work. Note: for most works in English the language is not specified. | ** |
-| editio | Edition or version of the work | *Abridg* |
-| class | Main classification allocated by library staff or by the supplier for the title | ** |
-| publisher | Name of the publisher | ** |
+| editio | Edition or version of the work | ** |
+| class | Main classification allocated by library staff or by the supplier for the title | *821AUDE* |
+| publisher | Name of the publisher | *EYRE METH* |
 | firstcopydate | Date the first copy was added. Note: field rarely used. | ** |
-| acpy | Number of copies in stock for that ISBN | ** |
+| acpy | Number of copies in stock for that ISBN | *1* |
 
-Comments: Probably down to the tool used to create the CSV, the header is on the second row.  The first row includes a timestamp.
+#### Comments
 
-'''
+It's probably down to the tool used to create the CSV, but the header is on the second row.  The first row includes a timestamp.
+
+```
 __ Mon Sep,19 13:33:20 2016,______
-'''
+```
 
-Never mind though, as a script is running through the file it'll be easy enough to ignore.
+Never mind though, it'll be easy enough to ignore.  There seems to be a final column on the end that doesn't have any data in.  Will ignore that.  Pound (£) signs are included in the price column.  I don't think there are any other currencies so will remove these and just have a decimal number.  The number of copies sometimes seems to have a pipe character (|), maybe some remnant from a MARC field, so will also remove these.
 
 ### Items
 
 | Field | Description | Example |
 | ----- | ----------- | ------- |
-| item | A unique ID for the item. | ** |
-| rcn | The unique title record (links to the catalogue title data above). | ** |
-| catego | A category ID for the item. | ** |
-| text | Text for the category ID. | ** |
-| homebr | An ID for the item branch. | ** |
-| name | Name of the item location. | ** |
-| added | Date added to the catalogue. | ** |
-| issues current branch | Number of issues at the current branch. | ** |
-| issues previous branch | Number of issues at the previous branch. | ** |
-| renewals current branch | Number of renewals at the current branch. | ** |
-| renewals previous branch | Number of renewals at the previous branch. | ** |
+| item | A unique ID for the item. | *C203255900* |
+| rcn | The unique title record (links to the catalogue title data above). | *573011680* |
+| catego | A category ID for the item. | *2* |
+| text | Text for the category ID. | *ADULT NON FICTION* |
+| homebr | An ID for the item branch. | *46* |
+| name | Name of the item location. | *CITY STACK* |
+| added | Date and time added to the catalogue. | *22/01/2007 14:26* |
+| issues current branch | Number of issues at the current branch. | *0* |
+| issues previous branch | Number of issues at the previous branch. | *0* |
+| renewals current branch | Number of renewals at the current branch. | *0* |
+| renewals previous branch | Number of renewals at the previous branch. | *0* |
+
+## Combining usage data
+
+To produce a file that is efficient to show for usage data, it's worth merging together a number of the files on usage: enquiries, issues, vists, and computer usage.  Each of these include libraries and months, so when separate contain a lot of duplicated data.
+
+The goal will be to produce a file to be used by the dashboard that looks like the following.
+
+| Field | Description | Example |
+| ----- | ----------- | ------- |
+| Library | The name of the library | *Blakelaw* |
+| Month | The month | *2008-04* |
+| Enquiries | The number of enquiries for the month | *312* |
+| Issues | *1048* |
+| Visits | *1768* |
+| Computer Usage | *50%* |
+
+The data is created using a [python script](https://github.com/libraries-hacked/wuthering-hacks/scripts/combine_usage.py).  This is included in the scripts directory of this project and prduces 1 file.
+
+- dashboard_usage.csv
+
+This file is then used in the usage page of the data dashboard.
 
 ## Combining and aggregating catalogue and items
 
-Both the catalogue and item extracts are fairly large files (29MB and 27MB).  Given that this project mainly processes data client-side (the web browser), those files are too large to expect users to download.
+Both the catalogue and item extracts are fairly large files (29MB and 27MB).  Given that this project mainly processes data client-side (in the web browser), those files are too large to expect users to download.
 
 We mainly need aggregated data (e.g. x thousand items, x thousand items of a particular category).  For this purpose I have created a single aggregated dataset for catalogue and items.  This is made smaller by using Ids for category and branch.  These are then included as a lookup in separate exports.
-
-| Field | Description | Example |
-|------ | ----------- | ------- |
-| CategoryId | Derived from the **text** field in the item data.  | *1* |
-| BranchId | Derived from the **name** field from the item table. | *1* |
-| Added |  Month the items were added to the catalogue.  |  |
-| Count | A count of the number of items. |   |
-| Issues  | A count of the number of issues | **419757** |
-| Renewals | A count of the number of renewals | **605263** |
-| Price | Taken from the price field of the title data, in this case a total price for the items. | **462969.67** |
-
-In the example above, 
 
 | Field | Description | Example |
 |------ | ----------- | ------- | 
@@ -181,16 +186,29 @@ In the example above,
 
 | Field | Description | Example |
 |------ | ----------- | ------- | 
-| BranchId | An integer ID of the branch. | ** |
-| Branch | The textual name of the location. | ** |
+| BranchId | An integer ID of the branch. | *0* |
+| Branch | The textual name of the location. | *CITY STACK* |
 
-The data is created using a python script.  This is included in the scripts directory of this project and prduces 3 files.
+| Field | Description | Example |
+|------ | ----------- | ------- |
+| CategoryId | Derived from the **text** field in the item data.  | *1* |
+| BranchId | Derived from the **name** field from the item table. | *1* |
+| Added |  Month the items were added to the catalogue.  | ** |
+| Count | A count of the number of items. | ** |
+| Issues  | A count of the number of issues | **419757** |
+| Renewals | A count of the number of renewals | **605263** |
+| Price | Taken from the price field of the title data, in this case a total price for the items.  Will be in pounds but with no symbol. | **462969.67** |
+
+So, the above example would show that 
+
+The data is created using a [python script](https://github.com/libraries-hacked/wuthering-hacks/scripts/aggregate_catalogue.py).  This is included in the scripts directory of this project and prduces 3 files.
 
 - dashboard_catalogue.csv
+- dashboard_catalogue_grouped.csv
 - dashboard_catalogue_branches.csv
 - dashboard_catalogue_categories.csv
 
-These files are then used in the Catalogue page of the data dashboard.
+These files are then used in the catalogue page of the data dashboard.
 
 ## Technologies used and licences
 
@@ -198,12 +216,14 @@ The following technologies (with licences listed) are used in this project.
 
 | Technology | Used for | Link | Licence |
 | ---------- | -------- | ---- | ------- |
-| Bootstrap | To provide the page structure | [Bootstrap](http://getbootstrap.com/) | [MIT](https://github.com/twbs/bootstrap/blob/master/LICENSE) 
-| Bootswatch | A set of custom themes for Bootstrap. | [Bootswatch](https://bootswatch.com/) | [MIT](https://github.com/thomaspark/bootswatch/blob/gh-pages/LICENSE) |
+| Bootstrap | To provide the page structure.  Currently using version 4 Alpha 6. | [Bootstrap](http://getbootstrap.com/) | [MIT](https://github.com/twbs/bootstrap/blob/master/LICENSE) |
 | jQuery | Required by bootstrap and to provide JavaScript code shortcuts | [jQuery](https://jquery.com/) | [MIT](https://jquery.org/license/) |
 | DC JS | Dimensional Charting JavaScript library - used for the dynamic charts | [dc.js](https://dc-js.github.io/dc.js/) | [Apache](https://github.com/dc-js/dc.js/blob/develop/LICENSE) |
 | Crossfilter | Required by DC JS, provides the cross flitering functionality | [Crossfilter](http://square.github.io/crossfilter/) | [Apache](https://github.com/square/crossfilter/blob/master/LICENSE) |
 | D3 | Required by DC JS, provides the data driven graphs | [D3JS](https://d3js.org/) | [BSD](https://github.com/d3/d3/blob/master/LICENSE) |
-| Melt | JavaScript library to pivot data | [MeltJS](https://github.com/jrideout/melt.js) | [Apache](https://github.com/jrideout/melt.js/blob/master/LICENSE) |
 | Leaflet | JavaScript library for mapping. | [LeafletJS](http://leafletjs.com) | [Open Source](https://github.com/Leaflet/Leaflet/blob/master/LICENSE) |
 | CartoJS | Specific functions for mappping using data stored in Carto. | [CartoJS](https://carto.com/docs/carto-engine/carto-js) | [Open Source](https://github.com/CartoDB/cartodb.js/blob/develop/LICENSE) |
+
+## Licence
+
+This code is licensed under the MIT Licence.
