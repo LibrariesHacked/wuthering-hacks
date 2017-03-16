@@ -1,4 +1,5 @@
 ﻿var config = {
+    colours: ['#0275d8', '#5cb85c', '#5bc0de', '#d9534f', '#ec971f','#292b2c'],
     librariesCsv: 'data/newcastle_libraries.csv',
     librariesExtendedCsv: 'data/newcastle_libraries_extended.csv',
     usageCsv: 'data/dashboard_usage.csv',

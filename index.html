@@ -17,7 +17,7 @@
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="#">newcastle</a>
+            <a class="navbar-brand text-primary strong" href="/">newcastle</a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active"><a class="nav-link" href="/">usage <span class="sr-only">(current)</span></a></li>
@@ -29,51 +29,15 @@
     </nav>
     <div id="main" class="container main">
         <div class="row">
-            <div class="col col-sm-9">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="card">
-                            <div class="card-block">
-                                <h4 class="card-title text-gray-dark">usage</h4>
-                                <h6 class="card-subtitle text-muted">issues, vists, and computer use.</h6>
-                            </div>
-                            <div class="card-block" id="divUsageTrendContainer">
-                                <div id="chtUsageTrend"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col col-sm-6">
-                        <div class="card">
-                            <div class="card-block">
-                                <h4 class="card-title text-gray-dark">by year</h4>
-                                <h6 class="card-subtitle text-muted"></h6>
-                            </div>
-                            <div class="card-block" id="divUsageYearContainer">
-                                <div id="chtUsageYear"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col col-sm-6">
-                        <div class="card">
-                            <div class="card-block">
-                                <h4 class="card-title text-gray-dark">by month</h4>
-                                <h6 class="card-subtitle text-muted">see usage throughout the year</h6>
-                            </div>
-                            <div class="card-block" id="divUsageMonthContainer">
-                                <div id="chtUsageMonth"></div>
-                            </div>
-                        </div>
+            <div class="col-sm-9">
+                <div class="card">
+                    <div class="card-block" id="divUsageTrendContainer">
+                        <div><div id="chtUsageTrend"></div></div>
                     </div>
                 </div>
             </div>
             <div class="col col-sm-3">
                 <div class="card">
-                    <div class="card-block">
-                        <h4 class="card-title text-gray-dark">by branch</h4>
-                        <h6 class="card-subtitle text-muted">filter by library</h6>
-                    </div>
                     <div class="card-block" id="divUsageBranchContainer">
                         <div id="chtUsageBranch"></div>
                     </div>
@@ -81,12 +45,24 @@
             </div>
         </div>
         <div class="row">
+            <div class="col col-sm-4">
+                <div class="card">
+                    <div class="card-block" id="divUsageYearContainer">
+                        <div id="chtUsageYear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-sm-4">
+                <div class="card">
+                    <div class="card-block" id="divUsageMonthContainer">
+                        <div id="chtUsageMonth"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col col-sm-12">
                 <div class="card">
-                    <div class="card-block">
-                        <h4 class="card-title text-gray-dark">usage detail</h4>
-                        <h6 class="card-subtitle text-muted">all the data</h6>
-                    </div>
                     <div class="card-block">
                         <table id="tblUsageDetail" class="table table-bordered table-sm"></table>
                     </div>

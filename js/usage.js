@@ -82,29 +82,28 @@
                     { label: 'Month', format: function (d) { return monthsFull[d.month] } },
                     { label: 'Issues', format: function (d) { return d.issues; } },
                     { label: 'Visits', format: function (d) { return d.visits; } },
-                    { label: 'PC Utilisation', format: function (d) { return d.sessions; } }
+                    { label: 'PCs', format: function (d) { return d.sessions; } }
                 ]);
 
             var usageLineChart = dc.compositeChart("#chtUsageTrend");
-            var usageLineChartWidth = document.getElementById('divUsageTrendContainer').offsetWidth;
+            var usageLineChartWidth = document.getElementById('divUsageTrendContainer').offsetWidth - 40;
             usageLineChart
                 .width(usageLineChartWidth)
                 .height(280)
                 .dimension(usageDateDim)
-                .margins({ top: 20, right: 100, bottom: 30, left: 60 })
-                .mouseZoomable(true)
+                .margins({ top: 40, right: 60, bottom: 30, left: 60 })
+                .mouseZoomable(false)
                 .shareTitle(false)
                 .round(d3.time.month.round)
                 .elasticX(false)
                 .elasticY(true)
                 .renderHorizontalGridLines(true)
-                .legend(dc.legend().x(0).y(0).horizontal(true).itemHeight(13).gap(5))
+                .legend(dc.legend().x(0).y(0).horizontal(true).itemHeight(15).gap(10))
                 .x(d3.time.scale().domain([minDate, maxDate]))
                 .compose([
                     dc.lineChart(usageLineChart)
                         .group(issuesTotal, 'Issues')
-                        .interpolate("basis")
-                        .ordinalColors(["red"]),
+                        .ordinalColors([config.colours[0]]),
                     dc.lineChart(usageLineChart)
                         .group(visitsTotal, 'Visits')
                         .title(function (d) {
@@ -112,15 +111,13 @@
                             if (isNaN(value)) value = 0;
                             return dateFormat(d.key) + "\n" + numberFormat(value);
                         })
-                        .interpolate("basis")
-                        .ordinalColors(["blue"]),
+                        .ordinalColors([config.colours[1]]),
                     dc.lineChart(usageLineChart)
                         .group(sessionsTotal, 'PC percentage')
-                        .interpolate("basis")
                         .valueAccessor(function (p) {
                             return p.value.count > 0 ? p.value.total / p.value.count : 0;
                         })
-                        .ordinalColors(["orange"])
+                        .ordinalColors([config.colours[2]])
                         .useRightYAxis(true)
                 ])
                 .yAxisLabel("Visits and Issues")
@@ -176,7 +173,7 @@
             var usageBranchTotal = usageBranchDim.group().reduceSum(function (d) { return d['issues'] });
             usageRowBranchChart
                 .width(usageRowBranchChartWidth)
-                .height(400)
+                .height(280)
                 .group(usageBranchTotal)
                 .dimension(usageBranchDim)
                 .elasticX(true)
@@ -222,15 +219,15 @@
             });
 
             $(window).on('resize', function () {
-                var newUsageLineWidth = document.getElementById('divUsageTrendContainer').offsetWidth;
+                var newUsageLineWidth = document.getElementById('divUsageTrendContainer').offsetWidth - 40;
                 var newUsageYearChartWidth = document.getElementById('divUsageYearContainer').offsetWidth;
                 var newUsageMonthChartWidth = document.getElementById('divUsageMonthContainer').offsetWidth;
                 var newUsageBranchChartWidth = document.getElementById('divUsageBranchContainer').offsetWidth;
 
-                issuesLineChart.width(newIssuesLineChartWidth).transitionDuration(0);
-                issuesYearChart.width(newIssuesYearChartWidth).transitionDuration(0);
-                issuesRowChart.width(newIssuesRowChartWidth).transitionDuration(0);
-                issuesMonthBarChart.width(newIssuesLineChartWidth).transitionDuration(0);
+                usageLineChart.width(newUsageLineWidth).transitionDuration(0);
+                usageYearChart.width(newUsageYearChartWidth).transitionDuration(0);
+                usageRowBranchChart.width(newUsageBranchChartWidth).transitionDuration(0);
+                usageMonthBarChart.width(newUsageMonthChartWidth).transitionDuration(0);
                 dc.renderAll();
             });
         });
