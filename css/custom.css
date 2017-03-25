@@ -50,8 +50,8 @@ div.circle {
     fill: #636c72 !important;
     text-rendering: optimizeLegibility !important;
 }
-    .dc-chart text.y-axis-label {
-        font-size: 16px !important;
+    .dc-chart text.y-axis-label, .dc-chart text.x-axis-label {
+        font-size: 14px !important;
     }
 
 .dc-chart .axis text {
@@ -63,6 +63,24 @@ div.circle {
     stroke: #ccc;
     fill-opacity: 1;
 }
+
+.dc-table-head {
+    color: #808080;
+    font-weight: 700;
+}
+
+.dc-table-group td {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    font-size: 12px;
+    color: #808080;
+    font-weight: 700;
+}
+
+#chtUsageBranch .x.axis text {
+    text-anchor: end !important;
+}
+
 
 
 

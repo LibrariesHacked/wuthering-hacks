@@ -29,14 +29,32 @@
     </nav>
     <div id="main" class="container main">
         <div class="row">
-            <div class="col-sm-9">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-block" id="divUsageTrendContainer">
+                        <p class="lead">Trend of issues, visits, and PC usage (as a percentage).</p>
                         <div><div id="chtUsageTrend"></div></div>
                     </div>
                 </div>
             </div>
-            <div class="col col-sm-3">
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <div class="card">
+                    <p></p>
+                    <div class="card-block" id="divUsageYearContainer">
+                        <div id="chtUsageYear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-block" id="divUsageMonthContainer">
+                        <div id="chtUsageMonth"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
                 <div class="card">
                     <div class="card-block" id="divUsageBranchContainer">
                         <div id="chtUsageBranch"></div>
@@ -45,26 +63,15 @@
             </div>
         </div>
         <div class="row">
-            <div class="col col-sm-4">
-                <div class="card">
-                    <div class="card-block" id="divUsageYearContainer">
-                        <div id="chtUsageYear"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col col-sm-4">
-                <div class="card">
-                    <div class="card-block" id="divUsageMonthContainer">
-                        <div id="chtUsageMonth"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col col-sm-12">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-block">
                         <table id="tblUsageDetail" class="table table-bordered table-sm"></table>
+                        <div id="tblUsageDetailPaging">
+                            Showing <span id="begin"></span>-<span id="end"></span> of <span id="size"></span>.
+                            <input id="btn-last" class="btn" type="button" value="Last" />
+                            <input id="btn-next" class="btn" type="button" value="Next" />
+                        </div>
                     </div>
                 </div>
             </div>
