@@ -60,11 +60,15 @@
             });
 
             var issuesTotal = removeEmpty(usageDateDim.group().reduceSum(function (d) {
-                return d['issues']
+                return d['issues'];
+            }));
+
+            var enquiriesTotal = removeEmpty(usageDateDim.group().reduceSum(function (d) {
+                return d['enquiries'];
             }));
 
             var visitsTotal = removeEmpty(usageDateDim.group().reduceSum(function (d) {
-                return d['visits']
+                return d['visits'];
             }));
 
             var sessionsTotal = removeEmpty(usageDateDim.group().reduce(reduceAdd, reduceRemove, reduceInitial));
@@ -113,6 +117,7 @@
                     { label: 'Month', format: function (d) { return monthsFull[d.month] } },
                     { label: 'Issues', format: function (d) { return d.issues; } },
                     { label: 'Visits', format: function (d) { return d.visits; } },
+                    { label: 'Enquiries', format: function (d) { return d.enquiries; } },
                     { label: 'PCs', format: function (d) { return d.sessions; } }
                 ]);
 
@@ -145,15 +150,23 @@
                         })
                         .ordinalColors([config.colours[1]]),
                     dc.lineChart(usageLineChart)
+                        .group(enquiriesTotal, 'Enquiries')
+                        .title(function (d) {
+                            var value = d.value.avg ? d.value.avg : d.value;
+                            if (isNaN(value)) value = 0;
+                            return dateFormat(d.key) + '\n' + numberFormat(value);
+                        })
+                        .ordinalColors([config.colours[2]]),
+                    dc.lineChart(usageLineChart)
                         .group(sessionsTotal, 'PC percentage')
                         .valueAccessor(function (p) {
                             return p.value.count > 0 ? p.value.total / p.value.count : 0;
                         })
-                        .ordinalColors([config.colours[2]])
+                        .ordinalColors([config.colours[3]])
                         .useRightYAxis(true)
                 ])
                 .xAxisLabel('Month')
-                .yAxisLabel('Visits and Issues')
+                .yAxisLabel('Visits, issues, enquiries')
                 .rightYAxisLabel('Percentage PC usage');
 
             // There seems to be a bug with composite charts.
@@ -206,7 +219,7 @@
             usageBranchBarChart
                 .width($('#divUsageBranchContainer').width())
                 .height(250)
-                .margins({ top: 10, right: 50, bottom: 30, left: 60 })
+                .margins({ top: 10, right: 50, bottom: 60, left: 60 })
                 .group(usageBranchTotal)
                 .dimension(usageBranchDim)
                 .elasticY(true)
@@ -221,31 +234,28 @@
                 return false;
             });
             usageBranchBarChart.renderlet(function (chart) {
-                chart.selectAll("g.x text").attr('transform', "rotate(-45)");
+                chart.selectAll("g.x text").attr('transform', "translate(-10,0) rotate(315)");
             });
 
             // Issues month bar chart
-            var usageMonthBarChart = dc.barChart("#chtUsageMonth");
+            var usageMonthRowChart = dc.rowChart("#chtUsageMonth");
             var usageMonthDim = usageNdx.dimension(function (d) { return d.month; });
             var usageMonthTotal = usageMonthDim.group().reduceSum(function (d) { return d['issues'] });
 
-            usageMonthBarChart
+            usageMonthRowChart
                 .width(document.getElementById('divUsageMonthContainer').offsetWidth)
                 .height(250)
-                .margins({ top: 10, right: 50, bottom: 30, left: 60 })
+                .margins({ top: 10, right: 50, bottom: 60, left: 5 })
                 .group(usageMonthTotal)
                 .dimension(usageMonthDim)
-                .elasticY(true)
-                .elasticX(true)
-                .xUnits(dc.units.ordinal)
-                .brushOn(false)
-                .x(d3.scale.ordinal())
-                .renderHorizontalGridLines(true)
-                .xAxis().tickFormat(function (d) { return months[d]; });
+                .elasticX(true);
             $('#resetChartIssuesMonth').on('click', function () {
-                usageMonthBarChart.filterAll();
+                usageMonthRowChart.filterAll();
                 dc.redrawAll();
                 return false;
+            });
+            usageMonthRowChart.renderlet(function (chart) {
+                chart.selectAll("g.axis g.tick text").attr('transform', "translate(-10, 10) rotate(315)");
             });
 
             dc.renderAll();
@@ -266,8 +276,8 @@
 
                 usageLineChart.width(newUsageLineWidth).transitionDuration(0);
                 usageYearChart.width(newUsageYearChartWidth).transitionDuration(0);
-                usageRowBranchChart.width(newUsageBranchChartWidth).transitionDuration(0);
-                usageMonthBarChart.width(newUsageMonthChartWidth).transitionDuration(0);
+                usageBranchBarChart.width(newUsageBranchChartWidth).transitionDuration(0);
+                usageMonthRowChart.width(newUsageMonthChartWidth).transitionDuration(0);
                 dc.renderAll();
             });
         });

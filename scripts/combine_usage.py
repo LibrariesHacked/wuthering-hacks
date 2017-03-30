@@ -7,10 +7,6 @@ import pandas
 
 def run():
 
-	enquiries_reader = csv.DictReader(open(os.path.join(os.path.dirname(__file__), '..\\data\\newcastle_monthlyenquiries.csv'), 'r'), delimiter=',', quotechar='"', lineterminator='\n')
-	issues_reader = csv.DictReader(open(os.path.join(os.path.dirname(__file__), '..\\data\\newcastle_monthlyissues.csv'), 'r'), delimiter=',', quotechar='"', lineterminator='\n')
-	visits_reader = csv.DictReader(open(os.path.join(os.path.dirname(__file__), '..\\data\\newcastle_monthlyvisits.csv'), 'r'), delimiter=',', quotechar='"', lineterminator='\n')
-
 	edf = pandas.DataFrame(pandas.read_csv(open(os.path.join(os.path.dirname(__file__), '..\\data\\newcastle_monthlyenquiries.csv'), 'r')), index=None)
 	enquiries = pandas.melt(edf, id_vars=['Library'], var_name='month', value_name='enquiries')
 	
