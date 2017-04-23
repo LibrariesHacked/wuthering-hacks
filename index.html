@@ -32,8 +32,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-block" id="divUsageTrendContainer">
-                        <p>Trend of issues, visits, enquiries, and computer bookings (as a percentage of total available time)</p>
-                        <div><div id="chtUsageTrend"></div></div>
+                        <div><div id="chtUsageTrend"><p>Trend of issues, visits, enquiries, and computer bookings (as a percentage of total available time).  <span class="reset">Range: <span class="filter"></span><a href="javascript:spenderRowChart.filterAll();dc.redrawAll();">reset</a></span></p></div></div>
                     </div>
                 </div>
             </div>
@@ -71,8 +70,8 @@
                         <table id="tblUsageDetail" class="table table-bordered table-sm"></table>
                         <div id="tblUsageDetailPaging">
                             Showing <span id="begin"></span>-<span id="end"></span> of <span id="size"></span>.
-                            <input id="btn-last" class="btn" type="button" value="Last" />
-                            <input id="btn-next" class="btn" type="button" value="Next" />
+                            <input id="btn-last" class="btn btn-sm btn-secondary" type="button" value="Last" />
+                            <input id="btn-next" class="btn btn-sm btn-secondary" type="button" value="Next" />
                         </div>
                     </div>
                 </div>
