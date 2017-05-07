@@ -4,7 +4,7 @@
   "authors": [
     "Dave <info@librarieshacked.org>"
   ],
-  "description": "",
+  "description": "Data dashboard to visualise Newcastle libraries data",
   "main": "",
   "license": "MIT",
   "ignore": [
@@ -18,7 +18,6 @@
     "leaflet": "^1.0.3",
     "jquery-csv": "^0.8.2",
     "dcjs": "2.0.0",
-    "cartodb.js": "^3.15.9",
     "bootstrap": "v4.0.0-alpha.6"
   }
 }

@@ -1,4 +1,4 @@
-## This script takes the two CSV files, newcastle_catalogue.csv and newcastle_items.csv
+## This script takes the two CSV files, titles.csv and items.csv
 ## and aggregates them into a single file of counts of items.
 ## Two lookup files to provide library names and item categories are also created.
 ## Requires Python v3 and pandas (pip install pandas)
@@ -13,14 +13,14 @@ def run():
 
     cat_records = {}
 
-    catreader = csv.DictReader(open(os.path.join(os.path.dirname(__file__), '..\\data\\newcastle_catalogue.csv'), 'r'), delimiter=',', quotechar='"', lineterminator='\n')
+    catreader = csv.DictReader(open(os.path.join(os.path.dirname(__file__), '..\\data\\titles.csv'), 'r'), delimiter=',', quotechar='"', lineterminator='\n')
     for row in catreader:
         cat_records[row['rcn']] = { 'price': round(float(re.sub(r'[^\d.]+', '', row['price'])), 2) }
 
     branches = []
     categories = []
     item_records = []
-    itemreader = csv.DictReader(open(os.path.join(os.path.dirname(__file__), '..\\data\\newcastle_items.csv'), 'r'), delimiter=',', quotechar='"', lineterminator='\n')
+    itemreader = csv.DictReader(open(os.path.join(os.path.dirname(__file__), '..\\data\\items.csv'), 'r'), delimiter=',', quotechar='"', lineterminator='\n')
     for row in itemreader:
         if row['rcn'] != '' and row['rcn'] in cat_records:
             if row['name'] not in branches:

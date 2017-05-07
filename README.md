@@ -1,16 +1,33 @@
-# Wuthering Hacks
+Wuthering Hacks
+===============
 
 A data dashboard to display Newcastle libraries open data.  Currently published at:
 
 [https://newcastle.librarydata.uk](https://newcastle.librarydata.uk)
 
-## What is it?
+What is it?
+-----------
 
-Newcastle public libraries publish as much of their data as possible under a (very open) Public Domain licence (https://creativecommons.org/publicdomain/zero/1.0/).  Details of existing datasets can be found at [Libraries data sets](https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-sets).
+Newcastle public libraries publish as much of their data as possible under a very open Public Domain licence (https://creativecommons.org/publicdomain/zero/1.0/).  Details of existing datasets can be found at [Libraries data sets](https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-sets).
 
 They also have a GitHub account at [ToonLibraries](https://github.com/ToonLibraries), and an open data repository within this account at [library-open-data](https://github.com/ToonLibraries/library-open-data).
 
-## Data provided
+
+Dashboard pages
+---------------
+
+The dashboard splits visualisations into pages, focussing on different areas of the library data provided by Newcastle.
+
+| Page | Description |
+| ---- | ----------- |
+| Usage | Details of issues, computer use, enquiries, and visits by month and by library. |
+| Catalogue | Details on the library catalogue - from titles and items data. |
+| Members | Details on membership by postcode area and date joined/active |
+| Utilities | Details on gas, electricity and water consumption in the City library. |
+| Libraries | Full details on libraries, merged with geographic statistical data. |
+
+Data provided
+-------------
 
 The dashboard uses CSVs published by Newcastle libraries under the Public Domain licence.
 
@@ -22,16 +39,17 @@ The dashboard uses CSVs published by Newcastle libraries under the Public Domain
 | Monthly issues | [CSV](https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-issues-csv) | Monthly loan figures (number of items issued) by branch for April 2008 to Present |
 | Online resources usage | [CSV](https://www.newcastle.gov.uk/sites/default/files/wwwfileroot/online_resources_usage.csv) | Monthly usage figures for online resources including databases and e-book platforms when available, for January 2005 to present |
 | Monthly visits | [CSV](https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-visits-csv) | Monthly issue figures by branch for April 2008 to Present |
-| City library electricity consumption | [CSV](https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-set-1) | Monthly electricity consumption at Newcastle City Library for January 2011 to December 2015 |
-| City library gas consumption | [CSV](https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-se-32) | Monthly gas consumption at Newcastle City Library for January 2011 to December 2015 |
-| City library water consumption | [CSV](https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-se-10) | Monthly water consumption at Newcastle City Library for January 2011 to December 2015 |
+| City library electricity consumption | [CSV](https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-set-1) | Monthly electricity consumption at Newcastle City Library |
+| City library gas consumption | [CSV](https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-se-32) | Monthly gas consumption at Newcastle City Library |
+| City library water consumption | [CSV](https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-se-10) | Monthly water consumption at Newcastle City Library |
 | Members | [CSV](https://raw.githubusercontent.com/ToonLibraries/library-open-data/master/membership/active%20members%20branch%20%26%20postcode%202016-04-06.csv) | Anonymised member data including postcode district, library registered at, date added and last used |
-| Catalogue | [CSV](https://www.newcastle.gov.uk/sites/default/files/wwwfileroot/catalogue190916.csv) | Extract from the libraries' Library Management System (LMS) catalogue |
-| Items | [CSV](https://www.newcastle.gov.uk/sites/default/files/wwwfileroot/items190916.csv) | Items in the libraries' Library Management System (LMS) catalogue |
+| Catalogue | [CSV](https://www.newcastle.gov.uk/sites/default/files/wwwfileroot/catalogue190916.csv) | Extract from the Library Management System (LMS) catalogue |
+| Items | [CSV](https://www.newcastle.gov.uk/sites/default/files/wwwfileroot/items190916.csv) | Items in the Library Management System (LMS) catalogue |
 
 The code does not link directly to these files but uses a copy held within the project.  This means that updates to those open data files need to be manually copied into this project.  See Build section for instructions.
 
-## Data definitions 
+Data definitions
+----------------
 
 The data that the dashboard uses is converted from the source data, and put into a format that is most efficient for the code to use.
 
@@ -119,11 +137,11 @@ That way the structure would be fixed to three columns and would increase in row
 | author | Main author of the work | *Osborne, Charles* |
 | title | Main title as on title page or equivalent | *W.H. Auden : the life of a poet* |
 | price | Price of 1 copy | *£0.0* |
-| langua | Main language of the work. Note: for most works in English the language is not specified. | ** |
-| editio | Edition or version of the work | ** |
+| langua | Main language of the work. Note: for most works in English the language is not specified. |  |
+| editio | Edition or version of the work |  |
 | class | Main classification allocated by library staff or by the supplier for the title | *821AUDE* |
 | publisher | Name of the publisher | *EYRE METH* |
-| firstcopydate | Date the first copy was added. Note: field rarely used. | ** |
+| firstcopydate | Date the first copy was added. Note: field rarely used. |  |
 | acpy | Number of copies in stock for that ISBN | *1* |
 
 #### Comments
@@ -152,7 +170,8 @@ Never mind though, it'll be easy enough to ignore.  There seems to be a final co
 | renewals current branch | Number of renewals at the current branch. | *0* |
 | renewals previous branch | Number of renewals at the previous branch. | *0* |
 
-## Combining usage data
+Combining usage data
+--------------------
 
 To produce a file that is efficient to show for usage data, it's worth merging together a number of the files on usage: enquiries, issues, vists, and computer usage.  Each of these include libraries and months, so when separate contain a lot of duplicated data.
 
@@ -177,7 +196,7 @@ This file is then used in the usage page of the data dashboard.
 
 Both the catalogue and item extracts are fairly large files (29MB and 27MB).  Given that this project mainly processes data client-side (in the web browser), those files are too large to expect users to download.
 
-We mainly need aggregated data (e.g. x thousand items, x thousand items of a particular category).  For this purpose I have created a single aggregated dataset for catalogue and items.  This is made smaller by using Ids for category and branch.  These are then included as a lookup in separate exports.
+We mainly need aggregated data (e.g. x thousand items, x thousand items of a particular category).  For this purpose I have created a single aggregated dataset for catalogue and items.  This is made smaller by using Ids for category and branch.  These lookups are then included as a separate export.
 
 | Field | Description | Example |
 |------ | ----------- | ------- | 
@@ -189,12 +208,12 @@ We mainly need aggregated data (e.g. x thousand items, x thousand items of a par
 | BranchId | An integer ID of the branch. | *0* |
 | Branch | The textual name of the location. | *CITY STACK* |
 
-| Field | Description | Example |
+| Field | Description | Example |  1,1,,7278,2430.46,188799,31121
 |------ | ----------- | ------- |
 | CategoryId | Derived from the **text** field in the item data.  | *1* |
 | BranchId | Derived from the **name** field from the item table. | *1* |
-| Added |  Month the items were added to the catalogue.  | ** |
-| Count | A count of the number of items. | ** |
+| Added |  Month the items were added to the catalogue.  | *2016-01* |
+| Count | A count of the number of items. | *1* |
 | Issues  | A count of the number of issues | **419757** |
 | Renewals | A count of the number of renewals | **605263** |
 | Price | Taken from the price field of the title data, in this case a total price for the items.  Will be in pounds but with no symbol. | **462969.67** |
@@ -210,7 +229,8 @@ The data is created using a [python script](https://github.com/libraries-hacked/
 
 These files are then used in the catalogue page of the data dashboard.
 
-## Technologies used and licences
+Technologies used and licences
+------------------------------
 
 The following technologies (with licences listed) are used in this project.
 
@@ -224,6 +244,7 @@ The following technologies (with licences listed) are used in this project.
 | Leaflet | JavaScript library for mapping. | [LeafletJS](http://leafletjs.com) | [Open Source](https://github.com/Leaflet/Leaflet/blob/master/LICENSE) |
 | CartoJS | Specific functions for mappping using data stored in Carto. | [CartoJS](https://carto.com/docs/carto-engine/carto-js) | [Open Source](https://github.com/CartoDB/cartodb.js/blob/develop/LICENSE) |
 
-## Licence
+Licence
+-------
 
 This code is licensed under the MIT Licence.

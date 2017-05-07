@@ -11,7 +11,7 @@
     var months = ['Ja', 'Fe', 'Mr', 'Ap', 'My', 'Jn', 'Jl', 'Au', 'Se', 'Oc', 'Nv', 'De'];
     var monthsFull = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-    // Load in all the CSVs
+    // Load in all the CSVs.  These are the main grouping of catalogue data, and the lookups for branches and categories
     $.when($.ajax(config.catalogueGroupedCsv), $.ajax(config.catalogueBranchesCsv), $.ajax(config.catalogueCategoriesCsv))
         .then(function (c, b, ca) {
 

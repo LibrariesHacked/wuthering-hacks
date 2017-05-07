@@ -7,16 +7,16 @@ import pandas
 
 def run():
 
-	edf = pandas.DataFrame(pandas.read_csv(open(os.path.join(os.path.dirname(__file__), '..\\data\\newcastle_monthlyenquiries.csv'), 'r')), index=None)
+	edf = pandas.DataFrame(pandas.read_csv(open(os.path.join(os.path.dirname(__file__), '..\\data\\enquiries.csv'), 'r')), index=None)
 	enquiries = pandas.melt(edf, id_vars=['Library'], var_name='month', value_name='enquiries')
 	
-	idf = pandas.DataFrame(pandas.read_csv(open(os.path.join(os.path.dirname(__file__), '..\\data\\newcastle_monthlyissues.csv'), 'r')), index=None)
+	idf = pandas.DataFrame(pandas.read_csv(open(os.path.join(os.path.dirname(__file__), '..\\data\\issues.csv'), 'r')), index=None)
 	issues = pandas.melt(idf, id_vars=['Library'], var_name='month', value_name='issues')
 	
-	vdf = pandas.DataFrame(pandas.read_csv(open(os.path.join(os.path.dirname(__file__), '..\\data\\newcastle_monthlyvisits.csv'), 'r')), index=None)
+	vdf = pandas.DataFrame(pandas.read_csv(open(os.path.join(os.path.dirname(__file__), '..\\data\\visits.csv'), 'r')), index=None)
 	visits = pandas.melt(vdf, id_vars=['Library'], var_name='month', value_name='visits')
 
-	pcdf = pandas.DataFrame(pandas.read_csv(open(os.path.join(os.path.dirname(__file__), '..\\data\\newcastle_computerusage.csv'), 'r')), index=None)
+	pcdf = pandas.DataFrame(pandas.read_csv(open(os.path.join(os.path.dirname(__file__), '..\\data\\computers.csv'), 'r')), index=None)
 	computers = pandas.melt(pcdf, id_vars=['Library'], var_name='month', value_name='sessions')
 
 	usage = enquiries.merge(visits).merge(issues).merge(computers)
