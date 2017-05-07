@@ -20,11 +20,11 @@ The dashboard splits visualisations into pages, focussing on different areas of 
 
 | Page | Description |
 | ---- | ----------- |
-| Usage | Details of issues, computer use, enquiries, and visits by month and by library. |
-| Catalogue | Details on the library catalogue - from titles and items data. |
+| Usage | Details of issues, computer use, enquiries, and visits by month and by library |
+| Catalogue | Details on the library catalogue - from titles and items data |
 | Members | Details on membership by postcode area and date joined/active |
-| Utilities | Details on gas, electricity and water consumption in the City library. |
-| Libraries | Full details on libraries, merged with geographic statistical data. |
+| Utilities | Details on gas, electricity and water consumption in the City library |
+| Libraries | Full details on libraries, merged with geographic statistical data |
 
 Data provided
 -------------
