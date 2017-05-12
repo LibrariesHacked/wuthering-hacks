@@ -192,7 +192,8 @@ The data is created using a [python script](https://github.com/libraries-hacked/
 
 This file is then used in the usage page of the data dashboard.
 
-## Combining and aggregating catalogue and items
+Combining and aggregating catalogue and items
+---------------------------------------------
 
 Both the catalogue and item extracts are fairly large files (29MB and 27MB).  Given that this project mainly processes data client-side (in the web browser), those files are too large to expect users to download.
 
