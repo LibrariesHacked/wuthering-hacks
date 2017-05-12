@@ -5,14 +5,8 @@
     ///////////////////////////////////////////////////////////////////////////////
     var parseDate = d3.time.format("%Y-%m").parse;
 
-    ///////////////////////////////////////////////////////////////////////////////
-    // Lookups
-    ///////////////////////////////////////////////////////////////////////////////
-    var months = ['Ja', 'Fe', 'Mr', 'Ap', 'My', 'Jn', 'Jl', 'Au', 'Se', 'Oc', 'Nv', 'De'];
-    var monthsFull = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
     // Load in all the CSVs
-    $.when($.ajax(config.usageCsv), $.ajax(config.librariesCsv))
+    $.when($.ajax(config.usagecsv), $.ajax(config.librariescsv))
         .then(function (u, l) {
 
             var usage = $.csv.toObjects(u[0]);
@@ -21,6 +15,9 @@
             // For each row in the usage CSV, format the date, year, month and sessions
             usage.forEach(function (d) {
                 d.date = parseDate(d.month);
+                d.visits = +d.visits;
+                d.enquiries = +d.enquiries;
+                d.issues = +d.issues;
                 d.year = d.date.getFullYear();
                 d.month = d.date.getMonth();
                 d.sessions ? d.sessions = +d.sessions.replace('%', '') : d.sessions = 0;
@@ -77,10 +74,10 @@
             var maxDate = usageDateDim.top(1)[0].date;
 
             // Issues table
-            var usageTable = dc.dataTable('#tblUsageDetail')
+            var usageTable = dc.dataTable('#tbl-usage')
             var ofs = 0, pag = 10;
 
-            var displayUsageTable = function() {
+            var displayUsageTable = function () {
                 d3.select('#begin').text(ofs);
                 d3.select('#end').text(ofs + pag - 1);
                 d3.select('#last').attr('disabled', ofs - pag < 0 ? 'true' : null);
@@ -123,9 +120,9 @@
 
             updateUsageTable();
 
-            var usageLineChart = dc.compositeChart('#chtUsageTrend');
+            var usageLineChart = dc.compositeChart('#cht-usage');
             usageLineChart
-                .width($('#divUsageTrendContainer').width())
+                .width($('#div-usage').width())
                 .height(250)
                 .dimension(usageDateDim)
                 .margins({ top: 40, right: 60, bottom: 30, left: 60 })
@@ -166,7 +163,7 @@
                         .useRightYAxis(true)
                 ])
                 .xAxisLabel('Month')
-                .yAxisLabel('Visits, issues, enquiries')
+                .yAxisLabel('Visits, Issues, Enquiries')
                 .rightYAxisLabel('Percentage PC usage');
 
             // There seems to be a bug with composite charts.
@@ -193,8 +190,8 @@
             });
 
             // Usage Year Pie
-            var usageYearChart = dc.pieChart("#chtUsageYear");
-            var usageYearChartWidth = document.getElementById('divUsageYearContainer').offsetWidth;
+            var usageYearChart = dc.pieChart("#cht-usage-year");
+            var usageYearChartWidth = document.getElementById('div-usage-year').offsetWidth;
             var usageYearDim = usageNdx.dimension(function (d) { return +d.year; });
             var usageYearTotal = usageYearDim.group().reduceSum(function (d) { return d.issues; });
             usageYearChart
@@ -213,11 +210,11 @@
                 return false;
             });
 
-            var usageBranchBarChart = dc.barChart("#chtUsageBranch");
+            var usageBranchBarChart = dc.barChart("#cht-usage-branch");
             var usageBranchDim = usageNdx.dimension(function (d) { return d.Library; });
             var usageBranchTotal = usageBranchDim.group().reduceSum(function (d) { return d['issues'] });
             usageBranchBarChart
-                .width($('#divUsageBranchContainer').width())
+                .width($('#div-usage-branch').width())
                 .height(250)
                 .margins({ top: 10, right: 50, bottom: 60, left: 60 })
                 .group(usageBranchTotal)
@@ -238,12 +235,12 @@
             });
 
             // Issues month bar chart
-            var usageMonthRowChart = dc.rowChart("#chtUsageMonth");
+            var usageMonthRowChart = dc.rowChart("#cht-usage-month");
             var usageMonthDim = usageNdx.dimension(function (d) { return d.month; });
             var usageMonthTotal = usageMonthDim.group().reduceSum(function (d) { return d['issues'] });
 
             usageMonthRowChart
-                .width(document.getElementById('divUsageMonthContainer').offsetWidth)
+                .width(document.getElementById('div-usage-month').offsetWidth)
                 .height(250)
                 .margins({ top: 10, right: 50, bottom: 60, left: 5 })
                 .group(usageMonthTotal)
@@ -260,7 +257,7 @@
 
             dc.renderAll();
 
-            $('#chtUsageYear,#chtUsageBranch').on('click', function () {
+            $('#cht-usage-year,#cht-usage-month').on('click', function () {
                 var usageMinDate = usageDateDim.bottom(1)[0].date;
                 var usageMaxDate = usageDateDim.top(1)[0].date;
                 usageLineChart.x(d3.time.scale().domain([usageMinDate, usageMaxDate]));
@@ -269,10 +266,10 @@
             });
 
             $(window).on('resize', function () {
-                var newUsageLineWidth = document.getElementById('divUsageTrendContainer').offsetWidth - 40;
-                var newUsageYearChartWidth = document.getElementById('divUsageYearContainer').offsetWidth;
-                var newUsageMonthChartWidth = document.getElementById('divUsageMonthContainer').offsetWidth;
-                var newUsageBranchChartWidth = document.getElementById('divUsageBranchContainer').offsetWidth;
+                var newUsageLineWidth = document.getElementById('div-usage').offsetWidth - 40;
+                var newUsageYearChartWidth = document.getElementById('div-usage-year').offsetWidth;
+                var newUsageMonthChartWidth = document.getElementById('div-usage-month').offsetWidth;
+                var newUsageBranchChartWidth = document.getElementById('div-usage-branch').offsetWidth;
 
                 usageLineChart.width(newUsageLineWidth).transitionDuration(0);
                 usageYearChart.width(newUsageYearChartWidth).transitionDuration(0);

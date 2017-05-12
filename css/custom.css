@@ -1,17 +1,11 @@
-﻿#main {
-    padding-top: 30px;
-}
+﻿
 
-nav {
-    border-bottom: 1px solid rgba(0, 0, 0, .125);
+#main {
+    padding-top: 30px;
 }
 
 #divMap {
     height: 200px;
-}
-
-.grey {
-    background-color: #F2F4F8 !important;
 }
 
 .strong {

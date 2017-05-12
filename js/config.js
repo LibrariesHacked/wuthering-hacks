@@ -1,8 +1,14 @@
-﻿var config = {
+﻿///////////////////////////////////////////////////////////////////////////////
+// Lookups
+///////////////////////////////////////////////////////////////////////////////
+var months = ['Ja', 'Fe', 'Mr', 'Ap', 'My', 'Jn', 'Jl', 'Au', 'Se', 'Oc', 'Nv', 'De'];
+var monthsFull = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+var config = {
     colours: ['#0275d8', '#5cb85c', '#5bc0de', '#d9534f', '#ec971f','#292b2c'],
-    librariesCsv: 'data/newcastle_libraries.csv',
+    librariescsv: 'data/libraries.csv',
     librariesExtendedCsv: 'data/newcastle_libraries_extended.csv',
-    usageCsv: 'data/dashboard_usage.csv',
+    usagecsv: 'data/dashboard_usage.csv',
     catalogueGroupedCsv: 'data/dashboard_catalogue_grouped.csv',
     catalogueBranchesCsv: 'data/dashboard_catalogue_branches.csv',
     catalogueCategoriesCsv: 'data/dashboard_catalogue_categories.csv',

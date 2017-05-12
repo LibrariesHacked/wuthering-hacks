@@ -6,60 +6,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>newcastle | library data</title>
     <link href="bower_components/tether/dist/css/tether.min.css" rel="stylesheet" />
-    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="bower_components/bootswatch/materia/bootstrap.min.css" rel="stylesheet" />
     <link href="bower_components/dcjs/dc.min.css" rel="stylesheet" />
-    <link href="bower_components/leaflet/dist/leaflet.css" rel="stylesheet" />
     <link href="css/custom.css" rel="stylesheet" />
 </head>
-<body class="grey">
-    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-        <div class="container">
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand text-primary strong" href="/">newcastle</a>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active"><a class="nav-link" href="/">usage <span class="sr-only">(current)</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/catalogue">catalogue</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/members">members</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/utilities">utilities</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/libraries">libraries</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<body>
     <div id="main" class="container main">
+        <ul class="nav nav-pills main-nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="/">Usage</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/catalogue">Catalogue</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/members">Members</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/libraries">Libraries</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/utilities">Utilities</a>
+            </li>
+        </ul>
+        <br />
         <div class="row">
             <div class="col-12">
-                <div class="card">
-                    <div class="card-block" id="divUsageTrendContainer">
-                        <div><div id="chtUsageTrend"><p>Trend of issues, visits, enquiries, and computer bookings (as a percentage of total available time).  <span class="reset">Range: <span class="filter"></span><a href="javascript:spenderRowChart.filterAll();dc.redrawAll();">reset</a></span></p></div></div>
-                    </div>
+                <div id="div-usage">
+                    <div><div id="cht-usage"><p>Trend of issues, visits, enquiries, and computer bookings (as a percentage of total available time).  <span class="reset">Range: <span class="filter"></span><a href="javascript:spenderRowChart.filterAll();dc.redrawAll();">reset</a></span></p></div></div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-4">
                 <div class="card">
-                    <div class="card-block" id="divUsageYearContainer">
-                        <div id="chtUsageYear"></div>
+                    <div class="card-block" id="div-usage-year">
+                        <div id="cht-usage-year"></div>
                     </div>
                 </div>
             </div>
             <div class="col-3">
                 <div class="card">
-                    <div class="card-block" id="divUsageMonthContainer">
+                    <div class="card-block" id="div-usage-month">
                         <p>Issues by month</p>
-                        <div id="chtUsageMonth"></div>
+                        <div id="cht-usage-month"></div>
                     </div>
                 </div>
             </div>
             <div class="col-5">
                 <div class="card">
-                    <div class="card-block" id="divUsageBranchContainer">
+                    <div class="card-block" id="div-usage-branch">
                         <p>Issues by branch</p>
-                        <div id="chtUsageBranch"></div>
+                        <div id="cht-usage-branch"></div>
                     </div>
                 </div>
             </div>
@@ -68,10 +66,10 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-block">
-                        <table id="tblUsageDetail" class="table table-bordered table-sm"></table>
-                        <div id="tblUsageDetailPaging">
+                        <table id="tbl-usage" class="table table-bordered"></table>
+                        <div id="div-usagetable-paging">
                             Showing <span id="begin"></span>-<span id="end"></span> of <span id="size"></span>.
-                            <input id="btn-last" class="btn btn-sm btn-secondary" type="button" value="Last" />
+                            <input id="btn-previous" class="btn btn-sm btn-secondary" type="button" value="Previous" />
                             <input id="btn-next" class="btn btn-sm btn-secondary" type="button" value="Next" />
                         </div>
                     </div>
@@ -82,7 +80,6 @@
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/tether/dist/js/tether.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="bower_components/leaflet/dist/leaflet.js"></script>
     <script src="bower_components/d3/d3.min.js"></script>
     <script src="bower_components/crossfilter2/crossfilter.min.js"></script>
     <script src="bower_components/dcjs/dc.min.js"></script>
