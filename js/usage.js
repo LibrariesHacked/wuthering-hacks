@@ -49,76 +49,16 @@
             };
 
             var reduceInitial = function () { return { count: 0, total: 0 } };
-
             var usageNdx = crossfilter(usage);
+            var usageDateDim = usageNdx.dimension(function (d) { return d.date; });
 
-            var usageDateDim = usageNdx.dimension(function (d) {
-                return d.date;
-            });
-
-            var issuesTotal = removeEmpty(usageDateDim.group().reduceSum(function (d) {
-                return d['issues'];
-            }));
-
-            var enquiriesTotal = removeEmpty(usageDateDim.group().reduceSum(function (d) {
-                return d['enquiries'];
-            }));
-
-            var visitsTotal = removeEmpty(usageDateDim.group().reduceSum(function (d) {
-                return d['visits'];
-            }));
+            var issuesTotal = removeEmpty(usageDateDim.group().reduceSum(function (d) { return d['issues']; }));
+            var enquiriesTotal = removeEmpty(usageDateDim.group().reduceSum(function (d) { return d['enquiries']; }));
+            var visitsTotal = removeEmpty(usageDateDim.group().reduceSum(function (d) { return d['visits']; }));
 
             var sessionsTotal = removeEmpty(usageDateDim.group().reduce(reduceAdd, reduceRemove, reduceInitial));
-
             var minDate = usageDateDim.bottom(1)[0].date;
             var maxDate = usageDateDim.top(1)[0].date;
-
-            // Issues table
-            var usageTable = dc.dataTable('#tbl-usage')
-            var ofs = 0, pag = 10;
-
-            var displayUsageTable = function () {
-                d3.select('#begin').text(ofs);
-                d3.select('#end').text(ofs + pag - 1);
-                d3.select('#last').attr('disabled', ofs - pag < 0 ? 'true' : null);
-                d3.select('#next').attr('disabled', ofs + pag >= usageNdx.size() ? 'true' : null);
-                d3.select('#size').text(usageNdx.size());
-            }
-
-            var updateUsageTable = function () {
-                usageTable.beginSlice(ofs);
-                usageTable.endSlice(ofs + pag);
-                displayUsageTable();
-            };
-
-            var usageTableNext = function () {
-                ofs += pag;
-                updateUsageTable();
-                usageTable.redraw();
-            };
-            $('#tblUsageDetailPaging input#btn-next').on('click', function () { usageTableNext(); });
-
-            var usageTableLast = function () {
-                ofs -= pag;
-                updateUsageTable();
-                usageTable.redraw();
-            };
-            $('#tblUsageDetailPaging input#btn-last').on('click', function () { usageTableLast(); });
-
-            usageTable
-                .dimension(usageDateDim)
-                .group(function (d) { return d.year; })
-                .size(Infinity)
-                .columns([
-                    { label: 'Name', format: function (d) { return d.Library } },
-                    { label: 'Month', format: function (d) { return monthsFull[d.month] } },
-                    { label: 'Issues', format: function (d) { return d.issues; } },
-                    { label: 'Visits', format: function (d) { return d.visits; } },
-                    { label: 'Enquiries', format: function (d) { return d.enquiries; } },
-                    { label: 'PCs', format: function (d) { return d.sessions; } }
-                ]);
-
-            updateUsageTable();
 
             var usageLineChart = dc.compositeChart('#cht-usage');
             usageLineChart
@@ -129,7 +69,7 @@
                 .mouseZoomable(false)
                 .shareTitle(false)
                 .round(d3.time.month.round)
-                .elasticX(false)
+                .elasticX(true)
                 .elasticY(true)
                 .renderHorizontalGridLines(true)
                 .legend(dc.legend().x(0).y(0).horizontal(true).itemHeight(15).gap(10))
@@ -163,7 +103,7 @@
                         .useRightYAxis(true)
                 ])
                 .xAxisLabel('Month')
-                .yAxisLabel('Visits, Issues, Enquiries')
+                .yAxisLabel('Visits. Issues. Enquiries')
                 .rightYAxisLabel('Percentage PC usage');
 
             // There seems to be a bug with composite charts.
@@ -189,25 +129,28 @@
                 return false;
             });
 
-            // Usage Year Pie
-            var usageYearChart = dc.pieChart("#cht-usage-year");
+            // Usage Year Row
+            var usageYearChart = dc.rowChart("#cht-usage-year");
             var usageYearChartWidth = document.getElementById('div-usage-year').offsetWidth;
             var usageYearDim = usageNdx.dimension(function (d) { return +d.year; });
             var usageYearTotal = usageYearDim.group().reduceSum(function (d) { return d.issues; });
+
             usageYearChart
-                .width(usageYearChartWidth)
+                .width(document.getElementById('div-usage-year').offsetWidth)
                 .height(250)
-                .dimension(usageYearDim)
+                .margins({ top: 10, right: 50, bottom: 60, left: 5 })
                 .group(usageYearTotal)
-                .renderLabel(false)
-                .renderTitle(false)
-                .legend(dc.legend().x(0).y(0).itemHeight(13).gap(5))
-                .innerRadius((usageYearChartWidth / 5))
-                .transitionDuration(300);
+                .dimension(usageYearDim)
+                .elasticX(true);
+            
             $('#resetChartIssuesYear').on('click', function () {
                 usageYearChart.filterAll();
                 dc.redrawAll();
                 return false;
+            });
+
+            usageYearChart.renderlet(function (chart) {
+                chart.selectAll("g.axis g.tick text").attr('transform', "translate(-10, 10) rotate(315)");
             });
 
             var usageBranchBarChart = dc.barChart("#cht-usage-branch");
@@ -216,7 +159,7 @@
             usageBranchBarChart
                 .width($('#div-usage-branch').width())
                 .height(250)
-                .margins({ top: 10, right: 50, bottom: 60, left: 60 })
+                .margins({ top: 10, right: 50, bottom: 70, left: 60 })
                 .group(usageBranchTotal)
                 .dimension(usageBranchDim)
                 .elasticY(true)
@@ -224,14 +167,16 @@
                 .xUnits(dc.units.ordinal)
                 .brushOn(false)
                 .x(d3.scale.ordinal())
+                .yAxisLabel('Issues')
                 .renderHorizontalGridLines(true);
+
             $('#resetChartIssuesBranch').on('click', function () {
                 usageRowBranchChart.filterAll();
                 dc.redrawAll();
                 return false;
             });
             usageBranchBarChart.renderlet(function (chart) {
-                chart.selectAll("g.x text").attr('transform', "translate(-10,0) rotate(315)");
+                chart.selectAll("g.x text").attr('transform', "translate(-10,40) rotate(270)");
             });
 
             // Issues month bar chart
@@ -242,10 +187,14 @@
             usageMonthRowChart
                 .width(document.getElementById('div-usage-month').offsetWidth)
                 .height(250)
+                .label(function (d) {
+                    return monthsFull[d.key];
+                })
                 .margins({ top: 10, right: 50, bottom: 60, left: 5 })
                 .group(usageMonthTotal)
                 .dimension(usageMonthDim)
                 .elasticX(true);
+
             $('#resetChartIssuesMonth').on('click', function () {
                 usageMonthRowChart.filterAll();
                 dc.redrawAll();
@@ -254,16 +203,55 @@
             usageMonthRowChart.renderlet(function (chart) {
                 chart.selectAll("g.axis g.tick text").attr('transform', "translate(-10, 10) rotate(315)");
             });
+            
+            // Issues table
+            var usageTable = dc.dataTable('#tbl-usage')
+            var ofs = 0, pag = 10;
+
+            var displayUsageTable = function () {
+                d3.select('#begin').text(ofs);
+                d3.select('#end').text(ofs + pag - 1);
+                d3.select('#last').attr('disabled', ofs - pag < 0 ? 'true' : null);
+                d3.select('#next').attr('disabled', ofs + pag >= usageNdx.size() ? 'true' : null);
+                d3.select('#size').text(usageNdx.size());
+            }
+
+            var updateUsageTable = function () {
+                usageTable.beginSlice(ofs);
+                usageTable.endSlice(ofs + pag);
+                displayUsageTable();
+            };
+
+            var usageTableNext = function () {
+                ofs += pag;
+                updateUsageTable();
+                usageTable.redraw();
+            };
+            $('#div-usagetable-paging a#btn-next').on('click', function (e) { e.preventDefault(); usageTableNext(); });
+
+            var usageTableLast = function () {
+                ofs -= pag;
+                updateUsageTable();
+                usageTable.redraw();
+            };
+            $('#div-usagetable-paging a#btn-previous').on('click', function (e) { e.preventDefault(); usageTableLast(); });
+
+            usageTable
+                .dimension(usageDateDim)
+                .group(function (d) { return d.year; })
+                .size(Infinity)
+                .columns([
+                    { label: 'Name', format: function (d) { return d.Library } },
+                    { label: 'Month', format: function (d) { return monthsFull[d.month] } },
+                    { label: 'Issues', format: function (d) { return d.issues; } },
+                    { label: 'Visits', format: function (d) { return d.visits; } },
+                    { label: 'Enquiries', format: function (d) { return d.enquiries; } },
+                    { label: 'PCs', format: function (d) { return d.sessions; } }
+                ]);
+
+            updateUsageTable();
 
             dc.renderAll();
-
-            $('#cht-usage-year,#cht-usage-month').on('click', function () {
-                var usageMinDate = usageDateDim.bottom(1)[0].date;
-                var usageMaxDate = usageDateDim.top(1)[0].date;
-                usageLineChart.x(d3.time.scale().domain([usageMinDate, usageMaxDate]));
-                //dc.redrawAll();
-                usageLineChart.redraw()
-            });
 
             $(window).on('resize', function () {
                 var newUsageLineWidth = document.getElementById('div-usage').offsetWidth - 40;
