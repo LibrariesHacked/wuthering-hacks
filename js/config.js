@@ -16,3 +16,7 @@ var config = {
     mapTiles: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
     mapAttribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
 };
+
+var toTitleCase = function(str) {
+    return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+}

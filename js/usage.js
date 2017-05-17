@@ -102,7 +102,6 @@
                         .ordinalColors([config.colours[3]])
                         .useRightYAxis(true)
                 ])
-                .xAxisLabel('Month')
                 .yAxisLabel('Visits. Issues. Enquiries')
                 .rightYAxisLabel('Percentage PC usage');
 
@@ -123,7 +122,8 @@
                 }, dc.constants.EVENT_DELAY);
             };
 
-            $('#resetChartIssues').on('click', function () {
+            $('#reset-chart-usage').on('click', function () {
+                e.preventDefault();
                 usageLineChart.filterAll();
                 dc.redrawAll();
                 return false;

@@ -1,6 +1,4 @@
-﻿
-
-#main {
+﻿#main {
     padding-top: 30px;
 }
 
@@ -30,8 +28,11 @@ div.circle {
     height: 10px;
 }
 
-/* Chart style customisations */
+#cht-usage p, #cht-catalogue p {
+    text-align: right;
+}
 
+/* Chart style customisations */
 .dc-chart .axis path, .dc-chart .axis line {
     stroke: #ccc !important;
 }

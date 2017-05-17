@@ -6,71 +6,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>catalogue | newcastle</title>
     <link href="bower_components/tether/dist/css/tether.min.css" rel="stylesheet" />
-    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="bower_components/bootswatch/materia/bootstrap.min.css" rel="stylesheet" />
     <link href="bower_components/dcjs/dc.min.css" rel="stylesheet" />
-    <link href="bower_components/leaflet/dist/leaflet.css" rel="stylesheet" />
     <link href="css/custom.css" rel="stylesheet" />
 </head>
 <body class="grey">
-    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-        <div class="container">
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand text-primary strong" href="/">newcastle</a>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a class="nav-link" href="/">usage</a></li>
-                    <li class="nav-item active"><a class="nav-link" href="/catalogue">catalogue <span class="sr-only">(current)</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/members">members</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/utilities">utilities</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/libraries">libraries</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
     <div id="main" class="container main">
+        <h1>Newcastle Libraries open data</h1>
+        <p>Newcastle publish open data under </p>
+        <hr />
+        <ul class="nav nav-tabs main-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Usage</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/catalogue">Catalogue</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/members">Members</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/libraries">Libraries</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/utilities">Utilities</a>
+            </li>
+        </ul>
+        <br />
         <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-block" id="divCatalogueTrendContainer">
-                        <div><div id="chtCatalogueTrend"></div></div>
-                    </div>
+            <div class="col-sm-12">
+                <div id="div-catalogue">
+                    <div id="cht-catalogue"><p><span class="reset">Range: <span class="filter"></span><a id="reset-chart-catalogue" href="#" class="btn btn-link">Reset</a></span></p></div>
                 </div>
             </div>
         </div>
+        <hr />
         <div class="row">
-            <div class="col-4">
-                <div class="card">
-                    <div class="card-block" id="divCatalogueYearContainer">
-                        <div id="chtCatalogueYear"></div>
-                    </div>
+            <div class="col-md-10 col-sm-12">
+                <div id="div-catalogue-category">
+                    <div id="cht-catalogue-category"></div>
                 </div>
             </div>
-            <div class="col-4">
-                <div class="card">
-                    <div class="card-block" id="divCatalogueMonthContainer">
-                        <div id="chtCatalogueMonth"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card">
-                    <div class="card-block" id="divCatalogueBranchContainer">
-                        <div id="chtCatalogueBranch"></div>
-                    </div>
+            <div class="col-md-2 col-sm-12">
+                <div id="div-catalogue-month">
+                    <div id="cht-catalogue-month"></div>
                 </div>
             </div>
         </div>
+        <hr />
         <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-block">
-                        <table id="tblCatalogueDetail" class="table table-bordered table-sm"></table>
-                    </div>
+            <div class="col-md-6 col-sm-12">
+                <div id="div-catalogue-year">
+                    <div id="cht-catalogue-year"></div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div id="div-catalogue-branch">
+                    <div id="cht-catalogue-branch"></div>
                 </div>
             </div>
         </div>
+        <hr />
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="tbl-catalogue-detail" class="table table-bordered"></table>
+                <div id="div-cataloguetable-paging">
+                    Showing <span id="begin"></span>-<span id="end"></span> of <span id="size"></span>.
+                    <a id="btn-previous" class="btn btn-link" href="#">Previous</a>
+                    <a id="btn-next" class="btn btn-link" href="#">Next</a>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <p>An open source project available on <a href="https://github.com/LibrariesHacked/wuthering-hacks" target="_blank">GitHub</a></p>
     </div>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/tether/dist/js/tether.min.js"></script>
