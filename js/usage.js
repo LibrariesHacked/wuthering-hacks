@@ -176,7 +176,7 @@
                 return false;
             });
             usageBranchBarChart.renderlet(function (chart) {
-                chart.selectAll("g.x text").attr('transform', "translate(-10,40) rotate(270)");
+                chart.selectAll("g.x text").attr('transform', "translate(-10,10) rotate(270)");
             });
 
             // Issues month bar chart

@@ -72,7 +72,7 @@
                 .width(catalogueLineChartWidth)
                 .height(250)
                 .dimension(catalogueDateDim)
-                .margins({ top: 40, right: 60, bottom: 30, left: 60 })
+                .margins({ top: 40, right: 5, bottom: 20, left: 60 })
                 .mouseZoomable(false)
                 .shareTitle(false)
                 .round(d3.time.month.round)
@@ -123,8 +123,8 @@
             var catalogueCategoryTotal = catalogueCategoryDim.group().reduceSum(function (d) { return d['count'] });
             catalogueCategoryChart
                 .width(document.getElementById('div-catalogue-category').offsetWidth)
-                .height(200)
-                .margins({ top: 10, right: 50, bottom: 100, left: 60 })
+                .height(300)
+                .margins({ top: 5, right: 5, bottom: 120, left: 60 })
                 .group(catalogueCategoryTotal)
                 .dimension(catalogueCategoryDim)
                 .elasticY(true)
@@ -136,11 +136,38 @@
                 .xAxis().tickFormat(function (d) { return d; });
 
             catalogueCategoryChart.renderlet(function (chart) {
-                chart.selectAll("g.axis.x g.tick text").attr('transform', "translate(-11, 20) rotate(270)");
+                chart.selectAll("g.axis.x g.tick text").attr('transform', "translate(-13, 7) rotate(270)");
             });
 
             $('#resetChartCatalogueCategory').on('click', function () {
                 catalogueRowBranchChart.filterAll();
+                dc.redrawAll();
+                return false;
+            });
+
+            // Catalogue month bar chart
+            var catalogueMonthBarChart = dc.rowChart("#cht-catalogue-month");
+            var catalogueMonthDim = catalogueNdx.dimension(function (d) { return d.month; });
+            var catalogueMonthTotal = catalogueMonthDim.group().reduceSum(function (d) { return d['count'] });
+
+            catalogueMonthBarChart
+                .width(document.getElementById('div-catalogue-month').offsetWidth)
+                .height(250)
+                .label(function (d) {
+                    return monthsFull[d.key];
+                })
+                .margins({ top: 5, right: 5, bottom: 60, left: 5 })
+                .group(catalogueMonthTotal)
+                .dimension(catalogueMonthDim)
+                .elasticX(true);
+
+            catalogueMonthBarChart.renderlet(function (chart) {
+                chart.selectAll("g.axis g.tick text").attr('transform', "translate(-10, 20) rotate(270)");
+            });
+
+            $('#resetChartCatalogueMonth').on('click', function (e) {
+                e.preventDefault();
+                catalogueMonthBarChart.filterAll();
                 dc.redrawAll();
                 return false;
             });
@@ -152,7 +179,7 @@
             var catalogueYearTotal = catalogueYearDim.group().reduceSum(function (d) { return d.count; });
             catalogueYearChart
                 .width(document.getElementById('div-catalogue-year').offsetWidth)
-                .height(200)
+                .height(300)
                 .margins({ top: 10, right: 50, bottom: 30, left: 60 })
                 .group(catalogueYearTotal)
                 .dimension(catalogueYearDim)
@@ -165,7 +192,7 @@
                 .xAxis().tickFormat(function (d) { return d; });
 
             catalogueYearChart.renderlet(function (chart) {
-                chart.selectAll("g.axis.x g.tick text").attr('transform', "translate(-11, 20) rotate(270)");
+                chart.selectAll("g.axis.x g.tick text").attr('transform', "translate(-13, 20) rotate(270)");
             });
 
             $('#reset-chart-catalogue-year').on('click', function (e) {
@@ -180,8 +207,8 @@
             var catalogueBranchTotal = catalogueBranchDim.group().reduceSum(function (d) { return d['count'] });
             catalogueRowBranchChart
                 .width(document.getElementById('div-catalogue-branch').offsetWidth)
-                .height(200)
-                .margins({ top: 10, right: 50, bottom: 100, left: 60 })
+                .height(300)
+                .margins({ top: 10, right: 50, bottom: 110, left: 60 })
                 .group(catalogueBranchTotal)
                 .dimension(catalogueBranchDim)
                 .elasticY(true)
@@ -193,36 +220,11 @@
                 .xAxis().tickFormat(function (d) { return d; });
 
             catalogueRowBranchChart.renderlet(function (chart) {
-                chart.selectAll("g.axis.x g.tick text").attr('transform', "translate(-11, 20) rotate(315)");
+                chart.selectAll("g.axis.x g.tick text").attr('transform', "translate(-11, 10) rotate(270)");
             });
 
             $('#resetChartCatalogueBranch').on('click', function () {
                 catalogueRowBranchChart.filterAll();
-                dc.redrawAll();
-                return false;
-            });
-
-            // Catalogue month bar chart
-            var catalogueMonthBarChart = dc.barChart("#cht-catalogue-month");
-            var catalogueMonthDim = catalogueNdx.dimension(function (d) { return d.month; });
-            var catalogueMonthTotal = catalogueMonthDim.group().reduceSum(function (d) { return d['count'] });
-
-            catalogueMonthBarChart
-                .width(document.getElementById('div-catalogue-month').offsetWidth)
-                .height(200)
-                .margins({ top: 10, right: 50, bottom: 30, left: 60 })
-                .group(catalogueMonthTotal)
-                .dimension(catalogueMonthDim)
-                .elasticY(true)
-                .elasticX(true)
-                .xUnits(dc.units.ordinal)
-                .brushOn(false)
-                .x(d3.scale.ordinal())
-                .renderHorizontalGridLines(true)
-                .xAxis().tickFormat(function (d) { return months[d]; });
-
-            $('#resetChartCatalogueMonth').on('click', function () {
-                catalogueMonthBarChart.filterAll();
                 dc.redrawAll();
                 return false;
             });
