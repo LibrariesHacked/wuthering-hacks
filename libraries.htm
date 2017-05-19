@@ -4,20 +4,21 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>newcastle | library data</title>
+    <title>libraries | newcastle</title>
     <link href="bower_components/tether/dist/css/tether.min.css" rel="stylesheet" />
     <link href="bower_components/bootswatch/materia/bootstrap.min.css" rel="stylesheet" />
+    <link href="bower_components/leaflet/dist/leaflet.css" rel="stylesheet" />
     <link href="bower_components/dcjs/dc.min.css" rel="stylesheet" />
     <link href="css/custom.css" rel="stylesheet" />
 </head>
 <body>
     <div id="main" class="container main">
         <h1>Newcastle Libraries open data</h1>
-        <p>Newcastle publish open data under </p>
+        <p>Blurb</p>
         <hr />
         <ul class="nav nav-tabs main-nav">
             <li class="nav-item">
-                <a class="nav-link active" href="/">Usage</a>
+                <a class="nav-link" href="/">Usage</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/catalogue">Catalogue</a>
@@ -26,63 +27,26 @@
                 <a class="nav-link" href="/members">Members</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/libraries">Libraries</a>
+                <a class="nav-link active" href="/libraries">Libraries</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/utilities">Utilities</a>
             </li>
         </ul>
         <br />
-        <div class="row">
-            <div class="col-12">
-                <div id="div-usage">
-                    <div id="cht-usage"><p><span class="reset">Range: <span class="filter"></span><a id="reset-chart-usage" href="#" class="btn btn-link">Reset</a></span></p></div>
-                </div>
-            </div>
-        </div>
-        <hr />
-        <div class="row">
-            <div class="col-md-3 col-sm-12">
-                <div id="div-usage-year">
-                    <p>Filter by year</p>
-                    <div id="cht-usage-year"></div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-12">
-                <div id="div-usage-month">
-                    <p>Filter by month</p>
-                    <div id="cht-usage-month"></div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <div id="div-usage-branch">
-                    <p>Filter by branch</p>
-                    <div id="cht-usage-branch"></div>
-                </div>
-            </div>
-        </div>
-        <hr />
-        <div class="row">
-            <div class="col-sm-12">
-                <table id="tbl-usage" class="table table-bordered"></table>
-                <div id="div-usagetable-paging">
-                    Showing <span id="begin"></span>-<span id="end"></span> of <span id="size"></span>.
-                    <a id="btn-previous" class="btn btn-link" href="#">Previous</a>
-                    <a id="btn-next" class="btn btn-link" href="#">Next</a>
-                </div>
-            </div>
-        </div>
+
         <hr />
         <p>An open source project available on <a href="https://github.com/LibrariesHacked/wuthering-hacks" target="_blank">GitHub</a></p>
     </div>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/tether/dist/js/tether.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/leaflet/dist/leaflet.js"></script>
     <script src="bower_components/d3/d3.min.js"></script>
     <script src="bower_components/crossfilter2/crossfilter.min.js"></script>
     <script src="bower_components/dcjs/dc.min.js"></script>
     <script src="bower_components/jquery-csv/src/jquery.csv.min.js"></script>
     <script src="js/config.js"></script>
-    <script src="js/usage.js"></script>
+    <script src="js/utilities.js"></script>
 </body>
 </html>

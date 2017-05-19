@@ -122,7 +122,7 @@
                 }, dc.constants.EVENT_DELAY);
             };
 
-            $('#reset-chart-usage').on('click', function () {
+            $('#reset-chart-usage').on('click', function (e) {
                 e.preventDefault();
                 usageLineChart.filterAll();
                 dc.redrawAll();
@@ -138,7 +138,7 @@
             usageYearChart
                 .width(document.getElementById('div-usage-year').offsetWidth)
                 .height(250)
-                .margins({ top: 10, right: 50, bottom: 60, left: 5 })
+                .margins({ top: 5, right: 0, bottom: 40, left: 5 })
                 .group(usageYearTotal)
                 .dimension(usageYearDim)
                 .elasticX(true);
@@ -153,13 +153,38 @@
                 chart.selectAll("g.axis g.tick text").attr('transform', "translate(-10, 10) rotate(315)");
             });
 
+            // Issues month bar chart
+            var usageMonthRowChart = dc.rowChart("#cht-usage-month");
+            var usageMonthDim = usageNdx.dimension(function (d) { return d.month; });
+            var usageMonthTotal = usageMonthDim.group().reduceSum(function (d) { return d['issues'] });
+
+            usageMonthRowChart
+                .width(document.getElementById('div-usage-month').offsetWidth)
+                .height(250)
+                .label(function (d) {
+                    return monthsFull[d.key];
+                })
+                .margins({ top: 5, right: 0, bottom: 40, left: 5 })
+                .group(usageMonthTotal)
+                .dimension(usageMonthDim)
+                .elasticX(true);
+
+            $('#resetChartIssuesMonth').on('click', function () {
+                usageMonthRowChart.filterAll();
+                dc.redrawAll();
+                return false;
+            });
+            usageMonthRowChart.renderlet(function (chart) {
+                chart.selectAll("g.axis g.tick text").attr('transform', "translate(-10, 10) rotate(315)");
+            });
+
             var usageBranchBarChart = dc.barChart("#cht-usage-branch");
             var usageBranchDim = usageNdx.dimension(function (d) { return d.Library; });
             var usageBranchTotal = usageBranchDim.group().reduceSum(function (d) { return d['issues'] });
             usageBranchBarChart
                 .width($('#div-usage-branch').width())
                 .height(250)
-                .margins({ top: 10, right: 50, bottom: 70, left: 60 })
+                .margins({ top: 5, right: 0, bottom: 80, left: 60 })
                 .group(usageBranchTotal)
                 .dimension(usageBranchDim)
                 .elasticY(true)
@@ -176,32 +201,7 @@
                 return false;
             });
             usageBranchBarChart.renderlet(function (chart) {
-                chart.selectAll("g.x text").attr('transform', "translate(-10,10) rotate(270)");
-            });
-
-            // Issues month bar chart
-            var usageMonthRowChart = dc.rowChart("#cht-usage-month");
-            var usageMonthDim = usageNdx.dimension(function (d) { return d.month; });
-            var usageMonthTotal = usageMonthDim.group().reduceSum(function (d) { return d['issues'] });
-
-            usageMonthRowChart
-                .width(document.getElementById('div-usage-month').offsetWidth)
-                .height(250)
-                .label(function (d) {
-                    return monthsFull[d.key];
-                })
-                .margins({ top: 10, right: 50, bottom: 60, left: 5 })
-                .group(usageMonthTotal)
-                .dimension(usageMonthDim)
-                .elasticX(true);
-
-            $('#resetChartIssuesMonth').on('click', function () {
-                usageMonthRowChart.filterAll();
-                dc.redrawAll();
-                return false;
-            });
-            usageMonthRowChart.renderlet(function (chart) {
-                chart.selectAll("g.axis g.tick text").attr('transform', "translate(-10, 10) rotate(315)");
+                chart.selectAll("g.x text").attr('transform', "translate(-13,10) rotate(270)");
             });
             
             // Issues table

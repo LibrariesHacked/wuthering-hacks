@@ -10,10 +10,10 @@
     <link href="bower_components/dcjs/dc.min.css" rel="stylesheet" />
     <link href="css/custom.css" rel="stylesheet" />
 </head>
-<body class="grey">
+<body>
     <div id="main" class="container main">
         <h1>Newcastle Libraries open data</h1>
-        <p>Newcastle publish open data under </p>
+        <p>Blurb</p>
         <hr />
         <ul class="nav nav-tabs main-nav">
             <li class="nav-item">
@@ -36,18 +36,20 @@
         <div class="row">
             <div class="col-sm-12">
                 <div id="div-catalogue">
-                    <div id="cht-catalogue"><p><span class="reset">Range: <span class="filter"></span><a id="reset-chart-catalogue" href="#" class="btn btn-link">Reset</a></span></p></div>
+                    <div id="cht-catalogue"><p><span class="reset" style="display: none">Range: <span class="filter"></span><a id="reset-chart-catalogue" href="#" class="btn btn-link">Reset</a></span></p></div>
                 </div>
             </div>
         </div>
         <hr />
         <div class="row">
             <div class="col-md-10 col-sm-12">
+                <p>Filter by item catagory.</p>
                 <div id="div-catalogue-category">
                     <div id="cht-catalogue-category"></div>
                 </div>
             </div>
             <div class="col-md-2 col-sm-12">
+                <p>Filter by month added to catalogue.</p>
                 <div id="div-catalogue-month">
                     <div id="cht-catalogue-month"></div>
                 </div>
@@ -56,11 +58,13 @@
         <hr />
         <div class="row">
             <div class="col-md-6 col-sm-12">
+                <p>Filter by year added to catalogue.</p>
                 <div id="div-catalogue-year">
                     <div id="cht-catalogue-year"></div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
+                <p>Filter by item branch.</p>
                 <div id="div-catalogue-branch">
                     <div id="cht-catalogue-branch"></div>
                 </div>
@@ -69,6 +73,7 @@
         <hr />
         <div class="row">
             <div class="col-sm-12">
+                <p></p>
                 <table id="tbl-catalogue-detail" class="table table-bordered"></table>
                 <div id="div-cataloguetable-paging">
                     Showing <span id="begin"></span>-<span id="end"></span> of <span id="size"></span>.

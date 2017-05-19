@@ -19,6 +19,10 @@
     "jquery-csv": "^0.8.2",
     "dcjs": "2.0.0",
     "bootstrap": "v4.0.0-alpha.6",
-    "bootswatch": "v4"
+    "bootswatch": "v4",
+    "dc-addons": "^0.13.5"
+  },
+  "resolutions": {
+    "leaflet": "^1.0.3"
   }
 }

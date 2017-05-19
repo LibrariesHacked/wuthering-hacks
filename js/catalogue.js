@@ -3,25 +3,28 @@
     ///////////////////////////////////////////////////////////////////////////////
     // Common Functions
     ///////////////////////////////////////////////////////////////////////////////
-    var parseDate = d3.time.format("%m-%Y").parse;
+    var parseDate = d3.time.format("%Y%m").parse;
 
     // Load in all the CSVs.  These are the main grouping of catalogue data, and the lookups for branches and categories
-    $.when($.ajax(config.catalogueGroupedCsv), $.ajax(config.catalogueBranchesCsv), $.ajax(config.catalogueCategoriesCsv))
-        .then(function (c, b, ca) {
+    $.when($.ajax(config.catalogueGroupedCsv), $.ajax(config.catalogueBranchesCsv), $.ajax(config.catalogueCategoriesCsv), $.ajax(config.catalogueMonthsCsv))
+        .then(function (c, b, ca, m) {
 
             var catalogue = $.csv.toObjects(c[0]);
             var branches = $.csv.toObjects(b[0]);
             var categories = $.csv.toObjects(ca[0]);
- 
+            var months = $.csv.toObjects(m[0]);
+
             var branchLookup = {};
             $.each(branches, function (i, x) { branchLookup[x.id] = x.branch });
             var catLookup = {};
             $.each(categories, function (i, x) { catLookup[x.id] = x.category });
+            var monthLookup = {};
+            $.each(months, function (i, x) { monthLookup[x.id] = x.month });
 
             // For each row in the usage CSV, format the date, year, month and sessions
             catalogue.forEach(function (d) {
-                if (!d.monthAdded) d.monthAdded = '01-1994';
-                d.date = parseDate(d.monthAdded);
+                d.dateAdded = monthLookup[d.monthAddedId];
+                d.date = parseDate(d.dateAdded);
                 d.year = d.date ? d.date.getFullYear() : null;
                 d.month = d.date ? d.date.getMonth() : null;
                 d.branch = toTitleCase(branchLookup[d.branchId]);
@@ -36,43 +39,39 @@
                 return {
                     all: function () {
                         return group.all().filter(function (d) {
-                            if (d.value.count == 0) return false;
-                            return (d && d.value != 0);
+                            return (d && d.key && d.value >= 1);
                         });
                     }
                 };
             };
 
-            var reduceAdd = function (p, v) {
-                ++p.count;
-                p.total += +v.sessions;
-                return p;
+            var removeEmptyCost = function (group) {
+                return {
+                    all: function () {
+                        return group.all().filter(function (d) {
+                            return (d && d.key && d.value >= 1);
+                        });
+                    }
+                };
             };
-
-            var reduceRemove = function (p, v) {
-                --p.count;
-                p.total -= +v.sessions;
-                return p;
-            };
-
+            
             var reduceInitial = function () { return { count: 0, total: 0 } };
 
             var catalogueNdx = crossfilter(catalogue);
             var catalogueDateDim = catalogueNdx.dimension(function (d) { return d.date; });
             var itemsTotal = removeEmpty(catalogueDateDim.group().reduceSum(function (d) { return d['count'] }));
-            var priceTotal = removeEmpty(catalogueDateDim.group().reduceSum(function (d) { return d['price'] }));
+            var priceTotal = removeEmptyCost(catalogueDateDim.group().reduceSum(function (d) { return d['price'] }));
 
             // Min and max date values - used in the line chart.
             var minDate = catalogueDateDim.bottom(1)[0].date;
             var maxDate = catalogueDateDim.top(1)[0].date;
 
             var catalogueLineChart = dc.compositeChart("#cht-catalogue");
-            var catalogueLineChartWidth = document.getElementById('div-catalogue').offsetWidth - 40;
             catalogueLineChart
-                .width(catalogueLineChartWidth)
+                .width(document.getElementById('div-catalogue').offsetWidth - 40)
                 .height(250)
                 .dimension(catalogueDateDim)
-                .margins({ top: 40, right: 5, bottom: 20, left: 60 })
+                .margins({ top: 40, right: 0, bottom: 20, left: 60 })
                 .mouseZoomable(false)
                 .shareTitle(false)
                 .round(d3.time.month.round)
@@ -124,7 +123,7 @@
             catalogueCategoryChart
                 .width(document.getElementById('div-catalogue-category').offsetWidth)
                 .height(300)
-                .margins({ top: 5, right: 5, bottom: 120, left: 60 })
+                .margins({ top: 5, right: 0, bottom: 125, left: 60 })
                 .group(catalogueCategoryTotal)
                 .dimension(catalogueCategoryDim)
                 .elasticY(true)
@@ -152,11 +151,11 @@
 
             catalogueMonthBarChart
                 .width(document.getElementById('div-catalogue-month').offsetWidth)
-                .height(250)
+                .height(300)
                 .label(function (d) {
                     return monthsFull[d.key];
                 })
-                .margins({ top: 5, right: 5, bottom: 60, left: 5 })
+                .margins({ top: 5, right: 0, bottom: 40, left: 5 })
                 .group(catalogueMonthTotal)
                 .dimension(catalogueMonthDim)
                 .elasticX(true);
@@ -180,7 +179,7 @@
             catalogueYearChart
                 .width(document.getElementById('div-catalogue-year').offsetWidth)
                 .height(300)
-                .margins({ top: 10, right: 50, bottom: 30, left: 60 })
+                .margins({ top: 5, right: 0, bottom: 40, left: 60 })
                 .group(catalogueYearTotal)
                 .dimension(catalogueYearDim)
                 .elasticY(true)
@@ -208,7 +207,7 @@
             catalogueRowBranchChart
                 .width(document.getElementById('div-catalogue-branch').offsetWidth)
                 .height(300)
-                .margins({ top: 10, right: 50, bottom: 110, left: 60 })
+                .margins({ top: 5, right: 0, bottom: 125, left: 60 })
                 .group(catalogueBranchTotal)
                 .dimension(catalogueBranchDim)
                 .elasticY(true)
