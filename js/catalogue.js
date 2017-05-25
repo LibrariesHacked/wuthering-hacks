@@ -26,9 +26,11 @@
                 d.dateAdded = monthLookup[d.monthAddedId];
                 d.date = parseDate(d.dateAdded);
                 d.year = d.date ? d.date.getFullYear() : null;
+                d.day = d.dayAdded ? d.dayAdded : null;
                 d.month = d.date ? d.date.getMonth() : null;
                 d.branch = toTitleCase(branchLookup[d.branchId]);
                 d.category = toTitleCase(catLookup[d.categoryId]);
+                d.publisher = d.publisherId;
                 d.count = +d.count;
                 d.price = +d.price;
             });
@@ -66,9 +68,13 @@
             var minDate = catalogueDateDim.bottom(1)[0].date;
             var maxDate = catalogueDateDim.top(1)[0].date;
 
+
+            ////////////////////////////////////////////////////////////////
+            // Chart: Catalogue Line Chart
+            ////////////////////////////////////////////////////////////////
             var catalogueLineChart = dc.compositeChart("#cht-catalogue");
             catalogueLineChart
-                .width(document.getElementById('div-catalogue').offsetWidth - 40)
+                .width(document.getElementById('div-catalogue').offsetWidth)
                 .height(250)
                 .dimension(catalogueDateDim)
                 .margins({ top: 40, right: 0, bottom: 20, left: 60 })
@@ -117,6 +123,9 @@
                 return false;
             });
 
+            ////////////////////////////////////////////////////////////////
+            // Chart: Filter by Category (Bar Chart)
+            ////////////////////////////////////////////////////////////////
             var catalogueCategoryChart = dc.barChart("#cht-catalogue-category");
             var catalogueCategoryDim = catalogueNdx.dimension(function (d) { return d.category; });
             var catalogueCategoryTotal = catalogueCategoryDim.group().reduceSum(function (d) { return d['count'] });
@@ -144,7 +153,10 @@
                 return false;
             });
 
-            // Catalogue month bar chart
+
+            ////////////////////////////////////////////////////////////////
+            // Chart: Filter by Month (Row Chart)
+            ////////////////////////////////////////////////////////////////
             var catalogueMonthBarChart = dc.rowChart("#cht-catalogue-month");
             var catalogueMonthDim = catalogueNdx.dimension(function (d) { return d.month; });
             var catalogueMonthTotal = catalogueMonthDim.group().reduceSum(function (d) { return d['count'] });
@@ -171,7 +183,68 @@
                 return false;
             });
 
-            // Catalogue Year Row
+            ////////////////////////////////////////////////////////////////
+            // Chart: Filter by Day (Row Chart)
+            ////////////////////////////////////////////////////////////////
+            var catalogueDayBarChart = dc.rowChart("#cht-catalogue-day");
+            var catalogueDayDim = catalogueNdx.dimension(function (d) { return d.day; });
+            var catalogueDayTotal = catalogueDayDim.group().reduceSum(function (d) { return d['count'] });
+
+            catalogueDayBarChart
+                .width(document.getElementById('div-catalogue-day').offsetWidth)
+                .height(300)
+                .label(function (d) {
+                    return daysFull[d.key];
+                })
+                .margins({ top: 5, right: 0, bottom: 40, left: 5 })
+                .group(catalogueDayTotal)
+                .dimension(catalogueDayDim)
+                .elasticX(true);
+
+            catalogueDayBarChart.renderlet(function (chart) {
+                chart.selectAll("g.axis g.tick text").attr('transform', "translate(-10, 20) rotate(270)");
+            });
+
+            $('#resetChartCatalogueDay').on('click', function (e) {
+                e.preventDefault();
+                catalogueDayBarChart.filterAll();
+                dc.redrawAll();
+                return false;
+            });
+
+            ////////////////////////////////////////////////////////////////
+            // Chart: Filter by Publisher (Bar Chart)
+            ////////////////////////////////////////////////////////////////
+            var cataloguePublisherChart = dc.barChart("#cht-catalogue-publisher");
+            var cataloguePublisherDim = catalogueNdx.dimension(function (d) { return d.publisher; });
+            var cataloguePublisherTotal = cataloguePublisherDim.group().reduceSum(function (d) { return d['count'] });
+            cataloguePublisherChart
+                .width(document.getElementById('div-catalogue-publisher').offsetWidth)
+                .height(300)
+                .margins({ top: 5, right: 0, bottom: 125, left: 60 })
+                .group(cataloguePublisherTotal)
+                .dimension(cataloguePublisherDim)
+                .elasticY(true)
+                .elasticX(true)
+                .xUnits(dc.units.ordinal)
+                .brushOn(false)
+                .x(d3.scale.ordinal())
+                .renderHorizontalGridLines(true)
+                .xAxis().tickFormat(function (d) { return d; });
+
+            cataloguePublisherChart.renderlet(function (chart) {
+                chart.selectAll("g.axis.x g.tick text").attr('transform', "translate(-13, 7) rotate(270)");
+            });
+
+            $('#resetChartCataloguePublisher').on('click', function () {
+                catalogueRowBranchChart.filterAll();
+                dc.redrawAll();
+                return false;
+            });
+
+            ////////////////////////////////////////////////////////////////
+            // Chart: Filter by Year (Bar Chart)
+            ////////////////////////////////////////////////////////////////
             var catalogueYearChart = dc.barChart("#cht-catalogue-year");
             var catalogueYearChartWidth = document.getElementById('div-catalogue-year').offsetWidth;
             var catalogueYearDim = catalogueNdx.dimension(function (d) { return +d.year; });
@@ -201,6 +274,10 @@
                 return false;
             });
 
+
+            ////////////////////////////////////////////////////////////////
+            // Chart: Filter by Branch (Bar Chart)
+            ////////////////////////////////////////////////////////////////
             var catalogueRowBranchChart = dc.barChart("#cht-catalogue-branch");
             var catalogueBranchDim = catalogueNdx.dimension(function (d) { return d.branch; });
             var catalogueBranchTotal = catalogueBranchDim.group().reduceSum(function (d) { return d['count'] });
@@ -228,7 +305,9 @@
                 return false;
             });
 
-            // Issues table
+            ////////////////////////////////////////////////////////////////
+            // Table: Main data table
+            ////////////////////////////////////////////////////////////////
             var catalogueTable = dc.dataTable('#tbl-catalogue-detail');
             catalogueTable
                 .dimension(catalogueDateDim)
@@ -243,11 +322,15 @@
 
             dc.renderAll();
 
+            ////////////////////////////////////////////////////////////////
+            // Event: Resize Window.
+            ////////////////////////////////////////////////////////////////
             $(window).on('resize', function () {
-                catalogueLineChart.width(document.getElementById('div-catalogue').offsetWidth - 40).transitionDuration(0);
-                catalogueYearChart.width(document.getElementById('div-catalogue-year').offsetWidth).transitionDuration(0);
-                catalogueRowBranchChart.width(document.getElementById('div-catalogue-branch').offsetWidth).transitionDuration(0);
-                catalogueMonthBarChart.width(document.getElementById('div-catalogue-month').offsetWidth).transitionDuration(0);
+                catalogueLineChart.width(document.getElementById('div-catalogue').offsetWidth);
+                catalogueCategoryChart.width(document.getElementById('div-catalogue-category').offsetWidth);
+                catalogueYearChart.width(document.getElementById('div-catalogue-year').offsetWidth);
+                catalogueRowBranchChart.width(document.getElementById('div-catalogue-branch').offsetWidth);
+                catalogueMonthBarChart.width(document.getElementById('div-catalogue-month').offsetWidth);
                 dc.renderAll();
             });
         });
