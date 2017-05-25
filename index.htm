@@ -13,7 +13,7 @@
 <body>
     <div id="main" class="container main">
         <h1>Newcastle Libraries open data</h1>
-        <p>Blurb</p>
+        <p><a href="https://twitter.com/ToonLibraries" target="_blank" title="Toon libraries on Twitter">@ToonLibraries</a> are opening up as much of their data as possible.  This is under a <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" title="Creative Common Licence Details">Creative Common Public Domain licence</a>, which means they have waived all rights to the data.  You can use it however you wish.</p>
         <hr />
         <ul class="nav nav-tabs main-nav">
             <li class="nav-item">
@@ -33,10 +33,34 @@
             </li>
         </ul>
         <br />
+        <p>Usage data is detailed by month and branch since 2008.  Issues are monthly figures of items being lent from the catalogue.  Visits are the number of people entering a library.  Enquiries are any question asked of library staff by a member of the public.  PC usage is given as a percentage of the total available time computers can be booked.</p>
+        <div class="row">
+            <div class="col-3">
+                <div id="div-number-issues">
+                    <div id="cht-number-issues"></div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div id="div-number-visits">
+                    <div id="cht-number-visits"></div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div id="div-number-enquiries">
+                    <div id="cht-number-enquiries"></div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div id="div-number-pc">
+                    <div id="cht-number-pc"></div>
+                </div>
+            </div>
+        </div>
+        <hr />
         <div class="row">
             <div class="col-12">
                 <div id="div-usage">
-                    <div id="cht-usage"><p><span class="reset" style="display:none">Range: <span class="filter"></span><a id="reset-chart-usage" href="#" class="btn btn-link">Reset</a></span></p></div>
+                    <div id="cht-usage"><p>Filter by month and year.  <span class="reset">Range: <span class="filter"></span> <a id="reset-chart-usage" href="#">Reset</a></span></p></div>
                 </div>
             </div>
         </div>
@@ -44,20 +68,17 @@
         <div class="row">
             <div class="col-md-3 col-sm-12">
                 <div id="div-usage-year">
-                    <p>Filter by year</p>
-                    <div id="cht-usage-year"></div>
+                    <div id="cht-usage-year"><p>Filter by year. <span class="reset">Range: <span class="filter"></span> <a id="reset-chart-year" href="#">Reset</a></span></p></div>
                 </div>
             </div>
             <div class="col-md-3 col-sm-12">
                 <div id="div-usage-month">
-                    <p>Filter by month</p>
-                    <div id="cht-usage-month"></div>
+                    <div id="cht-usage-month"><p>Filter by month. <span class="reset">Range: <span class="filter"></span> <a id="reset-chart-month" href="#">Reset</a></span></p></div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div id="div-usage-branch">
-                    <p>Filter by branch</p>
-                    <div id="cht-usage-branch"></div>
+                    <div id="cht-usage-branch"><p>Filter by branch. <span class="reset">Range: <span class="filter"></span> <a id="reset-chart-branch" href="#">Reset</a></span></p></div>
                 </div>
             </div>
         </div>

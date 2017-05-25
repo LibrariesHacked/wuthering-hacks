@@ -49,14 +49,63 @@
             };
 
             var reduceInitial = function () { return { count: 0, total: 0 } };
+
             var usageNdx = crossfilter(usage);
             var usageDateDim = usageNdx.dimension(function (d) { return d.date; });
 
             var issuesTotal = removeEmpty(usageDateDim.group().reduceSum(function (d) { return d['issues']; }));
             var enquiriesTotal = removeEmpty(usageDateDim.group().reduceSum(function (d) { return d['enquiries']; }));
             var visitsTotal = removeEmpty(usageDateDim.group().reduceSum(function (d) { return d['visits']; }));
-
             var sessionsTotal = removeEmpty(usageDateDim.group().reduce(reduceAdd, reduceRemove, reduceInitial));
+
+            var issuesNumberDisplay = dc.numberDisplay('#cht-number-issues');
+            issuesNumberDisplay
+                .valueAccessor(function (d) {
+                    return d;
+                })
+                .html({
+                    one: '<small>issues</small><br/><span style="color:' + config.colours[0] + '; font-size: 26px;">%number</span>',
+                    some: '<small>issues</small><br/><span style="color:' + config.colours[0] + '; font-size: 26px;">%number</span>',
+                    none: '<small>issues</small><br/><span style="color:' + config.colours[0] + '; font-size: 26px;">None</span>'
+                })
+                .group(usageDateDim.groupAll().reduceSum(function (d) { return d['issues']; }));
+
+            var visitsNumberDisplay = dc.numberDisplay('#cht-number-visits');
+            visitsNumberDisplay
+                .valueAccessor(function (d) {
+                    return d;
+                })
+                .html({
+                    one: '<small>visits</small><br/><span style="color:' + config.colours[1] + '; font-size: 26px;">%number</span>',
+                    some: '<small>visits</small><br/><span style="color:' + config.colours[1] + '; font-size: 26px;">%number</span>',
+                    none: '<small>visits</small><br/><span style="color:' + config.colours[1] + '; font-size: 26px;">None</span>'
+                })
+                .group(usageDateDim.groupAll().reduceSum(function (d) { return d['visits']; }));
+
+            var enquiriesNumberDisplay = dc.numberDisplay('#cht-number-enquiries');
+            enquiriesNumberDisplay
+                .valueAccessor(function (d) {
+                    return d;
+                })
+                .html({
+                    one: '<small>enquiries</small><br/><span style="color:' + config.colours[2] + '; font-size: 26px;">%number</span>',
+                    some: '<small>enquiries</small><br/><span style="color:' + config.colours[2] + '; font-size: 26px;">%number</span>',
+                    none: '<small>enquiries</small><br/><span style="color:' + config.colours[2] + '; font-size: 26px;">None</span>'
+                })
+                .group(usageDateDim.groupAll().reduceSum(function (d) { return d['enquiries']; }));
+
+            var pcNumberDisplay = dc.numberDisplay('#cht-number-pc');
+            pcNumberDisplay
+                .valueAccessor(function (d) {
+                    return ((d.total / d.count)).toFixed(1);
+                })
+                .html({
+                    one: '<small>PC utilisation</small><br/><span style="color:' + config.colours[3] + '; font-size: 26px;">%number%</span>',
+                    some: '<small>PC utilisation</small><br/><span style="color:' + config.colours[3] + '; font-size: 26px;">%number%</span>',
+                    none: '<small>PC utilisation</small><br/><span style="color:' + config.colours[3] + '; font-size: 26px;">None</span>'
+                })
+                .group(usageDateDim.groupAll().reduce(reduceAdd, reduceRemove, reduceInitial));
+
             var minDate = usageDateDim.bottom(1)[0].date;
             var maxDate = usageDateDim.top(1)[0].date;
 
@@ -95,7 +144,7 @@
                         })
                         .ordinalColors([config.colours[2]]),
                     dc.lineChart(usageLineChart)
-                        .group(sessionsTotal, 'PC percentage')
+                        .group(sessionsTotal, 'PC utilisation')
                         .valueAccessor(function (p) {
                             return p.value.count > 0 ? p.value.total / p.value.count : 0;
                         })
@@ -142,7 +191,7 @@
                 .group(usageYearTotal)
                 .dimension(usageYearDim)
                 .elasticX(true);
-            
+
             $('#resetChartIssuesYear').on('click', function () {
                 usageYearChart.filterAll();
                 dc.redrawAll();
@@ -203,7 +252,7 @@
             usageBranchBarChart.renderlet(function (chart) {
                 chart.selectAll("g.x text").attr('transform', "translate(-13,10) rotate(270)");
             });
-            
+
             // Issues table
             var usageTable = dc.dataTable('#tbl-usage')
             var ofs = 0, pag = 10;

@@ -6,13 +6,14 @@
     var parseDate = d3.time.format("%Y%m").parse;
 
     // Load in all the CSVs.  These are the main grouping of catalogue data, and the lookups for branches and categories
-    $.when($.ajax(config.catalogueGroupedCsv), $.ajax(config.catalogueBranchesCsv), $.ajax(config.catalogueCategoriesCsv), $.ajax(config.catalogueMonthsCsv))
-        .then(function (c, b, ca, m) {
+    $.when($.ajax(config.catalogueGroupedCsv), $.ajax(config.catalogueBranchesCsv), $.ajax(config.catalogueCategoriesCsv), $.ajax(config.catalogueMonthsCsv), $.ajax(config.cataloguePublishersCsv))
+        .then(function (c, b, ca, m, p) {
 
             var catalogue = $.csv.toObjects(c[0]);
             var branches = $.csv.toObjects(b[0]);
             var categories = $.csv.toObjects(ca[0]);
             var months = $.csv.toObjects(m[0]);
+            var publishers = $.csv.toObjects(p[0]);
 
             var branchLookup = {};
             $.each(branches, function (i, x) { branchLookup[x.id] = x.branch });
@@ -20,6 +21,8 @@
             $.each(categories, function (i, x) { catLookup[x.id] = x.category });
             var monthLookup = {};
             $.each(months, function (i, x) { monthLookup[x.id] = x.month });
+            var publisherLookup = {};
+            $.each(publishers, function (i, x) { publisherLookup[x.id] = x.publisher });
 
             // For each row in the usage CSV, format the date, year, month and sessions
             catalogue.forEach(function (d) {
@@ -30,7 +33,7 @@
                 d.month = d.date ? d.date.getMonth() : null;
                 d.branch = toTitleCase(branchLookup[d.branchId]);
                 d.category = toTitleCase(catLookup[d.categoryId]);
-                d.publisher = d.publisherId;
+                d.publisher = publisherLookup[d.publisherId];
                 d.count = +d.count;
                 d.price = +d.price;
             });

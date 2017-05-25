@@ -15,6 +15,7 @@ var config = {
     catalogueCategoriesCsv: 'data/dashboard_catalogue_categories.csv',
     catalogueMonthsCsv: 'data/dashboard_catalogue_months.csv',
     catalogueDatesCsv: 'data/dashboard_catalogue_dates.csv',
+    cataloguePublishersCsv: 'data/dashboard_catalogue_publishers.csv',
     membersCsv: 'data/newcastle_members.csv',
     mapTiles: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
     mapAttribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
