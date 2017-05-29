@@ -64,9 +64,9 @@
                     return d;
                 })
                 .html({
-                    one: '<small>issues</small><br/><span style="color:' + config.colours[0] + '; font-size: 26px;">%number</span>',
-                    some: '<small>issues</small><br/><span style="color:' + config.colours[0] + '; font-size: 26px;">%number</span>',
-                    none: '<small>issues</small><br/><span style="color:' + config.colours[0] + '; font-size: 26px;">None</span>'
+                    one: '<small>issues</small><br/><span class="lead strong" style="color:' + config.colours[0] + '">%number</span>',
+                    some: '<small>issues</small><br/><span class="lead strong" style="color:' + config.colours[0] + '">%number</span>',
+                    none: '<small>issues</small><br/><span class="lead strong" style="color:' + config.colours[0] + '">None</span>'
                 })
                 .group(usageDateDim.groupAll().reduceSum(function (d) { return d['issues']; }));
 
@@ -76,9 +76,9 @@
                     return d;
                 })
                 .html({
-                    one: '<small>visits</small><br/><span style="color:' + config.colours[1] + '; font-size: 26px;">%number</span>',
-                    some: '<small>visits</small><br/><span style="color:' + config.colours[1] + '; font-size: 26px;">%number</span>',
-                    none: '<small>visits</small><br/><span style="color:' + config.colours[1] + '; font-size: 26px;">None</span>'
+                    one: '<small>visits</small><br/><span class="lead strong" style="color:' + config.colours[1] + '">%number</span>',
+                    some: '<small>visits</small><br/><span class="lead strong" style="color:' + config.colours[1] + '">%number</span>',
+                    none: '<small>visits</small><br/><span class="lead strong" style="color:' + config.colours[1] + '">None</span>'
                 })
                 .group(usageDateDim.groupAll().reduceSum(function (d) { return d['visits']; }));
 
@@ -88,9 +88,9 @@
                     return d;
                 })
                 .html({
-                    one: '<small>enquiries</small><br/><span style="color:' + config.colours[2] + '; font-size: 26px;">%number</span>',
-                    some: '<small>enquiries</small><br/><span style="color:' + config.colours[2] + '; font-size: 26px;">%number</span>',
-                    none: '<small>enquiries</small><br/><span style="color:' + config.colours[2] + '; font-size: 26px;">None</span>'
+                    one: '<small>enquiries</small><br/><span class="lead strong" style="color:' + config.colours[2] + '">%number</span>',
+                    some: '<small>enquiries</small><br/><span class="lead strong" style="color:' + config.colours[2] + '">%number</span>',
+                    none: '<small>enquiries</small><br/><span class="lead strong" style="color:' + config.colours[2] + '">None</span>'
                 })
                 .group(usageDateDim.groupAll().reduceSum(function (d) { return d['enquiries']; }));
 
@@ -100,9 +100,9 @@
                     return ((d.total / d.count)).toFixed(1);
                 })
                 .html({
-                    one: '<small>PC utilisation</small><br/><span style="color:' + config.colours[3] + '; font-size: 26px;">%number%</span>',
-                    some: '<small>PC utilisation</small><br/><span style="color:' + config.colours[3] + '; font-size: 26px;">%number%</span>',
-                    none: '<small>PC utilisation</small><br/><span style="color:' + config.colours[3] + '; font-size: 26px;">None</span>'
+                    one: '<small>PC utilisation</small><br/><span class="lead strong" style="color:' + config.colours[3] + '">%number%</span>',
+                    some: '<small>PC utilisation</small><br/><span class="lead strong" style="color:' + config.colours[3] + '">%number%</span>',
+                    none: '<small>PC utilisation</small><br/><span class="lead strong" style="color:' + config.colours[3] + '">None</span>'
                 })
                 .group(usageDateDim.groupAll().reduce(reduceAdd, reduceRemove, reduceInitial));
 
@@ -295,7 +295,7 @@
                     { label: 'Issues', format: function (d) { return d.issues; } },
                     { label: 'Visits', format: function (d) { return d.visits; } },
                     { label: 'Enquiries', format: function (d) { return d.enquiries; } },
-                    { label: 'PCs', format: function (d) { return d.sessions; } }
+                    { label: 'PC Utilisation', format: function (d) { return d.sessions + '%'; } }
                 ]);
 
             updateUsageTable();
