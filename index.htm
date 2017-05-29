@@ -10,12 +10,9 @@
     <link href="bower_components/dcjs/dc.min.css" rel="stylesheet" />
     <link href="css/custom.css" rel="stylesheet" />
 </head>
-<body>
+<body class="grey">
     <div id="main" class="container main">
-        <h1>Newcastle Libraries open data</h1>
-        <p><a href="https://twitter.com/ToonLibraries" target="_blank" title="Toon libraries on Twitter">@ToonLibraries</a> are opening up as much of their data as possible, under a <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" title="Creative Common Licence Details">Creative Common Public Domain licence</a>.  This means they have waived all rights to the data, you can use it however you wish.</p>
-        <hr />
-        <ul class="nav nav-tabs main-nav">
+        <ul class="nav nav-pills">
             <li class="nav-item">
                 <a class="nav-link active" href="/">Usage</a>
             </li>
@@ -32,8 +29,9 @@
                 <a class="nav-link" href="/utilities">Utilities</a>
             </li>
         </ul>
-        <br />
-        <p>Usage data is detailed by month and branch since 2008.  Issues are monthly figures of items being lent from the catalogue.  Visits are the number of people entering a library.  Enquiries are any question asked of library staff by a member of the public.  PC usage is given as a percentage of the total available time computers can be booked.</p>
+        <hr />
+        <p class="lead"><a href="https://twitter.com/ToonLibraries" target="_blank" title="Toon libraries on Twitter">@ToonLibraries</a> are opening up their data, under a <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" title="Creative Common Licence Details">Creative Common Public Domain licence</a>. </p>
+        <p class="lead">Usage data is detailed by month and branch since 2008.  Issues are monthly counts of items being lent from the catalogue.  Visits are the count of people entering a library.  Enquiries are any question asked of library staff by a member of the public.  PC utilisation is a percentage of the total available time computers can be booked.</p>
         <div class="row">
             <div class="col-3">
                 <div id="div-number-issues">
@@ -60,7 +58,7 @@
         <div class="row">
             <div class="col-12">
                 <div id="div-usage">
-                    <div id="cht-usage"><p>Filter by month and year.  <span class="reset">Range: <span class="filter"></span> <a id="reset-chart-usage" href="#">Reset</a></span></p></div>
+                    <div id="cht-usage"><p class="lead">Filter by month and year.  <span class="reset"><span class="filter"></span> <a id="reset-chart-usage" href="#">Reset</a></span></p></div>
                 </div>
             </div>
         </div>
@@ -68,17 +66,17 @@
         <div class="row">
             <div class="col-md-3 col-sm-12">
                 <div id="div-usage-year">
-                    <div id="cht-usage-year"><p>Filter by year. <span class="reset">Range: <span class="filter"></span> <a id="reset-chart-year" href="#">Reset</a></span></p></div>
+                    <div id="cht-usage-year"><p class="lead">Filter by year. <span class="reset"><span class="filter"></span> <a id="reset-chart-year" href="#">Reset</a></span></p></div>
                 </div>
             </div>
             <div class="col-md-3 col-sm-12">
                 <div id="div-usage-month">
-                    <div id="cht-usage-month"><p>Filter by month. <span class="reset">Range: <span class="filter"></span> <a id="reset-chart-month" href="#">Reset</a></span></p></div>
+                    <div id="cht-usage-month"><p class="lead">Filter by month. <span class="reset"><span class="filter"></span> <a id="reset-chart-month" href="#">Reset</a></span></p></div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div id="div-usage-branch">
-                    <div id="cht-usage-branch"><p>Filter by branch. <span class="reset">Range: <span class="filter"></span> <a id="reset-chart-branch" href="#">Reset</a></span></p></div>
+                    <div id="cht-usage-branch"><p class="lead">Filter by branch. <span class="reset"><span class="filter"></span> <a id="reset-chart-branch" href="#">Reset</a></span></p></div>
                 </div>
             </div>
         </div>

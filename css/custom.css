@@ -2,6 +2,10 @@
     padding-top: 30px;
 }
 
+.grey {
+    background-color: #F2F4F8;
+}
+
 #divMap {
     height: 200px;
 }
@@ -26,10 +30,6 @@ div.circle {
     border-width: 1px;
     width: 10px;
     height: 10px;
-}
-
-#cht-usage p, #cht-catalogue p {
-    text-align: right;
 }
 
 /* Chart style customisations */
