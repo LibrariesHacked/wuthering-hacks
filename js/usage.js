@@ -59,52 +59,56 @@
             var sessionsTotal = removeEmpty(usageDateDim.group().reduce(reduceAdd, reduceRemove, reduceInitial));
 
             var issuesNumberDisplay = dc.numberDisplay('#cht-number-issues');
+            var issuesNumGroup = usageNdx.groupAll().reduceSum(function (d) { return d['issues']; });
             issuesNumberDisplay
                 .valueAccessor(function (d) {
                     return d;
                 })
                 .html({
-                    one: '<small>issues</small><br/><span class="lead strong" style="color:' + config.colours[0] + '">%number</span>',
-                    some: '<small>issues</small><br/><span class="lead strong" style="color:' + config.colours[0] + '">%number</span>',
-                    none: '<small>issues</small><br/><span class="lead strong" style="color:' + config.colours[0] + '">None</span>'
+                    one: '<small>issues</small><br/><span class="lead strong">%number</span>',
+                    some: '<small>issues</small><br/><span class="lead strong">%number</span>',
+                    none: '<small>issues</small><br/><span class="lead strong">None</span>'
                 })
-                .group(usageDateDim.groupAll().reduceSum(function (d) { return d['issues']; }));
+                .group(issuesNumGroup);
 
             var visitsNumberDisplay = dc.numberDisplay('#cht-number-visits');
+            var visitsNumGroup = usageNdx.groupAll().reduceSum(function (d) { return d['visits']; });
             visitsNumberDisplay
                 .valueAccessor(function (d) {
                     return d;
                 })
                 .html({
-                    one: '<small>visits</small><br/><span class="lead strong" style="color:' + config.colours[1] + '">%number</span>',
-                    some: '<small>visits</small><br/><span class="lead strong" style="color:' + config.colours[1] + '">%number</span>',
-                    none: '<small>visits</small><br/><span class="lead strong" style="color:' + config.colours[1] + '">None</span>'
+                    one: '<small>visits</small><br/><span class="lead strong">%number</span>',
+                    some: '<small>visits</small><br/><span class="lead strong">%number</span>',
+                    none: '<small>visits</small><br/><span class="lead strong">None</span>'
                 })
-                .group(usageDateDim.groupAll().reduceSum(function (d) { return d['visits']; }));
+                .group(visitsNumGroup);
 
             var enquiriesNumberDisplay = dc.numberDisplay('#cht-number-enquiries');
+            var enquiriesNumGroup = usageNdx.groupAll().reduceSum(function (d) { return d['enquiries']; });
             enquiriesNumberDisplay
                 .valueAccessor(function (d) {
                     return d;
                 })
                 .html({
-                    one: '<small>enquiries</small><br/><span class="lead strong" style="color:' + config.colours[2] + '">%number</span>',
-                    some: '<small>enquiries</small><br/><span class="lead strong" style="color:' + config.colours[2] + '">%number</span>',
-                    none: '<small>enquiries</small><br/><span class="lead strong" style="color:' + config.colours[2] + '">None</span>'
+                    one: '<small>enquiries</small><br/><span class="lead strong">%number</span>',
+                    some: '<small>enquiries</small><br/><span class="lead strong">%number</span>',
+                    none: '<small>enquiries</small><br/><span class="lead strong">None</span>'
                 })
-                .group(usageDateDim.groupAll().reduceSum(function (d) { return d['enquiries']; }));
+                .group(enquiriesNumGroup);
 
             var pcNumberDisplay = dc.numberDisplay('#cht-number-pc');
+            var pcNumGroup = usageNdx.groupAll().reduce(reduceAdd, reduceRemove, reduceInitial);
             pcNumberDisplay
                 .valueAccessor(function (d) {
                     return ((d.total / d.count)).toFixed(1);
                 })
                 .html({
-                    one: '<small>PC utilisation</small><br/><span class="lead strong" style="color:' + config.colours[3] + '">%number%</span>',
-                    some: '<small>PC utilisation</small><br/><span class="lead strong" style="color:' + config.colours[3] + '">%number%</span>',
-                    none: '<small>PC utilisation</small><br/><span class="lead strong" style="color:' + config.colours[3] + '">None</span>'
+                    one: '<small>PC utilisation</small><br/><span class="lead strong">%number%</span>',
+                    some: '<small>PC utilisation</small><br/><span class="lead strong">%number%</span>',
+                    none: '<small>PC utilisation</small><br/><span class="lead strong">None</span>'
                 })
-                .group(usageDateDim.groupAll().reduce(reduceAdd, reduceRemove, reduceInitial));
+                .group(pcNumGroup);
 
             var minDate = usageDateDim.bottom(1)[0].date;
             var maxDate = usageDateDim.top(1)[0].date;
@@ -174,6 +178,7 @@
             $('#reset-chart-usage').on('click', function (e) {
                 e.preventDefault();
                 usageLineChart.filterAll();
+                updateUsageTable();
                 dc.redrawAll();
                 return false;
             });
@@ -192,8 +197,10 @@
                 .dimension(usageYearDim)
                 .elasticX(true);
 
-            $('#resetChartIssuesYear').on('click', function () {
+            $('#reset-chart-year').on('click', function (e) {
+                e.preventDefault();
                 usageYearChart.filterAll();
+                updateUsageTable();
                 dc.redrawAll();
                 return false;
             });
@@ -218,8 +225,10 @@
                 .dimension(usageMonthDim)
                 .elasticX(true);
 
-            $('#resetChartIssuesMonth').on('click', function () {
+            $('#reset-chart-month').on('click', function (e) {
+                e.preventDefault();
                 usageMonthRowChart.filterAll();
+                updateUsageTable();
                 dc.redrawAll();
                 return false;
             });
@@ -244,14 +253,27 @@
                 .yAxisLabel('Issues')
                 .renderHorizontalGridLines(true);
 
-            $('#resetChartIssuesBranch').on('click', function () {
-                usageRowBranchChart.filterAll();
+            $('#reset-chart-branch').on('click', function (e) {
+                e.preventDefault();
+                usageBranchBarChart.filterAll();
+                updateUsageTable();
                 dc.redrawAll();
                 return false;
             });
             usageBranchBarChart.renderlet(function (chart) {
                 chart.selectAll("g.x text").attr('transform', "translate(-13,10) rotate(270)");
             });
+
+            // Totals count
+            var dataCount = dc.dataCount('.dc-data-count');
+            dataCount
+                .dimension(usageNdx)
+                .group(usageNdx.groupAll())
+                .html({
+                    some: '<strong>%filter-count</strong> selected out of <strong>%total-count</strong> records' +
+                    ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>Reset All</a><br/> &nbsp',
+                    all: 'All records selected. Please click on the graph to apply filters.<br/> &nbsp'
+                });
 
             // Issues table
             var usageTable = dc.dataTable('#tbl-usage')
@@ -260,9 +282,8 @@
             var displayUsageTable = function () {
                 d3.select('#begin').text(ofs);
                 d3.select('#end').text(ofs + pag - 1);
-                d3.select('#last').attr('disabled', ofs - pag < 0 ? 'true' : null);
-                d3.select('#next').attr('disabled', ofs + pag >= usageNdx.size() ? 'true' : null);
-                d3.select('#size').text(usageNdx.size());
+                d3.select('#btn-previous').attr('disabled', ofs - pag < 0 ? 'true' : null);
+                d3.select('#btn-next').attr('disabled', ofs + pag >= usageNdx.size() ? 'true' : null);
             }
 
             var updateUsageTable = function () {
