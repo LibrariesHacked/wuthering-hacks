@@ -155,8 +155,8 @@
                         .ordinalColors([config.colours[3]])
                         .useRightYAxis(true)
                 ])
-                .yAxisLabel('Visits. Issues. Enquiries')
-                .rightYAxisLabel('Percentage PC usage');
+                .yAxisLabel('Usage count')
+                .rightYAxisLabel('PC utilisation %');
 
             // There seems to be a bug with composite charts.
             usageLineChart._brushing = function () {
