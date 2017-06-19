@@ -6,7 +6,22 @@
     var parseDate = d3.time.format("%Y%m").parse;
 
     // Load in all the CSVs.  These are the main grouping of catalogue data, and the lookups for branches and categories
-    $.when($.ajax(config.catalogueGroupedCsv), $.ajax(config.catalogueBranchesCsv), $.ajax(config.catalogueCategoriesCsv), $.ajax(config.catalogueMonthsCsv), $.ajax(config.cataloguePublishersCsv))
+    $.when(
+        $.ajax(config.catalogueGroupedCsv, {
+            xhr: function () {
+                var xhr = new window.XMLHttpRequest();
+                xhr.addEventListener("progress", function (evt) {
+                    if (evt.lengthComputable) {
+                        var percentComplete = evt.loaded / evt.total;
+                    }
+                }, false);
+                return xhr;
+            }
+        }),
+        $.ajax(config.catalogueBranchesCsv),
+        $.ajax(config.catalogueCategoriesCsv),
+        $.ajax(config.catalogueMonthsCsv),
+        $.ajax(config.cataloguePublishersCsv))
         .then(function (c, b, ca, m, p) {
 
             var catalogue = $.csv.toObjects(c[0]);
@@ -24,7 +39,7 @@
             var publisherLookup = {};
             $.each(publishers, function (i, x) { publisherLookup[x.id] = x.publisher });
 
-            // For each row in the usage CSV, format the date, year, month and sessions
+            // For each row in the usage CSV, format all the fields required
             catalogue.forEach(function (d) {
                 d.dateAdded = monthLookup[d.monthAddedId];
                 d.date = parseDate(d.dateAdded);
@@ -33,13 +48,15 @@
                 d.month = d.date ? d.date.getMonth() : null;
                 d.branch = toTitleCase(branchLookup[d.branchId]);
                 d.category = toTitleCase(catLookup[d.categoryId]);
-                d.publisher = publisherLookup[d.publisherId];
+                d.publisher = toTitleCase(publisherLookup[d.publisherId]);
                 d.count = +d.count;
+                d.issues = +d.issues;
+                d.renewals = +d.renewals;
                 d.price = +d.price;
             });
 
             // Function: removeEmpty
-            // 
+            // Removes from the chart where the value is not zero
             var removeEmpty = function (group) {
                 return {
                     all: function () {
@@ -50,6 +67,20 @@
                 };
             };
 
+            // Function:
+            // 
+            var removeOther = function (group) {
+                return {
+                    all: function () {
+                        return group.all().filter(function (d) {
+                            return (d.key != 'Other' && d.key != 'Unknown');
+                        });
+                    }
+                };
+            };
+
+            // Function: 
+            // 
             var removeEmptyCost = function (group) {
                 return {
                     all: function () {
@@ -59,28 +90,92 @@
                     }
                 };
             };
-            
+
             var reduceInitial = function () { return { count: 0, total: 0 } };
 
             var catalogueNdx = crossfilter(catalogue);
             var catalogueDateDim = catalogueNdx.dimension(function (d) { return d.date; });
             var itemsTotal = removeEmpty(catalogueDateDim.group().reduceSum(function (d) { return d['count'] }));
             var priceTotal = removeEmptyCost(catalogueDateDim.group().reduceSum(function (d) { return d['price'] }));
+            var issuesTotal = removeEmpty(catalogueDateDim.group().reduceSum(function (d) { return d['issues'] }));
+            var renewalsTotal = removeEmpty(catalogueDateDim.group().reduceSum(function (d) { return d['renewals'] }));
 
-            // Min and max date values - used in the line chart.
-            var minDate = catalogueDateDim.bottom(1)[0].date;
-            var maxDate = catalogueDateDim.top(1)[0].date;
+            ////////////////////////////////////////////////////////////////
+            // Chart: Issues Number Display
+            ////////////////////////////////////////////////////////////////
+            var itemsNumberDisplay = dc.numberDisplay('#cht-number-items');
+            var itemsNumGroup = catalogueNdx.groupAll().reduceSum(function (d) { return d['count']; });
+            itemsNumberDisplay
+                .valueAccessor(function (d) {
+                    return d;
+                })
+                .html({
+                    one: '<small>items</small><br/><span class="lead strong">%number</span>',
+                    some: '<small>items</small><br/><span class="lead strong">%number</span>',
+                    none: '<small>items</small><br/><span class="lead strong">None</span>'
+                })
+                .group(itemsNumGroup);
 
+            ////////////////////////////////////////////////////////////////
+            // Chart: Issues Number Display
+            ////////////////////////////////////////////////////////////////
+            var issuesNumberDisplay = dc.numberDisplay('#cht-number-issues');
+            var issuesNumGroup = catalogueNdx.groupAll().reduceSum(function (d) { return d['issues']; });
+            issuesNumberDisplay
+                .valueAccessor(function (d) {
+                    return d;
+                })
+                .html({
+                    one: '<small>issues</small><br/><span class="lead strong">%number</span>',
+                    some: '<small>issues</small><br/><span class="lead strong">%number</span>',
+                    none: '<small>issues</small><br/><span class="lead strong">None</span>'
+                })
+                .group(issuesNumGroup);
+
+            ////////////////////////////////////////////////////////////////
+            // Chart: Renewals Number Display
+            ////////////////////////////////////////////////////////////////
+            var renewalsNumberDisplay = dc.numberDisplay('#cht-number-renewals');
+            var renewalsNumGroup = catalogueNdx.groupAll().reduceSum(function (d) { return d['renewals']; });
+            renewalsNumberDisplay
+                .valueAccessor(function (d) {
+                    return d;
+                })
+                .html({
+                    one: '<small>renewals</small><br/><span class="lead strong">%number</span>',
+                    some: '<small>renewals</small><br/><span class="lead strong">%number</span>',
+                    none: '<small>renewals</small><br/><span class="lead strong">None</span>'
+                })
+                .group(renewalsNumGroup);
+
+            ////////////////////////////////////////////////////////////////
+            // Chart: Cost Number Display
+            ////////////////////////////////////////////////////////////////
+            var costNumberDisplay = dc.numberDisplay('#cht-number-cost');
+            var costNumGroup = catalogueNdx.groupAll().reduceSum(function (d) { return d['price']; });
+            costNumberDisplay
+                .valueAccessor(function (d) {
+                    return d;
+                })
+                .html({
+                    one: '<small>cost</small><br/><span class="lead strong">£%number</span>',
+                    some: '<small>cost</small><br/><span class="lead strong">£%number</span>',
+                    none: '<small>cost</small><br/><span class="lead strong">£None</span>'
+                })
+                .group(costNumGroup);
 
             ////////////////////////////////////////////////////////////////
             // Chart: Catalogue Line Chart
             ////////////////////////////////////////////////////////////////
+            var minDate = catalogueDateDim.bottom(1)[0].date;
+            var maxDate = catalogueDateDim.top(1)[0].date;
+
             var catalogueLineChart = dc.compositeChart("#cht-catalogue");
             catalogueLineChart
                 .width(document.getElementById('div-catalogue').offsetWidth)
                 .height(250)
                 .dimension(catalogueDateDim)
-                .margins({ top: 40, right: 0, bottom: 20, left: 60 })
+                .margins({ top: 40, right: 60, bottom: 20, left: 60 })
                 .mouseZoomable(false)
                 .shareTitle(false)
                 .round(d3.time.month.round)
@@ -92,17 +187,27 @@
                 .compose([
                     dc.lineChart(catalogueLineChart)
                         .group(itemsTotal, 'Added')
-                        .ordinalColors([config.colours[0]]),
+                        .ordinalColors([config.colours[0]])
+                        .useRightYAxis(true),
                     dc.lineChart(catalogueLineChart)
-                        .group(priceTotal, 'Cost')
+                        .group(issuesTotal, 'Issues')
                         .title(function (d) {
                             var value = d.value.avg ? d.value.avg : d.value;
                             if (isNaN(value)) value = 0;
                             return dateFormat(d.key) + "\n" + numberFormat(value);
                         })
-                        .ordinalColors([config.colours[1]])
+                        .ordinalColors([config.colours[1]]),
+                    dc.lineChart(catalogueLineChart)
+                        .group(renewalsTotal, 'Renewals')
+                        .title(function (d) {
+                            var value = d.value.avg ? d.value.avg : d.value;
+                            if (isNaN(value)) value = 0;
+                            return dateFormat(d.key) + "\n" + numberFormat(value);
+                        })
+                        .ordinalColors([config.colours[2]])
                 ])
-                .yAxisLabel("Items and cost");
+                .yAxisLabel("Issues and Renewals")
+                .rightYAxisLabel('Items added');
 
             // There seems to be a bug with composite charts.
             catalogueLineChart._brushing = function () {
@@ -131,11 +236,11 @@
             ////////////////////////////////////////////////////////////////
             var catalogueCategoryChart = dc.barChart("#cht-catalogue-category");
             var catalogueCategoryDim = catalogueNdx.dimension(function (d) { return d.category; });
-            var catalogueCategoryTotal = catalogueCategoryDim.group().reduceSum(function (d) { return d['count'] });
+            var catalogueCategoryTotal = removeOther(catalogueCategoryDim.group().reduceSum(function (d) { return d['count'] }));
             catalogueCategoryChart
                 .width(document.getElementById('div-catalogue-category').offsetWidth)
                 .height(300)
-                .margins({ top: 5, right: 0, bottom: 125, left: 60 })
+                .margins({ top: 5, right: 0, bottom: 110, left: 60 })
                 .group(catalogueCategoryTotal)
                 .dimension(catalogueCategoryDim)
                 .elasticY(true)
@@ -144,18 +249,19 @@
                 .brushOn(false)
                 .x(d3.scale.ordinal())
                 .renderHorizontalGridLines(true)
+                .yAxisLabel('Items')
                 .xAxis().tickFormat(function (d) { return d; });
 
-            catalogueCategoryChart.renderlet(function (chart) {
+            catalogueCategoryChart.on('renderlet', function (chart) {
                 chart.selectAll("g.axis.x g.tick text").attr('transform', "translate(-13, 7) rotate(270)");
             });
 
-            $('#resetChartCatalogueCategory').on('click', function () {
+            $('#reset-chart-category').on('click', function (e) {
+                e.preventDefault();
                 catalogueRowBranchChart.filterAll();
                 dc.redrawAll();
                 return false;
             });
-
 
             ////////////////////////////////////////////////////////////////
             // Chart: Filter by Month (Row Chart)
@@ -175,11 +281,11 @@
                 .dimension(catalogueMonthDim)
                 .elasticX(true);
 
-            catalogueMonthBarChart.renderlet(function (chart) {
+            catalogueMonthBarChart.on('renderlet', function (chart) {
                 chart.selectAll("g.axis g.tick text").attr('transform', "translate(-10, 20) rotate(270)");
             });
 
-            $('#resetChartCatalogueMonth').on('click', function (e) {
+            $('#reset-chart-month').on('click', function (e) {
                 e.preventDefault();
                 catalogueMonthBarChart.filterAll();
                 dc.redrawAll();
@@ -195,7 +301,7 @@
 
             catalogueDayBarChart
                 .width(document.getElementById('div-catalogue-day').offsetWidth)
-                .height(300)
+                .height(250)
                 .label(function (d) {
                     return daysFull[d.key];
                 })
@@ -204,11 +310,11 @@
                 .dimension(catalogueDayDim)
                 .elasticX(true);
 
-            catalogueDayBarChart.renderlet(function (chart) {
+            catalogueDayBarChart.on('renderlet', function (chart) {
                 chart.selectAll("g.axis g.tick text").attr('transform', "translate(-10, 20) rotate(270)");
             });
 
-            $('#resetChartCatalogueDay').on('click', function (e) {
+            $('#reset-chart-day').on('click', function (e) {
                 e.preventDefault();
                 catalogueDayBarChart.filterAll();
                 dc.redrawAll();
@@ -220,11 +326,11 @@
             ////////////////////////////////////////////////////////////////
             var cataloguePublisherChart = dc.barChart("#cht-catalogue-publisher");
             var cataloguePublisherDim = catalogueNdx.dimension(function (d) { return d.publisher; });
-            var cataloguePublisherTotal = cataloguePublisherDim.group().reduceSum(function (d) { return d['count'] });
+            var cataloguePublisherTotal = removeOther(cataloguePublisherDim.group().reduceSum(function (d) { return d['count'] }));
             cataloguePublisherChart
                 .width(document.getElementById('div-catalogue-publisher').offsetWidth)
-                .height(300)
-                .margins({ top: 5, right: 0, bottom: 125, left: 60 })
+                .height(250)
+                .margins({ top: 5, right: 0, bottom: 60, left: 60 })
                 .group(cataloguePublisherTotal)
                 .dimension(cataloguePublisherDim)
                 .elasticY(true)
@@ -233,13 +339,15 @@
                 .brushOn(false)
                 .x(d3.scale.ordinal())
                 .renderHorizontalGridLines(true)
+                .yAxisLabel('Items')
                 .xAxis().tickFormat(function (d) { return d; });
 
-            cataloguePublisherChart.renderlet(function (chart) {
+            cataloguePublisherChart.on('renderlet', function (chart) {
                 chart.selectAll("g.axis.x g.tick text").attr('transform', "translate(-13, 7) rotate(270)");
             });
 
-            $('#resetChartCataloguePublisher').on('click', function () {
+            $('#reset-chart-publisher').on('click', function (e) {
+                e.preventDefault();
                 catalogueRowBranchChart.filterAll();
                 dc.redrawAll();
                 return false;
@@ -266,11 +374,11 @@
                 .renderHorizontalGridLines(true)
                 .xAxis().tickFormat(function (d) { return d; });
 
-            catalogueYearChart.renderlet(function (chart) {
+            catalogueYearChart.on('renderlet', function (chart) {
                 chart.selectAll("g.axis.x g.tick text").attr('transform', "translate(-13, 20) rotate(270)");
             });
 
-            $('#reset-chart-catalogue-year').on('click', function (e) {
+            $('#reset-chart-year').on('click', function (e) {
                 e.preventDefault();
                 catalogueYearChart.filterAll();
                 dc.redrawAll();
@@ -296,13 +404,15 @@
                 .brushOn(false)
                 .x(d3.scale.ordinal())
                 .renderHorizontalGridLines(true)
+                .yAxisLabel('Items')
                 .xAxis().tickFormat(function (d) { return d; });
 
-            catalogueRowBranchChart.renderlet(function (chart) {
+            catalogueRowBranchChart.on('renderlet', function (chart) {
                 chart.selectAll("g.axis.x g.tick text").attr('transform', "translate(-11, 10) rotate(270)");
             });
 
-            $('#resetChartCatalogueBranch').on('click', function () {
+            $('#reset-chart-branch').on('click', function (e) {
+                e.preventDefault();
                 catalogueRowBranchChart.filterAll();
                 dc.redrawAll();
                 return false;
@@ -311,17 +421,48 @@
             ////////////////////////////////////////////////////////////////
             // Table: Main data table
             ////////////////////////////////////////////////////////////////
+            var ofs = 0, pag = 10;
+
+            var displayCatalogueTable = function () {
+                d3.select('#begin').text(ofs);
+                d3.select('#end').text(ofs + pag - 1);
+                d3.select('#btn-previous').attr('disabled', ofs - pag < 0 ? 'true' : null);
+                d3.select('#btn-next').attr('disabled', ofs + pag >= catalogueNdx.size() ? 'true' : null);
+            }
+
+            var updateCatalogueTable = function () {
+                catalogueTable.beginSlice(ofs);
+                catalogueTable.endSlice(ofs + pag);
+                displayCatalogueTable();
+            };
+
+            var catalogueTableNext = function () {
+                ofs += pag;
+                updateCatalogueTable();
+                catalogueTable.redraw();
+            };
+            $('#div-cataloguetable-paging a#btn-next').on('click', function (e) { e.preventDefault(); catalogueTableNext(); });
+
+            var catalogueTableLast = function () {
+                ofs -= pag;
+                updateCatalogueTable();
+                catalogueTable.redraw();
+            };
+            $('#div-cataloguetable-paging a#btn-previous').on('click', function (e) { e.preventDefault(); catalogueTableLast(); });
+            
             var catalogueTable = dc.dataTable('#tbl-catalogue-detail');
             catalogueTable
                 .dimension(catalogueDateDim)
-                .group(function (d) { return d.year; })
+                .group(function (d) { return d.year || 'Unknown'; })
                 .columns([
                     { label: 'Branch', format: function (d) { return d.branch } },
-                    { label: 'Month added', format: function (d) { return monthsFull[d.month] } },
+                    { label: 'Month added', format: function (d) { return monthsFull[d.month] || 'Unknown' } },
                     { label: 'Category', format: function (d) { return d.category; } },
                     { label: 'Count', format: function (d) { return d.count; } },
-                    { label: 'Price', format: function (d) { return d.price; } }
+                    { label: 'Cost', format: function (d) { return '£' + d.price; } }
                 ]);
+
+            updateCatalogueTable();
 
             dc.renderAll();
 

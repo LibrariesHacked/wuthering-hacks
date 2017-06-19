@@ -276,7 +276,7 @@
                 });
 
             // Issues table
-            var usageTable = dc.dataTable('#tbl-usage')
+            var usageTable = dc.dataTable('#tbl-usage');
             var ofs = 0, pag = 10;
 
             var displayUsageTable = function () {

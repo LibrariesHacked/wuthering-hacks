@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>catalogue | newcastle</title>
+    <title>catalogue</title>
     <link href="bower_components/tether/dist/css/tether.min.css" rel="stylesheet" />
     <link href="bower_components/bootswatch/materia/bootstrap.min.css" rel="stylesheet" />
     <link href="bower_components/dcjs/dc.min.css" rel="stylesheet" />
     <link href="css/custom.css" rel="stylesheet" />
 </head>
-<body>
+<body class="grey">
     <div id="main" class="container main">
         <ul class="nav nav-pills">
             <li class="nav-item">
@@ -30,67 +30,86 @@
             </li>-->
         </ul>
         <hr />
-        <p class="lead"><a href="https://twitter.com/ToonLibraries" target="_blank" title="Toon libraries on Twitter">@ToonLibraries</a> are opening up their data, under a <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" title="Creative Common Licence Details">Creative Common Public Domain licence</a>. </p>
+        <p class="lead"><a href="https://twitter.com/ToonLibraries" target="_blank" title="Toon libraries on Twitter">@ToonLibraries</a> are opening up their data, under a <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>. </p>
         <p>Catalogue data is made up of Items and Title data files. Titles are the list of titles in the catalogue, including title, ISBN, author and publisher.  Items are individual items held, all of which have an associated Title record but also have a date added to catalogue, and number of issues and renewals.</p>
+        <div class="row">
+            <div class="col-3">
+                <div id="div-number-items">
+                    <div id="cht-number-items"></div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div id="div-number-issues">
+                    <div id="cht-number-issues"></div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div id="div-number-renewals">
+                    <div id="cht-number-renewals"></div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div id="div-number-cost">
+                    <div id="cht-number-cost"></div>
+                </div>
+            </div>
+        </div>
+        <hr />
         <div class="row">
             <div class="col-sm-12">
                 <div id="div-catalogue">
-                    <div id="cht-catalogue"><p><span class="reset" style="display: none">Range: <span class="filter"></span><a id="reset-chart-catalogue" href="#" class="btn btn-link">Reset</a></span></p></div>
+                    <div id="cht-catalogue"><p>Filter by date added to catalogue. <span class="reset" style="display: none">Range: <span class="filter"></span>  <a id="reset-chart-catalogue" href="#">Reset</a></span></p></div>
                 </div>
             </div>
         </div>
         <hr />
         <div class="row">
-            <div class="col-md-10 col-sm-12">
-                <p>Filter by item category.</p>
+            <div class="col-md-9 col-sm-12">
                 <div id="div-catalogue-category">
-                    <div id="cht-catalogue-category"></div>
+                    <div id="cht-catalogue-category"><p>Filter by item category (top 20 shown). <span class="reset" style="display: none">Range: <span class="filter"></span>  <a id="reset-chart-category" href="#">Reset</a></span></p></div>
                 </div>
             </div>
-            <div class="col-md-2 col-sm-12">
-                <p>Filter by month added to catalogue.</p>
+            <div class="col-md-3 col-sm-12">
                 <div id="div-catalogue-month">
-                    <div id="cht-catalogue-month"></div>
+                    <div id="cht-catalogue-month"><p>Filter by month added. <span class="reset" style="display: none">Range: <span class="filter"></span>  <a id="reset-chart-month" href="#">Reset</a></span></p></div>
                 </div>
             </div>
         </div>
         <hr />
         <div class="row">
-            <div class="col-md-2 col-sm-12">
-                <p>Filter by day added to catalogue.</p>
+            <div class="col-md-3 col-sm-12">
                 <div id="div-catalogue-day">
-                    <div id="cht-catalogue-day"></div>
+                    <div id="cht-catalogue-day"><p>Filter by day added. <span class="reset" style="display: none">Range: <span class="filter"></span> <a id="reset-chart-day" href="#">Reset</a></span></p></div>
                 </div>
             </div>
-            <div class="col-md-10 col-sm-12">
-                <p>Filter by top publishers.</p>
+            <div class="col-md-9 col-sm-12">
                 <div id="div-catalogue-publisher">
-                    <div id="cht-catalogue-publisher"></div>
+                    <div id="cht-catalogue-publisher"><p>Filter by publishers (top 20 shown). <span class="reset" style="display: none">Range: <span class="filter"></span> <a id="reset-chart-publisher" href="#">Reset</a></span></p></div>
                 </div>
             </div>
         </div>
         <hr />
         <div class="row">
             <div class="col-md-6 col-sm-12">
-                <p>Filter by year added to catalogue.</p>
                 <div id="div-catalogue-year">
-                    <div id="cht-catalogue-year"></div>
+                    <div id="cht-catalogue-year"><p>Filter by year added. <span class="reset" style="display: none">Range: <span class="filter"></span> <a id="reset-chart-year" href="#">Reset</a></span></p></div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
-                <p>Filter by item branch.</p>
                 <div id="div-catalogue-branch">
-                    <div id="cht-catalogue-branch"></div>
+                    <div id="cht-catalogue-branch"><p>Filter by item branch. <span class="reset" style="display: none">Range: <span class="filter"></span> <a id="reset-chart-branch" href="#">Reset</a></span></p></div>
                 </div>
             </div>
         </div>
         <hr />
         <div class="row">
             <div class="col-sm-12">
-                <p></p>
+                <div class="dc-data-count">
+                    <p><span class="filter-count"></span> selected out of <span class="total-count"></span> records.<br /></p>
+                </div>
                 <table id="tbl-catalogue-detail" class="table table-bordered"></table>
                 <div id="div-cataloguetable-paging">
-                    Showing <span id="begin"></span>-<span id="end"></span> of <span id="size"></span>.
+                    Showing <span id="begin"></span>-<span id="end"></span>.
                     <a id="btn-previous" class="btn btn-link" href="#">Previous</a>
                     <a id="btn-next" class="btn btn-link" href="#">Next</a>
                 </div>

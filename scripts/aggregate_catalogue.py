@@ -1,8 +1,8 @@
 ## This script takes the two CSV files, titles.csv and items.csv
 ## and aggregates them into a single file of counts of items.
-## Two lookup files to provide library names and item categories are also created.
+## Two lookup files to provide library names and item categories are also
+## created.
 ## Requires Python v3 and pandas (pip install pandas)
-
 import csv
 import os
 import re
@@ -28,20 +28,23 @@ def run():
     s = [(k, publishersobj[k]) for k in sorted(publishersobj, key=publishersobj.get, reverse=True)]
     for i, p in enumerate(s):
         publishers.append(p[0])
-        if i == 15:
+        if i == 22:
             break
+
     branches = []
     dates = []
     months = []
-    categories = []
+    categoriesobj = {}
     item_records = []
     itemreader = csv.DictReader(open(os.path.join(os.path.dirname(__file__), '..\\data\\items.csv'), 'r'), delimiter=',', quotechar='"', lineterminator='\n')
     for row in itemreader:
         if row['rcn'] != '' and row['rcn'] in cat_records:
             if row['name'] not in branches:
                 branches.append(row['name'])
-            if row['text'] not in categories:
-                categories.append(row['text'])
+            if row['text'] not in categoriesobj:
+               categoriesobj[row['text']] = 1
+            else:
+                categoriesobj[row['text']] = categoriesobj[row['text']] + 1
             if len(row['added']) == 0:
                 dateadded = ''
                 monthadded = ''
@@ -63,7 +66,20 @@ def run():
                 publishId = publishers.index(publisher)
             else:
                 publishId = publishers.index('Other')
-            item_records.append({ 'item': row['item'], 'rcn': row['rcn'], 'categoryId': categories.index(row['text']), 'branchId': branches.index(row['name']), 'publisherId': publishId, 'dayAdded': dayadded, 'dateAddedId': dates.index(dateadded), 'monthAddedId': months.index(monthadded), 'added': row['added'], 'issues': int(row['issues current branch']) + int(row['issues previous branch']), 'renewals': int(row['renewals current branch']) + int(row['renewals previous branch']), 'price': cat_records.get(row['rcn']).get('price'), 'count': 1 })
+            item_records.append({ 'item': row['item'], 'rcn': row['rcn'], 'category': row['text'], 'branchId': branches.index(row['name']), 'publisherId': publishId, 'dayAdded': dayadded, 'dateAddedId': dates.index(dateadded), 'monthAddedId': months.index(monthadded), 'added': row['added'], 'issues': int(row['issues current branch']) + int(row['issues previous branch']), 'renewals': int(row['renewals current branch']) + int(row['renewals previous branch']), 'price': cat_records.get(row['rcn']).get('price'), 'count': 1 })
+
+    categories = ['Other']
+    s = [(k, categoriesobj[k]) for k in sorted(categoriesobj, key=categoriesobj.get, reverse=True)]
+    for i, p in enumerate(s):
+        categories.append(p[0])
+        if i == 21:
+            break
+
+    for i in item_records:
+        if i['category'] in categories:
+            i['categoryId'] = categories.index(i['category'])
+        else:
+            i['categoryId'] = 0
 
     itemdata = pandas.DataFrame(item_records, index=None)
     publishersdata = pandas.DataFrame(publishers, index=None, columns=['publisher'])

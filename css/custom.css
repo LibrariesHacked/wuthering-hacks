@@ -61,7 +61,7 @@ div.circle {
     font-weight: 700;
 }
 
-#cht-usage-branch .x.axis text, #cht-catalogue-branch .x.axis text, #cht-catalogue-category .x.axis text {
+#cht-usage-branch .x.axis text, #cht-catalogue-branch .x.axis text, #cht-catalogue-category .x.axis text, #cht-catalogue-publisher .x.axis text {
     text-anchor: end !important;
 }
 
