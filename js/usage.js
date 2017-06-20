@@ -263,8 +263,9 @@
             usageBranchBarChart.renderlet(function (chart) {
                 chart.selectAll("g.x text").attr('transform', "translate(-13,10) rotate(270)");
             });
+            
 
-            // Totals count
+            // Issues table
             var dataCount = dc.dataCount('.dc-data-count');
             dataCount
                 .dimension(usageNdx)
@@ -275,7 +276,6 @@
                     all: 'All records selected. Please click on the graph to apply filters.<br/> &nbsp'
                 });
 
-            // Issues table
             var usageTable = dc.dataTable('#tbl-usage');
             var ofs = 0, pag = 10;
 

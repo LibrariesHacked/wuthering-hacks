@@ -8,6 +8,7 @@
     <link href="bower_components/tether/dist/css/tether.min.css" rel="stylesheet" />
     <link href="bower_components/bootswatch/materia/bootstrap.min.css" rel="stylesheet" />
     <link href="bower_components/dcjs/dc.min.css" rel="stylesheet" />
+    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="css/custom.css" rel="stylesheet" />
 </head>
 <body class="grey">
@@ -31,7 +32,7 @@
         </ul>
         <hr />
         <p class="lead"><a href="https://twitter.com/ToonLibraries" target="_blank" title="Toon libraries on Twitter">@ToonLibraries</a> are opening up their data, under a <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>. </p>
-        <p>Catalogue data is made up of Items and Title data files. Titles are the list of titles in the catalogue, including title, ISBN, author and publisher.  Items are individual items held, all of which have an associated Title record but also have a date added to catalogue, and number of issues and renewals.</p>
+        <p>Catalogue data is made up of Items and Title datasets. <strong>Titles</strong> are the list of titles in the catalogue, including title, ISBN, price, author and publisher.  <strong>Items</strong> are individual items held, all of which are linked to a Title record, but also have a date added to catalogue, library they're held at, and a count of issues and renewals.</p>
         <div class="row">
             <div class="col-3">
                 <div id="div-number-items">
@@ -55,6 +56,7 @@
             </div>
         </div>
         <hr />
+        <p class="lead" id="loader"><span class="fa fa-spinner fa-spin"></span> Loading...</p>
         <div class="row">
             <div class="col-sm-12">
                 <div id="div-catalogue">

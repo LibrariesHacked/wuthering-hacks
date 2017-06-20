@@ -20,7 +20,8 @@
     "dcjs": "2.0.0",
     "bootstrap": "v4.0.0-alpha.6",
     "bootswatch": "v4",
-    "dc-addons": "^0.13.5"
+    "dc-addons": "^0.13.5",
+    "font-awesome": "^4.7.0"
   },
   "resolutions": {
     "leaflet": "^1.0.3"

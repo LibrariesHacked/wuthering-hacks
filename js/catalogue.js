@@ -258,7 +258,7 @@
 
             $('#reset-chart-category').on('click', function (e) {
                 e.preventDefault();
-                catalogueRowBranchChart.filterAll();
+                catalogueCategoryChart.filterAll();
                 dc.redrawAll();
                 return false;
             });
@@ -348,7 +348,7 @@
 
             $('#reset-chart-publisher').on('click', function (e) {
                 e.preventDefault();
-                catalogueRowBranchChart.filterAll();
+                cataloguePublisherChart.filterAll();
                 dc.redrawAll();
                 return false;
             });
@@ -421,6 +421,16 @@
             ////////////////////////////////////////////////////////////////
             // Table: Main data table
             ////////////////////////////////////////////////////////////////
+            var dataCount = dc.dataCount('.dc-data-count');
+            dataCount
+                .dimension(catalogueNdx)
+                .group(catalogueNdx.groupAll())
+                .html({
+                    some: '<strong>%filter-count</strong> selected out of <strong>%total-count</strong> records' +
+                    ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>Reset All</a><br/> &nbsp',
+                    all: 'All records selected. Please click on the graph to apply filters.<br/> &nbsp'
+                });
+
             var ofs = 0, pag = 10;
 
             var displayCatalogueTable = function () {
@@ -449,11 +459,12 @@
                 catalogueTable.redraw();
             };
             $('#div-cataloguetable-paging a#btn-previous').on('click', function (e) { e.preventDefault(); catalogueTableLast(); });
-            
+
             var catalogueTable = dc.dataTable('#tbl-catalogue-detail');
             catalogueTable
                 .dimension(catalogueDateDim)
                 .group(function (d) { return d.year || 'Unknown'; })
+                .size(Infinity)
                 .columns([
                     { label: 'Branch', format: function (d) { return d.branch } },
                     { label: 'Month added', format: function (d) { return monthsFull[d.month] || 'Unknown' } },
@@ -466,15 +477,19 @@
 
             dc.renderAll();
 
+            $('#loader').hide();
+
             ////////////////////////////////////////////////////////////////
             // Event: Resize Window.
             ////////////////////////////////////////////////////////////////
             $(window).on('resize', function () {
                 catalogueLineChart.width(document.getElementById('div-catalogue').offsetWidth);
                 catalogueCategoryChart.width(document.getElementById('div-catalogue-category').offsetWidth);
+                catalogueMonthBarChart.width(document.getElementById('div-catalogue-month').offsetWidth);
+                catalogueDayBarChart.width(document.getElementById('div-catalogue-day').offsetWidth);
+                cataloguePublisherChart.width(document.getElementById('div-catalogue-publisher').offsetWidth);
                 catalogueYearChart.width(document.getElementById('div-catalogue-year').offsetWidth);
                 catalogueRowBranchChart.width(document.getElementById('div-catalogue-branch').offsetWidth);
-                catalogueMonthBarChart.width(document.getElementById('div-catalogue-month').offsetWidth);
                 dc.renderAll();
             });
         });
