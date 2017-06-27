@@ -31,13 +31,13 @@
             var publishers = $.csv.toObjects(p[0]);
 
             var branchLookup = {};
-            $.each(branches, function (i, x) { branchLookup[x.id] = x.branch });
+            $.each(branches, function (i, x) { branchLookup[x.id] = x.branch; });
             var catLookup = {};
-            $.each(categories, function (i, x) { catLookup[x.id] = x.category });
+            $.each(categories, function (i, x) { catLookup[x.id] = x.category; });
             var monthLookup = {};
-            $.each(months, function (i, x) { monthLookup[x.id] = x.month });
+            $.each(months, function (i, x) { monthLookup[x.id] = x.month; });
             var publisherLookup = {};
-            $.each(publishers, function (i, x) { publisherLookup[x.id] = x.publisher });
+            $.each(publishers, function (i, x) { publisherLookup[x.id] = x.publisher; });
 
             // For each row in the usage CSV, format all the fields required
             catalogue.forEach(function (d) {
@@ -61,7 +61,7 @@
                 return {
                     all: function () {
                         return group.all().filter(function (d) {
-                            return (d && d.key && d.value >= 1);
+                            return d && d.key && d.value >= 1;
                         });
                     }
                 };
@@ -73,7 +73,7 @@
                 return {
                     all: function () {
                         return group.all().filter(function (d) {
-                            return (d.key != 'Other' && d.key != 'Unknown');
+                            return d.key !== 'Other' && d.key !== 'Unknown';
                         });
                     }
                 };
@@ -91,14 +91,14 @@
                 };
             };
 
-            var reduceInitial = function () { return { count: 0, total: 0 } };
+            var reduceInitial = function () { return { count: 0, total: 0 }; };
 
             var catalogueNdx = crossfilter(catalogue);
             var catalogueDateDim = catalogueNdx.dimension(function (d) { return d.date; });
-            var itemsTotal = removeEmpty(catalogueDateDim.group().reduceSum(function (d) { return d['count'] }));
-            var priceTotal = removeEmptyCost(catalogueDateDim.group().reduceSum(function (d) { return d['price'] }));
-            var issuesTotal = removeEmpty(catalogueDateDim.group().reduceSum(function (d) { return d['issues'] }));
-            var renewalsTotal = removeEmpty(catalogueDateDim.group().reduceSum(function (d) { return d['renewals'] }));
+            var itemsTotal = removeEmpty(catalogueDateDim.group().reduceSum(function (d) { return d['count']; }));
+            var priceTotal = removeEmptyCost(catalogueDateDim.group().reduceSum(function (d) { return d['price']; }));
+            var issuesTotal = removeEmpty(catalogueDateDim.group().reduceSum(function (d) { return d['issues']; }));
+            var renewalsTotal = removeEmpty(catalogueDateDim.group().reduceSum(function (d) { return d['renewals']; }));
 
             ////////////////////////////////////////////////////////////////
             // Chart: Issues Number Display
@@ -236,7 +236,7 @@
             ////////////////////////////////////////////////////////////////
             var catalogueCategoryChart = dc.barChart("#cht-catalogue-category");
             var catalogueCategoryDim = catalogueNdx.dimension(function (d) { return d.category; });
-            var catalogueCategoryTotal = removeOther(catalogueCategoryDim.group().reduceSum(function (d) { return d['count'] }));
+            var catalogueCategoryTotal = removeOther(catalogueCategoryDim.group().reduceSum(function (d) { return d['count']; }));
             catalogueCategoryChart
                 .width(document.getElementById('div-catalogue-category').offsetWidth)
                 .height(300)
@@ -268,7 +268,7 @@
             ////////////////////////////////////////////////////////////////
             var catalogueMonthBarChart = dc.rowChart("#cht-catalogue-month");
             var catalogueMonthDim = catalogueNdx.dimension(function (d) { return d.month; });
-            var catalogueMonthTotal = catalogueMonthDim.group().reduceSum(function (d) { return d['count'] });
+            var catalogueMonthTotal = catalogueMonthDim.group().reduceSum(function (d) { return d['count']; });
 
             catalogueMonthBarChart
                 .width(document.getElementById('div-catalogue-month').offsetWidth)
@@ -297,7 +297,7 @@
             ////////////////////////////////////////////////////////////////
             var catalogueDayBarChart = dc.rowChart("#cht-catalogue-day");
             var catalogueDayDim = catalogueNdx.dimension(function (d) { return d.day; });
-            var catalogueDayTotal = catalogueDayDim.group().reduceSum(function (d) { return d['count'] });
+            var catalogueDayTotal = catalogueDayDim.group().reduceSum(function (d) { return d['count']; });
 
             catalogueDayBarChart
                 .width(document.getElementById('div-catalogue-day').offsetWidth)
@@ -326,7 +326,7 @@
             ////////////////////////////////////////////////////////////////
             var cataloguePublisherChart = dc.barChart("#cht-catalogue-publisher");
             var cataloguePublisherDim = catalogueNdx.dimension(function (d) { return d.publisher; });
-            var cataloguePublisherTotal = removeOther(cataloguePublisherDim.group().reduceSum(function (d) { return d['count'] }));
+            var cataloguePublisherTotal = removeOther(cataloguePublisherDim.group().reduceSum(function (d) { return d['count']; }));
             cataloguePublisherChart
                 .width(document.getElementById('div-catalogue-publisher').offsetWidth)
                 .height(250)
@@ -391,7 +391,7 @@
             ////////////////////////////////////////////////////////////////
             var catalogueRowBranchChart = dc.barChart("#cht-catalogue-branch");
             var catalogueBranchDim = catalogueNdx.dimension(function (d) { return d.branch; });
-            var catalogueBranchTotal = catalogueBranchDim.group().reduceSum(function (d) { return d['count'] });
+            var catalogueBranchTotal = catalogueBranchDim.group().reduceSum(function (d) { return d['count']; });
             catalogueRowBranchChart
                 .width(document.getElementById('div-catalogue-branch').offsetWidth)
                 .height(300)
@@ -438,7 +438,7 @@
                 d3.select('#end').text(ofs + pag - 1);
                 d3.select('#btn-previous').attr('disabled', ofs - pag < 0 ? 'true' : null);
                 d3.select('#btn-next').attr('disabled', ofs + pag >= catalogueNdx.size() ? 'true' : null);
-            }
+            };
 
             var updateCatalogueTable = function () {
                 catalogueTable.beginSlice(ofs);
@@ -466,8 +466,8 @@
                 .group(function (d) { return d.year || 'Unknown'; })
                 .size(Infinity)
                 .columns([
-                    { label: 'Branch', format: function (d) { return d.branch } },
-                    { label: 'Month added', format: function (d) { return monthsFull[d.month] || 'Unknown' } },
+                    { label: 'Branch', format: function (d) { return d.branch; } },
+                    { label: 'Month added', format: function (d) { return monthsFull[d.month] || 'Unknown'; } },
                     { label: 'Category', format: function (d) { return d.category; } },
                     { label: 'Count', format: function (d) { return d.count; } },
                     { label: 'Cost', format: function (d) { return '£' + d.price; } }

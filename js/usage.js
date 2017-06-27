@@ -29,8 +29,8 @@
                 return {
                     all: function () {
                         return group.all().filter(function (d) {
-                            if (d.value.count == 0) return false;
-                            return (d && d.value != 0);
+                            if (d.value.count === 0) return false;
+                            return d && d.value !== 0;
                         });
                     }
                 };
@@ -48,7 +48,7 @@
                 return p;
             };
 
-            var reduceInitial = function () { return { count: 0, total: 0 } };
+            var reduceInitial = function () { return { count: 0, total: 0 }; };
 
             var usageNdx = crossfilter(usage);
             var usageDateDim = usageNdx.dimension(function (d) { return d.date; });
@@ -212,7 +212,7 @@
             // Issues month bar chart
             var usageMonthRowChart = dc.rowChart("#cht-usage-month");
             var usageMonthDim = usageNdx.dimension(function (d) { return d.month; });
-            var usageMonthTotal = usageMonthDim.group().reduceSum(function (d) { return d['issues'] });
+            var usageMonthTotal = usageMonthDim.group().reduceSum(function (d) { return d['issues']; });
 
             usageMonthRowChart
                 .width(document.getElementById('div-usage-month').offsetWidth)
@@ -238,7 +238,7 @@
 
             var usageBranchBarChart = dc.barChart("#cht-usage-branch");
             var usageBranchDim = usageNdx.dimension(function (d) { return d.Library; });
-            var usageBranchTotal = usageBranchDim.group().reduceSum(function (d) { return d['issues'] });
+            var usageBranchTotal = usageBranchDim.group().reduceSum(function (d) { return d['issues']; });
             usageBranchBarChart
                 .width($('#div-usage-branch').width())
                 .height(250)
@@ -284,7 +284,7 @@
                 d3.select('#end').text(ofs + pag - 1);
                 d3.select('#btn-previous').attr('disabled', ofs - pag < 0 ? 'true' : null);
                 d3.select('#btn-next').attr('disabled', ofs + pag >= usageNdx.size() ? 'true' : null);
-            }
+            };
 
             var updateUsageTable = function () {
                 usageTable.beginSlice(ofs);
@@ -311,8 +311,8 @@
                 .group(function (d) { return d.year; })
                 .size(Infinity)
                 .columns([
-                    { label: 'Name', format: function (d) { return d.Library } },
-                    { label: 'Month', format: function (d) { return monthsFull[d.month] } },
+                    { label: 'Name', format: function (d) { return d.Library; } },
+                    { label: 'Month', format: function (d) { return monthsFull[d.month]; } },
                     { label: 'Issues', format: function (d) { return d.issues; } },
                     { label: 'Visits', format: function (d) { return d.visits; } },
                     { label: 'Enquiries', format: function (d) { return d.enquiries; } },

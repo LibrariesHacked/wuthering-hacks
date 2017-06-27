@@ -11,12 +11,9 @@
     <link href="bower_components/dcjs/dc.min.css" rel="stylesheet" />
     <link href="css/custom.css" rel="stylesheet" />
 </head>
-<body>
+<body class="grey">
     <div id="main" class="container main">
-        <h1>Newcastle Libraries open data</h1>
-        <p>Blurb</p>
-        <hr />
-        <ul class="nav nav-tabs main-nav">
+        <ul class="nav nav-pills">
             <li class="nav-item">
                 <a class="nav-link" href="/">Usage</a>
             </li>
@@ -26,15 +23,86 @@
             <li class="nav-item">
                 <a class="nav-link active" href="/members">Members</a>
             </li>
-            <li class="nav-item">
+            <!--<li class="nav-item">
                 <a class="nav-link" href="/libraries">Libraries</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/utilities">Utilities</a>
-            </li>
+            </li>-->
         </ul>
-        <br />
         <hr />
+        <p class="lead"><a href="https://twitter.com/ToonLibraries" target="_blank" title="Toon libraries on Twitter">@ToonLibraries</a> are opening up their data, under a <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>. </p>
+        <p>Member data lists each current library member, including their <strong>postcode district</strong> (e.g. NE1), the <strong>library</strong> they are registered at, the <strong>date added</strong> to represent the date they joined, as well as <strong>time added</strong> for the time they joined.  A <strong>last used date</strong> and <strong>last used time</strong> also show the date and time of the last activity by the user.</p>
+        <div class="row">
+            <div class="col-3">
+                <div id="div-number-members">
+                    <div id="cht-number-members"></div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div id="div-number-members-3months">
+                    <div id="cht-number-members-3months"></div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div id="div-number-members-6months">
+                    <div id="cht-number-members-6months"></div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div id="div-number-members-9months">
+                    <div id="cht-number-members-9months"></div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-12">
+                <div id="div-members-date">
+                    <div id="cht-members-date"><p>Filter by added date.  <span class="reset"><span class="filter"></span> | <a id="reset-members-date" href="#">Reset</a></span></p></div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-sm-6">
+                <div id="div-members-map">
+                    <div id="map"><p>Filter by member postcode district.  <span class="reset"><span class="filter"></span> | <a id="reset-members-postcodedistrict" href="#">Reset</a></span></p></div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div id="div-members-branch">
+                    <div id="cht-members-branch"></div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-sm-6">
+                <div id="div-members-hourjoined">
+                    <div id="cht-members-hourjoined"></div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div id="div-members-dayjoined">
+                    <div id="cht-members-dayjoined"></div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-sm-6">
+                <div id="div-members-monthjoined">
+                    <div id="cht-members-monthjoined"></div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div id="div-members-yearjoined">
+                    <div id="cht-members-yearjoined"></div>
+                </div>
+            </div>
+        </div>
+        <hr/>
         <p>An open source project available on <a href="https://github.com/LibrariesHacked/wuthering-hacks" target="_blank">GitHub</a></p>
     </div>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -44,8 +112,10 @@
     <script src="bower_components/d3/d3.min.js"></script>
     <script src="bower_components/crossfilter2/crossfilter.min.js"></script>
     <script src="bower_components/dcjs/dc.min.js"></script>
+    <script src="bower_components/dc.leaflet/dc.leaflet.js"></script>
     <script src="bower_components/jquery-csv/src/jquery.csv.min.js"></script>
+    <script src="bower_components/colorbrewer/colorbrewer.js"></script>
     <script src="js/config.js"></script>
-    <script src="js/utilities.js"></script>
+    <script src="js/members.js"></script>
 </body>
 </html>
