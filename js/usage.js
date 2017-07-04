@@ -191,7 +191,7 @@
 
             usageYearChart
                 .width(document.getElementById('div-usage-year').offsetWidth)
-                .height(250)
+                .height(300)
                 .margins({ top: 5, right: 0, bottom: 40, left: 5 })
                 .group(usageYearTotal)
                 .dimension(usageYearDim)

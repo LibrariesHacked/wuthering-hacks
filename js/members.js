@@ -46,7 +46,6 @@
                 };
             };
 
-
             var membersNdx = crossfilter(members);
             var membersDateDim = membersNdx.dimension(function (d) { return d.dateaddedmonth; });
             var membersTotal = membersDateDim.group().reduceCount(function (d) { return 1; });
@@ -110,13 +109,15 @@
             });
 
             var postcodesChoro = dc_leaflet.choroplethChart('#map')
+                //.mapOptions({})
+                .center([55, -1.62])
+                .zoom(7)
+                .brushOn(true) 
+                .geojson(p)
+                //.featureStyle()
+                .renderPopup(false)
                 .dimension(postcodedimension)
                 .group(postcodetotal)
-                .width($('#div-members-map').width())
-                .height($('#div-members-map').height())
-                .center([55, -1.62])
-                .zoom(11)
-                .geojson(p)
                 .colors(colorbrewer.OrRd[7])
                 .colorDomain([
                     d3.min(postcodetotal.all(), dc.pluck('value')),
@@ -125,54 +126,53 @@
                 .colorAccessor(function (d, i) {
                     return d.value;
                 })
-                .featureOptions({
-                    'fillColor': 'black',
-                    'color': 'gray',
-                    'opacity': 0.4,
-                    'fillOpacity': 0.6,
-                    'weight': 1
-                })
-                .colorCalculator(function (d) {
-                    if (d.value == 0) {
-                        return "#FFF";
-                    } else {
-                        return d.Color
-                    };
+                .featureOptions(function (feature) {
+                    return {
+                        weight: 1,
+                        color: '#ccc',
+                        opacity: 1,
+                        fillOpacity: 0.3,
+                        visible: true
+                    }
                 })
                 .featureKeyAccessor(function (feature) {
                     return feature.properties.postdist;
-                })
-                .renderPopup(true)
-                .popup(function (d, feature) {
-                    return feature.properties.postdist + " : " + d.value;
-                })
-                .legend(dc_leaflet.legend().position('bottomright'));
+                });
+            postcodesChoro.on("preRender", function (chart) {
+                chart.colorDomain(d3.extent(chart.data(), chart.valueAccessor()));
+            });
+            postcodesChoro.on("preRedraw", function (chart) {
+                chart.colorDomain(d3.extent(chart.data(), chart.valueAccessor()));
+            });
 
-            // Graph 3: Branch bar
-            var memberBranchBarChart = dc.barChart("#cht-members-branch");
+            // Graph 3: Branch Row Chart
+
+            var removeZBranches = function (group) {
+                return {
+                    all: function () {
+                        return group.all().filter(function (d) {
+                            if (d.key.indexOf('Z') === 0) return false;
+                            return d && d.value !== 0;
+                        });
+                    }
+                };
+            };
+
+            var memberBranchRowChart = dc.rowChart("#cht-members-branch");
             var memberBranchDim = membersNdx.dimension(function (d) { return d.library; });
             var memberBranchTotal = memberBranchDim.group().reduceCount(function (d) { return 1; });
-            memberBranchBarChart
+            memberBranchRowChart
                 .width($('#div-members-branch').width())
-                .height(300)
-                .margins({ top: 5, right: 0, bottom: 80, left: 60 })
-                .group(memberBranchTotal)
+                .height(350)
+                .group(removeZBranches(memberBranchTotal))
                 .dimension(memberBranchDim)
-                .elasticY(true)
-                .elasticX(true)
-                .xUnits(dc.units.ordinal)
-                .brushOn(false)
-                .x(d3.scale.ordinal())
-                .yAxisLabel('Members')
-                .renderHorizontalGridLines(true);
+                .margins({ top: 5, right: 0, bottom: 20, left: 5 })
+                .elasticX(true);
             $('#reset-chart-branch').on('click', function (e) {
                 e.preventDefault();
-                memberBranchBarChart.filterAll();
+                memberBranchRowChart.filterAll();
                 dc.redrawAll();
                 return false;
-            });
-            memberBranchBarChart.on('renderlet', function (chart) {
-                chart.selectAll("g.x text").attr('transform', "translate(-13,10) rotate(270)");
             });
 
             // Graph 4: Hour Joined
@@ -225,11 +225,14 @@
 
             dc.renderAll();
 
+
             // Bit of a hack.  Search through the layer list and remove the tile layer
             postcodesChoro.map().eachLayer(function (l) {
                 if (l instanceof L.TileLayer) postcodesChoro.map().removeLayer(l);
             });
             // Add the Mapbox tile layer
             postcodesChoro.map().addLayer(mapboxtiles);
+
+            $('#loader').hide();
         });
 });
