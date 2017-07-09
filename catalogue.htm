@@ -13,6 +13,7 @@
 </head>
 <body class="grey">
     <div id="main" class="container main">
+        <p class="lead"><a href="https://twitter.com/ToonLibraries" target="_blank" title="Newcastle Libraries on Twitter" class="strong">@ToonLibraries</a> release open data under a <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>. </p>
         <ul class="nav nav-pills">
             <li class="nav-item">
                 <a class="nav-link" href="/">Usage</a>
@@ -31,8 +32,8 @@
             </li>-->
         </ul>
         <hr />
-        <p class="lead"><a href="https://twitter.com/ToonLibraries" target="_blank" title="Toon libraries on Twitter">@ToonLibraries</a> are opening up their data, under a <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>. </p>
         <p>Catalogue data is made up of Items and Title datasets. <strong>Titles</strong> are the list of titles in the catalogue, including title, ISBN, price, author and publisher.  <strong>Items</strong> are individual items held, all of which are linked to a Title record, but also have a date added to catalogue, library they're held at, and a count of issues and renewals.</p>
+        <p class="lead" id="loader"><span class="fa fa-spinner fa-spin"></span> Loading...</p>
         <div class="row">
             <div class="col-3">
                 <div id="div-number-items">
@@ -56,7 +57,6 @@
             </div>
         </div>
         <hr />
-        <p class="lead" id="loader"><span class="fa fa-spinner fa-spin"></span> Loading...</p>
         <div class="row">
             <div class="col-sm-12">
                 <div id="div-catalogue">

@@ -208,7 +208,6 @@
                 ])
                 .yAxisLabel("Issues and Renewals")
                 .rightYAxisLabel('Items added');
-
             // There seems to be a bug with composite charts.
             catalogueLineChart._brushing = function () {
                 var extent = catalogueLineChart.extendBrush();
@@ -223,7 +222,6 @@
                     catalogueLineChart.redrawGroup();
                 }, dc.constants.EVENT_DELAY);
             };
-
             $('#reset-chart-catalogue').on('click', function (e) {
                 e.preventDefault();
                 catalogueLineChart.filterAll();
@@ -251,7 +249,6 @@
                 .renderHorizontalGridLines(true)
                 .yAxisLabel('Items')
                 .xAxis().tickFormat(function (d) { return d; });
-
             catalogueCategoryChart.on('renderlet', function (chart) {
                 chart.selectAll("g.axis.x g.tick text").attr('transform', "translate(-13, 7) rotate(270)");
             });
@@ -280,11 +277,9 @@
                 .group(catalogueMonthTotal)
                 .dimension(catalogueMonthDim)
                 .elasticX(true);
-
             catalogueMonthBarChart.on('renderlet', function (chart) {
                 chart.selectAll("g.axis g.tick text").attr('transform', "translate(-10, 20) rotate(270)");
             });
-
             $('#reset-chart-month').on('click', function (e) {
                 e.preventDefault();
                 catalogueMonthBarChart.filterAll();
@@ -309,11 +304,9 @@
                 .group(catalogueDayTotal)
                 .dimension(catalogueDayDim)
                 .elasticX(true);
-
             catalogueDayBarChart.on('renderlet', function (chart) {
                 chart.selectAll("g.axis g.tick text").attr('transform', "translate(-10, 20) rotate(270)");
             });
-
             $('#reset-chart-day').on('click', function (e) {
                 e.preventDefault();
                 catalogueDayBarChart.filterAll();
@@ -341,11 +334,9 @@
                 .renderHorizontalGridLines(true)
                 .yAxisLabel('Items')
                 .xAxis().tickFormat(function (d) { return d; });
-
             cataloguePublisherChart.on('renderlet', function (chart) {
                 chart.selectAll("g.axis.x g.tick text").attr('transform', "translate(-13, 7) rotate(270)");
             });
-
             $('#reset-chart-publisher').on('click', function (e) {
                 e.preventDefault();
                 cataloguePublisherChart.filterAll();
@@ -373,18 +364,15 @@
                 .x(d3.scale.ordinal())
                 .renderHorizontalGridLines(true)
                 .xAxis().tickFormat(function (d) { return d; });
-
             catalogueYearChart.on('renderlet', function (chart) {
                 chart.selectAll("g.axis.x g.tick text").attr('transform', "translate(-13, 20) rotate(270)");
             });
-
             $('#reset-chart-year').on('click', function (e) {
                 e.preventDefault();
                 catalogueYearChart.filterAll();
                 dc.redrawAll();
                 return false;
             });
-
 
             ////////////////////////////////////////////////////////////////
             // Chart: Filter by Branch (Bar Chart)
@@ -406,11 +394,9 @@
                 .renderHorizontalGridLines(true)
                 .yAxisLabel('Items')
                 .xAxis().tickFormat(function (d) { return d; });
-
             catalogueRowBranchChart.on('renderlet', function (chart) {
                 chart.selectAll("g.axis.x g.tick text").attr('transform', "translate(-11, 10) rotate(270)");
             });
-
             $('#reset-chart-branch').on('click', function (e) {
                 e.preventDefault();
                 catalogueRowBranchChart.filterAll();
@@ -475,6 +461,7 @@
 
             updateCatalogueTable();
 
+            // Startup: Render all the charts
             dc.renderAll();
 
             $('#loader').hide();

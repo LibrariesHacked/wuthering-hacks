@@ -9,10 +9,12 @@
     <link href="bower_components/bootswatch/materia/bootstrap.min.css" rel="stylesheet" />
     <link href="bower_components/leaflet/dist/leaflet.css" rel="stylesheet" />
     <link href="bower_components/dcjs/dc.min.css" rel="stylesheet" />
+    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="css/custom.css" rel="stylesheet" />
 </head>
 <body class="grey">
     <div id="main" class="container main">
+        <p class="lead"><a href="https://twitter.com/ToonLibraries" target="_blank" title="Newcastle Libraries on Twitter" class="strong">@ToonLibraries</a> release open data under a <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>. </p>
         <ul class="nav nav-pills">
             <li class="nav-item">
                 <a class="nav-link" href="/">Usage</a>
@@ -31,27 +33,21 @@
             </li>-->
         </ul>
         <hr />
-        <p class="lead"><a href="https://twitter.com/ToonLibraries" target="_blank" title="Toon libraries on Twitter">@ToonLibraries</a> are opening up their data, under a <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>. </p>
-        <p>Member data lists each current library member, including their <strong>postcode district</strong> (e.g. NE1), the <strong>library</strong> they are registered at, the <strong>date added</strong> to represent the date they joined, as well as <strong>time added</strong> for the time they joined.  A <strong>last used date</strong> and <strong>last used time</strong> also show the date and time of the last activity by the user.</p>
+        <p>Member data lists current library membership, including a <strong>postcode district</strong> (e.g. NE1), the <strong>library</strong> they are registered at, the <strong>date added</strong> to represent the date they joined, as well as <strong>time added</strong> for the time they joined.</p>
         <div class="row">
-            <div class="col-3">
+            <div class="col-4">
                 <div id="div-number-members">
                     <div id="cht-number-members"></div>
                 </div>
             </div>
-            <div class="col-3">
-                <div id="div-number-members-3months">
-                    <div id="cht-number-members-3months"></div>
+            <div class="col-4">
+                <div id="div-number-branches">
+                    <div id="cht-number-branches"></div>
                 </div>
             </div>
-            <div class="col-3">
-                <div id="div-number-members-6months">
-                    <div id="cht-number-members-6months"></div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div id="div-number-members-9months">
-                    <div id="cht-number-members-9months"></div>
+            <div class="col-4">
+                <div id="div-number-postcodedistricts">
+                    <div id="cht-number-postcodedistricts"></div>
                 </div>
             </div>
         </div>
@@ -60,7 +56,7 @@
         <div class="row">
             <div class="col-12">
                 <div id="div-members-date">
-                    <div id="cht-members-date"><p>Filter by added date.  <span class="reset"><span class="filter"></span> | <a id="reset-members-date" href="#">Reset</a></span></p></div>
+                    <div id="cht-members-date"><p>Filter by added date.  <span class="reset" style="display: none"><span class="filter"></span> | <a id="reset-members-date" href="#">Reset</a></span></p></div>
                 </div>
             </div>
         </div>
@@ -68,12 +64,12 @@
         <div class="row">
             <div class="col-sm-9">
                 <div id="div-members-map">
-                    <div id="map"><p>Filter by member postcode district.  <span class="reset"><span class="filter"></span> | <a id="reset-members-postcodedistrict" href="#">Reset</a></span></p></div>
+                    <div id="map"><p>Filter by member postcode district.  <span class="reset" style="display: none"><span class="filter"></span> | <a id="reset-members-postcodedistrict" href="#">Reset</a></span></p></div>
                 </div>
             </div>
             <div class="col-sm-3">
                 <div id="div-members-branch">
-                    <div id="cht-members-branch"><p>Filter by member branch.  <span class="reset"><span class="filter"></span> | <a id="reset-members-branch" href="#">Reset</a></span></p></div>
+                    <div id="cht-members-branch"><p>Filter by member branch.  <span class="reset" style="display: none"><span class="filter"></span> | <a id="reset-members-branch" href="#">Reset</a></span></p></div>
                 </div>
             </div>
         </div>
@@ -81,12 +77,12 @@
         <div class="row">
             <div class="col-sm-6">
                 <div id="div-members-hourjoined">
-                    <div id="cht-members-hourjoined"></div>
+                    <div id="cht-members-hourjoined"><p>Filter by hour joined.  <span class="reset" style="display: none"><span class="filter"></span> | <a id="reset-members-hourjoined" href="#">Reset</a></span></p></div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div id="div-members-dayjoined">
-                    <div id="cht-members-dayjoined"></div>
+                    <div id="cht-members-dayjoined"><p>Filter by day joined.  <span class="reset" style="display: none"><span class="filter"></span> | <a id="reset-members-dayjoined" href="#">Reset</a></span></p></div>
                 </div>
             </div>
         </div>

@@ -35,7 +35,6 @@
                     }
                 };
             };
-
             var reduceAdd = function (p, v) {
                 ++p.count;
                 p.total += +v.sessions;
@@ -191,7 +190,7 @@
 
             usageYearChart
                 .width(document.getElementById('div-usage-year').offsetWidth)
-                .height(300)
+                .height(250)
                 .margins({ top: 5, right: 0, bottom: 40, left: 5 })
                 .group(usageYearTotal)
                 .dimension(usageYearDim)
@@ -321,18 +320,18 @@
 
             updateUsageTable();
 
+            // Startup: Render all the charts
             dc.renderAll();
 
-            $(window).on('resize', function () {
-                var newUsageLineWidth = document.getElementById('div-usage').offsetWidth - 40;
-                var newUsageYearChartWidth = document.getElementById('div-usage-year').offsetWidth;
-                var newUsageMonthChartWidth = document.getElementById('div-usage-month').offsetWidth;
-                var newUsageBranchChartWidth = document.getElementById('div-usage-branch').offsetWidth;
+            // Hide the loading spinner
+            $('#loader').hide();
 
-                usageLineChart.width(newUsageLineWidth).transitionDuration(0);
-                usageYearChart.width(newUsageYearChartWidth).transitionDuration(0);
-                usageBranchBarChart.width(newUsageBranchChartWidth).transitionDuration(0);
-                usageMonthRowChart.width(newUsageMonthChartWidth).transitionDuration(0);
+            // Event: Resize Window.  Resize all the charts based on their new container widths.
+            $(window).on('resize', function () {
+                usageLineChart.width(document.getElementById('div-usage').offsetWidth);
+                usageYearChart.width(document.getElementById('div-usage-year').offsetWidth);
+                usageBranchBarChart.width(document.getElementById('div-usage-branch').offsetWidth);
+                usageMonthRowChart.width(document.getElementById('div-usage-month').offsetWidth);
                 dc.renderAll();
             });
         });

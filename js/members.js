@@ -32,9 +32,8 @@
                 //m.lastusedday = m['Last Used Date'] ? dayFormat(m.lastused) : 0;
                 //m.lastusedhour = m['Last Used Date'] ? hourFormat(m.lastused) : 0;
             });
-
+ 
             // Function: removeEmpty
-
             var removeEmpty = function (group) {
                 return {
                     all: function () {
@@ -50,7 +49,7 @@
             var membersDateDim = membersNdx.dimension(function (d) { return d.dateaddedmonth; });
             var membersTotal = membersDateDim.group().reduceCount(function (d) { return 1; });
 
-
+            // Number Display 1: Number of members
             var membersNumberDisplay = dc.numberDisplay('#cht-number-members');
             var membersNumGroup = membersNdx.groupAll().reduceCount(function (d) { return 1; });
             membersNumberDisplay
@@ -64,19 +63,54 @@
                 })
                 .group(membersNumGroup);
 
+            // Number Display 2: Number of branches
+            var branchesNumberDisplay = dc.numberDisplay('#cht-number-branches');
+            var branchesNumDimension = membersNdx.dimension(function (d) {
+                return d.library;
+            });
+            var branchesGroup = branchesNumDimension.group();
+            branchesNumberDisplay
+                .valueAccessor(function (d) {
+                    return d;
+                })
+                .html({
+                    one: '<small>branches</small><br/><span class="lead strong">%number</span>',
+                    some: '<small>branches</small><br/><span class="lead strong">%number</span>',
+                    none: '<small>branches</small><br/><span class="lead strong">None</span>'
+                });
 
+            branchesNumberDisplay.group({
+                value: function () {
+                    return branchesGroup.all().filter(function (kv) {
+                        return kv.value > 0;
+                    }).length;
+                }
+            });
+            branchesNumberDisplay.dimension(branchesGroup);
 
-
-
-
-
-
-
-
-
-
-
-
+            // Number Display 3: Number of postcode districts
+            var postcodedistrictsNumberDisplay = dc.numberDisplay('#cht-number-postcodedistricts');
+            var postcodedistrictsNumDimension = membersNdx.dimension(function (d) {
+                return d.postcodedistrict;
+            });
+            var postcodedistrictsGroup = postcodedistrictsNumDimension.group();
+            postcodedistrictsNumberDisplay
+                .valueAccessor(function (d) {
+                    return d;
+                })
+                .html({
+                    one: '<small>postcode districts</small><br/><span class="lead strong">%number</span>',
+                    some: '<small>postcode districts</small><br/><span class="lead strong">%number</span>',
+                    none: '<small>postcode districts</small><br/><span class="lead strong">None</span>'
+                });
+            postcodedistrictsNumberDisplay.group({
+                value: function () {
+                    return postcodedistrictsGroup.all().filter(function (kv) {
+                        return kv.value > 0;
+                    }).length;
+                }
+            });
+            postcodedistrictsNumberDisplay.dimension(branchesGroup);
 
             // Graph 1: Timeline
             var minDate = membersDateDim.bottom(1)[0].dateadded;
@@ -85,7 +119,7 @@
             var membersLineChart = dc.lineChart('#cht-members-date');
             membersLineChart
                 .width($('#div-members-date').width())
-                .height(250)
+                .height(200)
                 .dimension(membersDateDim)
                 .group(membersTotal)
                 .margins({ top: 40, right: 60, bottom: 30, left: 60 })
@@ -94,8 +128,13 @@
                 .renderHorizontalGridLines(true)
                 .x(d3.time.scale().domain([minDate, maxDate]))
                 .xAxisLabel('Month')
-                .yAxisLabel('Members Added');
-
+                .yAxisLabel('Members joined');
+            $('#reset-members-date').on('click', function (e) {
+                e.preventDefault();
+                membersLineChart.filterAll();
+                dc.redrawAll();
+                return false;
+            });
 
             // Graph 2: Map
             var postcodedimension = membersNdx.dimension(function (d) { return d.postcodedistrict; });
@@ -105,16 +144,15 @@
                 attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>.  Geolytix postcode polygons.',
                 maxZoom: 18,
                 id: 'mapbox.light',
-                accessToken: 'pk.eyJ1IjoibGlicmFyaWVzaGFja2VkIiwiYSI6IlctaDdxSm8ifQ.bxf1OpyYLiriHsZN33TD2A'
+                accessToken: config.mapToken
             });
 
             var postcodesChoro = dc_leaflet.choroplethChart('#map')
-                //.mapOptions({})
                 .center([55, -1.62])
-                .zoom(7)
+                .zoom(11)
+                .width($('#div-members-map').width())
                 .brushOn(true) 
                 .geojson(p)
-                //.featureStyle()
                 .renderPopup(false)
                 .dimension(postcodedimension)
                 .group(postcodetotal)
@@ -144,9 +182,14 @@
             postcodesChoro.on("preRedraw", function (chart) {
                 chart.colorDomain(d3.extent(chart.data(), chart.valueAccessor()));
             });
+            $('#reset-members-postcodedistrict').on('click', function (e) {
+                e.preventDefault();
+                postcodesChoro.filterAll();
+                dc.redrawAll();
+                return false;
+            });
 
             // Graph 3: Branch Row Chart
-
             var removeZBranches = function (group) {
                 return {
                     all: function () {
@@ -157,7 +200,6 @@
                     }
                 };
             };
-
             var memberBranchRowChart = dc.rowChart("#cht-members-branch");
             var memberBranchDim = membersNdx.dimension(function (d) { return d.library; });
             var memberBranchTotal = memberBranchDim.group().reduceCount(function (d) { return 1; });
@@ -174,6 +216,12 @@
                 dc.redrawAll();
                 return false;
             });
+            $('#reset-members-branch').on('click', function (e) {
+                e.preventDefault();
+                memberBranchRowChart.filterAll();
+                dc.redrawAll();
+                return false;
+            });
 
             // Graph 4: Hour Joined
             var membersHourJoinedBarChart = dc.barChart("#cht-members-hourjoined");
@@ -181,7 +229,7 @@
             var membersHourJoinedTotal = membersHourJoinedDim.group().reduceCount(function (d) { return 1; });
             membersHourJoinedBarChart
                 .width($('#div-members-hourjoined').width())
-                .height(250)
+                .height(200)
                 .margins({ top: 5, right: 0, bottom: 20, left: 60 })
                 .group(membersHourJoinedTotal)
                 .dimension(membersHourJoinedDim)
@@ -190,33 +238,51 @@
                 .xUnits(dc.units.ordinal)
                 .brushOn(false)
                 .x(d3.scale.ordinal())
-                .yAxisLabel('Members')
-                .renderHorizontalGridLines(true);
+                .yAxisLabel('Members joined')
+                .renderHorizontalGridLines(true)
+                .xAxis().tickFormat(function (d) { return d; });
             $('#reset-chart-hourjoined').on('click', function (e) {
                 e.preventDefault();
                 membersHourJoinedBarChart.filterAll();
                 dc.redrawAll();
                 return false;
             });
+            $('#reset-members-hourjoined').on('click', function (e) {
+                e.preventDefault();
+                membersHourJoinedBarChart.filterAll();
+                dc.redrawAll();
+                return false;
+            });
 
-            // Graph 5: Hour Joined
+            // Graph 5: Day Joined
             var membersDayJoinedBarChart = dc.barChart("#cht-members-dayjoined");
             var membersDayJoinedDim = membersNdx.dimension(function (d) { return d.dayAdded; });
             var membersDayJoinedTotal = membersDayJoinedDim.group().reduceCount(function (d) { return 1; });
             membersDayJoinedBarChart
                 .width($('#div-members-dayjoined').width())
-                .height(250)
+                .height(200)
                 .margins({ top: 5, right: 0, bottom: 20, left: 60 })
                 .group(membersDayJoinedTotal)
                 .dimension(membersDayJoinedDim)
+                .label(function (d) {
+                    return d.y;
+                })
                 .elasticY(true)
                 .elasticX(true)
                 .xUnits(dc.units.ordinal)
                 .brushOn(false)
                 .x(d3.scale.ordinal())
-                .yAxisLabel('Members')
-                .renderHorizontalGridLines(true);
+                .yAxisLabel('Members joined')
+                .renderHorizontalGridLines(true)
+                .xAxis().tickFormat(function (d) { return daysFull[d]; });
             $('#reset-chart-dayjoined').on('click', function (e) {
+                e.preventDefault();
+                membersDayJoinedBarChart.filterAll();
+                dc.redrawAll();
+                return false;
+            });
+            membersDayJoinedBarChart.yAxisPadding(20);
+            $('#reset-members-dayjoined').on('click', function (e) {
                 e.preventDefault();
                 membersDayJoinedBarChart.filterAll();
                 dc.redrawAll();
@@ -225,7 +291,6 @@
 
             dc.renderAll();
 
-
             // Bit of a hack.  Search through the layer list and remove the tile layer
             postcodesChoro.map().eachLayer(function (l) {
                 if (l instanceof L.TileLayer) postcodesChoro.map().removeLayer(l);
@@ -233,6 +298,7 @@
             // Add the Mapbox tile layer
             postcodesChoro.map().addLayer(mapboxtiles);
 
+            // Hide the loading spinner
             $('#loader').hide();
         });
 });

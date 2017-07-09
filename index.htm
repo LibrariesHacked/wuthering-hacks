@@ -8,10 +8,12 @@
     <link href="bower_components/tether/dist/css/tether.min.css" rel="stylesheet" />
     <link href="bower_components/bootswatch/materia/bootstrap.min.css" rel="stylesheet" />
     <link href="bower_components/dcjs/dc.min.css" rel="stylesheet" />
+    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="css/custom.css" rel="stylesheet" />
 </head>
 <body class="grey">
     <div id="main" class="container main">
+        <p class="lead"><a href="https://twitter.com/ToonLibraries" target="_blank" title="Newcastle Libraries on Twitter" class="strong">@ToonLibraries</a> release open data under a <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>. </p>
         <ul class="nav nav-pills">
             <li class="nav-item">
                 <a class="nav-link active" href="/">Usage</a>
@@ -30,7 +32,6 @@
             </li>-->
         </ul>
         <hr />
-        <p class="lead"><a href="https://twitter.com/ToonLibraries" target="_blank" title="Toon libraries on Twitter">@ToonLibraries</a> are opening up their data, under a <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>. </p>
         <p>Usage data is detailed by month and branch since 2008.  <strong>Issues</strong> are monthly counts of items being lent from the catalogue.  <strong>Visits</strong> are the count of people entering a library.  <strong>Enquiries</strong> are any question asked of library staff by a member of the public.  <strong>PC utilisation</strong> is a percentage of the total available time computers can be booked.</p>
         <div class="row">
             <div class="col-3">
@@ -55,10 +56,11 @@
             </div>
         </div>
         <hr />
+        <p class="lead" id="loader"><span class="fa fa-spinner fa-spin"></span> Loading...</p>
         <div class="row">
             <div class="col-12">
                 <div id="div-usage">
-                    <div id="cht-usage"><p>Filter by activity date.  <span class="reset"><span class="filter"></span> <a id="reset-chart-usage" href="#">Reset</a></span></p></div>
+                    <div id="cht-usage"><p>Filter by activity date <span class="reset"><span class="filter"></span> | <a id="reset-chart-usage" href="#">Reset</a></span></p></div>
                 </div>
             </div>
         </div>
@@ -66,17 +68,17 @@
         <div class="row">
             <div class="col-md-3 col-sm-12">
                 <div id="div-usage-year">
-                    <div id="cht-usage-year"><p>Filter by year. <span class="reset"><span class="filter"></span> <a id="reset-chart-year" href="#">Reset</a></span></p></div>
+                    <div id="cht-usage-year"><p>Filter by year <span class="reset" style="display: none"><span class="filter"></span> | <a id="reset-chart-year" href="#">Reset</a></span></p></div>
                 </div>
             </div>
             <div class="col-md-3 col-sm-12">
                 <div id="div-usage-month">
-                    <div id="cht-usage-month"><p>Filter by month. <span class="reset"><span class="filter"></span> <a id="reset-chart-month" href="#">Reset</a></span></p></div>
+                    <div id="cht-usage-month"><p>Filter by month <span class="reset" style="display: none"><span class="filter"></span> | <a id="reset-chart-month" href="#">Reset</a></span></p></div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div id="div-usage-branch">
-                    <div id="cht-usage-branch"><p>Filter by branch. <span class="reset"><span class="filter"></span> <a id="reset-chart-branch" href="#">Reset</a></span></p></div>
+                    <div id="cht-usage-branch"><p>Filter by branch <span class="reset" style="display: none"><span class="filter"></span> | <a id="reset-chart-branch" href="#">Reset</a></span></p></div>
                 </div>
             </div>
         </div>
