@@ -1,122 +1,121 @@
-﻿#main {
+﻿/* Page setup */
+
+#main {
     padding-top: 30px;
 }
 
-.grey {
-    background-color: #F2F4F8;
+/* Tables */
+
+.dc-table-head {
+    font-weight: 700;
+    font-size: 1.2em;
 }
 
-#div-members-map #map > div {
-    height: 300px;
-    border: 1px #ccc solid;
+/* Text */
+
+.big {
+    font-weight: 700;
+    font-size: 2.1em;
 }
 
 .strong {
     font-weight: 700;
 }
 
-.card {
-    margin-bottom: 20px;
+/* Custom colours */
+
+.grey {
+    background-color: #F2F4F8;
 }
 
-.card-title {
-    font-weight: 700;
+.colour1 {
+    color: #36A2EB;
 }
 
-.circle {
-    background-color: #3182BD;
-    border-color: #ffffff;
-    border-radius: 5px;
-    border-style: solid;
-    border-width: 1px;
-    width: 10px;
-    height: 10px;
+.colour2 {
+    color: #FF9F40;
+}
+
+.colour3 {
+    color: #4BC0C0;
+}
+
+.colour4 {
+    color: #FF6384;
+}
+
+.colour5 {
+    color: #9966FF;
+}
+
+/* Components */
+
+.navbar {
+    box-shadow: none;
+}
+
+.stat-bar {
+    background-color: #F2F4F8;
+    border: 1px #EAEBEF solid;
+    padding: 10px;
+}
+
+/* Map */
+
+#div-members-map #map > div {
+    height: 300px;
+    border: 1px #EAEBEF solid;
 }
 
 /* Chart style customisations */
+
 .dc-chart .axis path, .dc-chart .axis line {
-    stroke: #ccc !important;
+    stroke: #EAEBEF !important;
 }
 
+.dc-chart .row rect, .dc-chart .stack rect {
+    stroke-width: 0 !important;
+    stroke-opacity: 0.8 !important;
+    fill-opacity: 0.7 !important;
+}
+
+    .dc-chart .row rect.deselected, .dc-chart .stack rect.deselected {
+        stroke-width: 0 !important;
+        stroke: #EAEBEF !important;
+        fill-opacity: 0.2 !important;
+    }
+
 .dc-chart text {
-    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
-    fill: #636c72 !important;
+    font-family: "Roboto", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     text-rendering: optimizeLegibility !important;
 }
-    .dc-chart .y-axis-label, .dc-chart .x-axis-label {
-        font-size: 14px !important;
-    }
+
+.dc-chart .y-axis-label, .dc-chart .x-axis-label {
+    font-size: 12px !important;
+    fill: #808080 !important;
+}
 
 .dc-chart .axis text {
     font-size: 10px !important;
+    fill: #808080 !important;
 }
-
-.dc-chart .selected path, .dc-chart .selected circle {
-    stroke-width: 2 !important;
-    stroke: #ccc;
-    fill-opacity: 1;
-}
-
-.dc-table-head {
-    color: #808080;
-    font-weight: 700;
-}
-
-#cht-usage-branch .x.axis text, 
-#cht-catalogue-branch .x.axis text, 
-#cht-catalogue-category .x.axis text, 
-#cht-catalogue-publisher .x.axis text, 
-#cht-members-branch .x.axis text {
-    text-anchor: end !important;
-}
-
 
 .dc-chart .dc-symbol, .dc-legend g.dc-legend-item.fadeout {
     fill-opacity: 0.5;
     stroke-opacity: 0.5;
 }
 
-.dc-chart rect.bar {
-    stroke: none;
-    cursor: pointer;
-}
-
-    .dc-chart rect.bar:hover {
-        fill-opacity: .5;
-    }
-
-.dc-chart rect.deselected {
-    stroke: none;
-    fill: #ccc;
-}
-
-.dc-chart .pie-slice {
-    fill: #fff;
-    font-size: 12px;
-    cursor: pointer;
-}
-
-    .dc-chart .pie-slice.external {
-        fill: #000;
-    }
-
-    .dc-chart .pie-slice :hover, .dc-chart .pie-slice.highlight {
-        fill-opacity: .8;
-    }
-
-.dc-chart .pie-path {
+.dc-chart path.line {
     fill: none;
-    stroke-width: 2px;
-    stroke: #000;
-    opacity: 0.4;
+    stroke-width: 1px !important;
 }
 
-
-
-.dc-chart .deselected path, .dc-chart .deselected circle {
-    stroke: none;
-    fill-opacity: .5;
-    fill: #ccc;
+#cht-usage-branch .x.axis text,
+#cht-catalogue-branch .x.axis text,
+#cht-catalogue-category .x.axis text,
+#cht-catalogue-publisher .x.axis text,
+#cht-members-branch .x.axis text {
+    text-anchor: end !important;
 }
 
 
@@ -144,10 +143,7 @@
     stroke: #666;
 }
 
-.dc-chart path.line {
-    fill: none;
-    stroke-width: 1.5px;
-}
+
 
 .dc-chart path.area {
     fill-opacity: .3;

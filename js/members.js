@@ -9,7 +9,9 @@
     var dayFormat = d3.time.format("%d");
     var monthParse = d3.time.format("%B %Y").parse;
 
-    // Load in the data
+    ////////////////////////////////////////////
+    // LOAD DATA
+    ////////////////////////////////////////////
     $.when($.ajax(config.membersCsv), $.ajax(config.postcodesGeoJson))
         .then(function (m, p) {
 
@@ -28,11 +30,8 @@
                 m.library = toTitleCase(m['Library Registered At']);
                 m.postcodedistrict = m['Postcode'];
                 m.postcodearea = m['Postcode'].replace(/\d/g, '');
-                //m.lastused = m['Last Used Date'] ? parseDate(m['Last Used Date'] + ' ' + m['Last Used Time']) : 0;
-                //m.lastusedday = m['Last Used Date'] ? dayFormat(m.lastused) : 0;
-                //m.lastusedhour = m['Last Used Date'] ? hourFormat(m.lastused) : 0;
             });
- 
+
             // Function: removeEmpty
             var removeEmpty = function (group) {
                 return {
@@ -49,7 +48,9 @@
             var membersDateDim = membersNdx.dimension(function (d) { return d.dateaddedmonth; });
             var membersTotal = membersDateDim.group().reduceCount(function (d) { return 1; });
 
+            /////////////////////////////////////////
             // Number Display 1: Number of members
+            /////////////////////////////////////////
             var membersNumberDisplay = dc.numberDisplay('#cht-number-members');
             var membersNumGroup = membersNdx.groupAll().reduceCount(function (d) { return 1; });
             membersNumberDisplay
@@ -57,13 +58,15 @@
                     return d;
                 })
                 .html({
-                    one: '<small>members</small><br/><span class="lead strong">%number</span>',
-                    some: '<small>members</small><br/><span class="lead strong">%number</span>',
-                    none: '<small>members</small><br/><span class="lead strong">None</span>'
+                    one: '<small>Members</small><br/><span class="big strong colour1">%number</span>',
+                    some: '<small>Members</small><br/><span class="big strong colour1">%number</span>',
+                    none: '<small>Members</small><br/><span class="big strong colour1">None</span>'
                 })
                 .group(membersNumGroup);
 
-            // Number Display 2: Number of branches
+            /////////////////////////////////////////
+            // Number Display 2: Number of libraries
+            /////////////////////////////////////////
             var branchesNumberDisplay = dc.numberDisplay('#cht-number-branches');
             var branchesNumDimension = membersNdx.dimension(function (d) {
                 return d.library;
@@ -74,9 +77,9 @@
                     return d;
                 })
                 .html({
-                    one: '<small>branches</small><br/><span class="lead strong">%number</span>',
-                    some: '<small>branches</small><br/><span class="lead strong">%number</span>',
-                    none: '<small>branches</small><br/><span class="lead strong">None</span>'
+                    one: '<small>Libraries</small><br/><span class="big strong colour2">%number</span>',
+                    some: '<small>Libraries</small><br/><span class="big strong colour2">%number</span>',
+                    none: '<small>Libraries</small><br/><span class="big strong colour2">None</span>'
                 });
 
             branchesNumberDisplay.group({
@@ -88,7 +91,9 @@
             });
             branchesNumberDisplay.dimension(branchesGroup);
 
+            /////////////////////////////////////////////////////
             // Number Display 3: Number of postcode districts
+            /////////////////////////////////////////////////////
             var postcodedistrictsNumberDisplay = dc.numberDisplay('#cht-number-postcodedistricts');
             var postcodedistrictsNumDimension = membersNdx.dimension(function (d) {
                 return d.postcodedistrict;
@@ -99,9 +104,9 @@
                     return d;
                 })
                 .html({
-                    one: '<small>postcode districts</small><br/><span class="lead strong">%number</span>',
-                    some: '<small>postcode districts</small><br/><span class="lead strong">%number</span>',
-                    none: '<small>postcode districts</small><br/><span class="lead strong">None</span>'
+                    one: '<small>Postcode districts</small><br/><span class="big strong colour3">%number</span>',
+                    some: '<small>Postcode districts</small><br/><span class="big strong colour3">%number</span>',
+                    none: '<small>Postcode districts</small><br/><span class="big strong colour3">None</span>'
                 });
             postcodedistrictsNumberDisplay.group({
                 value: function () {
@@ -112,17 +117,50 @@
             });
             postcodedistrictsNumberDisplay.dimension(branchesGroup);
 
-            // Graph 1: Timeline
+            ///////////////////////////////////////////////////
+            // Number Display 4: Joining time
+            ///////////////////////////////////////////////////
+            var popularJoiningNumberDisplay = dc.numberDisplay('#cht-number-popularjoining');
+            var joiningNumDimension = membersNdx.dimension(function (d) {
+                return d.dayAdded;
+            });
+            var joiningGroup = joiningNumDimension.group();
+            popularJoiningNumberDisplay
+                .valueAccessor(function (d) {
+                    return d;
+                })
+                .formatNumber(function (d) {
+                    return daysFull[d];
+                })
+                .html({
+                    none: '<small>Popular joining day</small><br/><span class="big strong colour4">%number</span>',
+                    one: '<small>Popular joining day</small><br/><span class="big strong colour4">%number</span>',
+                    some: '<small>Popular joining day</small><br/><span class="big strong colour4">%number</span>'
+                });
+
+            popularJoiningNumberDisplay.group({
+                value: function () {
+                    return joiningGroup.all().filter(function (kv) {
+                        return kv.value > 0;
+                    }).sort(function (a, b) { return b.value - a.value })[0].key;
+                }
+            });
+            popularJoiningNumberDisplay.dimension(joiningGroup);
+
+            ///////////////////////////////////////////////
+            // Line Chart: Timeline
+            ///////////////////////////////////////////////
             var minDate = membersDateDim.bottom(1)[0].dateadded;
             var maxDate = membersDateDim.top(1)[0].dateadded;
-
+ 
             var membersLineChart = dc.lineChart('#cht-members-date');
             membersLineChart
                 .width($('#div-members-date').width())
                 .height(200)
                 .dimension(membersDateDim)
                 .group(membersTotal)
-                .margins({ top: 40, right: 60, bottom: 30, left: 60 })
+                .colors(config.colours[0])
+                .margins({ top: 5, right: 60, bottom: 30, left: 60 })
                 .elasticX(true)
                 .elasticY(true)
                 .renderHorizontalGridLines(true)
@@ -151,7 +189,7 @@
                 .center([55, -1.62])
                 .zoom(11)
                 .width($('#div-members-map').width())
-                .brushOn(true) 
+                .brushOn(true)
                 .geojson(p)
                 .renderPopup(false)
                 .dimension(postcodedimension)

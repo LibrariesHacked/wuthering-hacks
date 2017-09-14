@@ -3,3 +3,4 @@ website.publishproj
 bower_components
 .vscode/launch.json
 .vscode/settings.json
+node_modules

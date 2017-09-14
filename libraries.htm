@@ -4,45 +4,55 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>libraries</title>
-    <link href="bower_components/tether/dist/css/tether.min.css" rel="stylesheet" />
-    <link href="bower_components/bootswatch/materia/bootstrap.min.css" rel="stylesheet" />
-    <link href="bower_components/leaflet/dist/leaflet.css" rel="stylesheet" />
-    <link href="bower_components/dcjs/dc.min.css" rel="stylesheet" />
+    <title>libraries | toonlibraries</title>
+    <link href="node_modules/tether/dist/css/tether.min.css" rel="stylesheet" />
+    <link href="node_modules/bootswatch/materia/bootstrap.min.css" rel="stylesheet" />
+    <link href="node_modules/dc/dc.min.css" rel="stylesheet" />
+    <link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="css/custom.css" rel="stylesheet" />
 </head>
 <body>
+    <nav class="navbar navbar-toggleable-md navbar-light">
+        <div class="container">
+            <button class="navbar-toggler navbar-toggler-right" aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <span class="navbar-brand strong text-muted" href="/"><span class="fa fa-cube colour4"></span> toonlibraries</span>
+            <div class="collapse navbar-collapse" id="navbar" aria-expanded="false">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">usage</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/catalogue">catalogue</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/members">members</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link active" href="/libraries">libraries <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/toptitles">top titles</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div id="main" class="container main">
-        <ul class="nav nav-tabs main-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="/">Usage</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/catalogue">Catalogue</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/members">Members</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="/libraries">Libraries</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/utilities">Utilities</a>
-            </li>
-        </ul>
         <br />
         <hr />
-        <p>An open source project available on <a href="https://github.com/LibrariesHacked/wuthering-hacks" target="_blank">GitHub</a></p>
+        <p>An open source project available on <a href="https://github.com/LibrariesHacked/wuthering-hacks" target="_blank">GitHub</a>.  <a href="https://twitter.com/ToonLibraries" target="_blank" title="Newcastle Libraries on Twitter">@ToonLibraries</a> release open data under a <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>.</p>
     </div>
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/tether/dist/js/tether.min.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="bower_components/leaflet/dist/leaflet.js"></script>
-    <script src="bower_components/d3/d3.min.js"></script>
-    <script src="bower_components/crossfilter2/crossfilter.min.js"></script>
-    <script src="bower_components/dcjs/dc.min.js"></script>
-    <script src="bower_components/jquery-csv/src/jquery.csv.min.js"></script>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/tether/dist/js/tether.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="node_modules/leaflet/dist/leaflet.js"></script>
+    <script src="node_modules/d3/d3.min.js"></script>
+    <script src="node_modules/crossfilter2/crossfilter.min.js"></script>
+    <script src="node_modules/dc/dc.min.js"></script>
+    <script src="node_modules/jquery-csv/src/jquery.csv.min.js"></script>
     <script src="js/config.js"></script>
-    <script src="js/utilities.js"></script>
+    <script src="js/libraries.js"></script>
 </body>
 </html>

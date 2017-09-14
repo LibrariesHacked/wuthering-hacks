@@ -6,11 +6,10 @@
     var parseDate = d3.time.format("%Y-%m").parse;
 
     // Load in all the CSVs
-    $.when($.ajax(config.usagecsv), $.ajax(config.librariescsv))
-        .then(function (u, l) {
+    $.when($.ajax(config.usagecsv))
+        .then(function (u) {
 
-            var usage = $.csv.toObjects(u[0]);
-            var libs = $.csv.toObjects(l[0]);
+            var usage = $.csv.toObjects(u);
 
             // For each row in the usage CSV, format the date, year, month and sessions
             usage.forEach(function (d) {
@@ -35,18 +34,22 @@
                     }
                 };
             };
+            // Function: reduceAdd
+            // 
             var reduceAdd = function (p, v) {
                 ++p.count;
                 p.total += +v.sessions;
                 return p;
             };
-
+            // Function: reduceRemove
+            // 
             var reduceRemove = function (p, v) {
                 --p.count;
                 p.total -= +v.sessions;
                 return p;
             };
-
+            // Function: reduceInitial
+            // 
             var reduceInitial = function () { return { count: 0, total: 0 }; };
 
             var usageNdx = crossfilter(usage);
@@ -57,6 +60,9 @@
             var visitsTotal = removeEmpty(usageDateDim.group().reduceSum(function (d) { return d['visits']; }));
             var sessionsTotal = removeEmpty(usageDateDim.group().reduce(reduceAdd, reduceRemove, reduceInitial));
 
+            /////////////////////////////////
+            // Number display: Issues
+            /////////////////////////////////
             var issuesNumberDisplay = dc.numberDisplay('#cht-number-issues');
             var issuesNumGroup = usageNdx.groupAll().reduceSum(function (d) { return d['issues']; });
             issuesNumberDisplay
@@ -64,12 +70,15 @@
                     return d;
                 })
                 .html({
-                    one: '<small>issues</small><br/><span class="lead strong">%number</span>',
-                    some: '<small>issues</small><br/><span class="lead strong">%number</span>',
-                    none: '<small>issues</small><br/><span class="lead strong">None</span>'
+                    one: '<small>Issues</small><br/><span class="big strong colour1">%number</span>',
+                    some: '<small>Issues</small><br/><span class="big strong colour1">%number</span>',
+                    none: '<small>Issues</small><br/><span class="big strong colour1">None</span>'
                 })
                 .group(issuesNumGroup);
 
+            /////////////////////////////////
+            // Number display: Visits
+            /////////////////////////////////
             var visitsNumberDisplay = dc.numberDisplay('#cht-number-visits');
             var visitsNumGroup = usageNdx.groupAll().reduceSum(function (d) { return d['visits']; });
             visitsNumberDisplay
@@ -77,12 +86,15 @@
                     return d;
                 })
                 .html({
-                    one: '<small>visits</small><br/><span class="lead strong">%number</span>',
-                    some: '<small>visits</small><br/><span class="lead strong">%number</span>',
-                    none: '<small>visits</small><br/><span class="lead strong">None</span>'
+                    one: '<small>Visits</small><br/><span class="big strong colour2">%number</span>',
+                    some: '<small>Visits</small><br/><span class="big strong colour2">%number</span>',
+                    none: '<small>Visits</small><br/><span class="big strong colour2">None</span>'
                 })
                 .group(visitsNumGroup);
 
+            /////////////////////////////////
+            // Number display: Enquiries
+            /////////////////////////////////
             var enquiriesNumberDisplay = dc.numberDisplay('#cht-number-enquiries');
             var enquiriesNumGroup = usageNdx.groupAll().reduceSum(function (d) { return d['enquiries']; });
             enquiriesNumberDisplay
@@ -90,12 +102,15 @@
                     return d;
                 })
                 .html({
-                    one: '<small>enquiries</small><br/><span class="lead strong">%number</span>',
-                    some: '<small>enquiries</small><br/><span class="lead strong">%number</span>',
-                    none: '<small>enquiries</small><br/><span class="lead strong">None</span>'
+                    one: '<small>Enquiries</small><br/><span class="big strong colour3">%number</span>',
+                    some: '<small>Enquiries</small><br/><span class="big strong colour3">%number</span>',
+                    none: '<small>Enquiries</small><br/><span class="big strong colour3">None</span>'
                 })
                 .group(enquiriesNumGroup);
 
+            /////////////////////////////////
+            // Number display: PC Utilisation
+            /////////////////////////////////
             var pcNumberDisplay = dc.numberDisplay('#cht-number-pc');
             var pcNumGroup = usageNdx.groupAll().reduce(reduceAdd, reduceRemove, reduceInitial);
             pcNumberDisplay
@@ -103,55 +118,64 @@
                     return ((d.total / d.count)).toFixed(1);
                 })
                 .html({
-                    one: '<small>PC utilisation</small><br/><span class="lead strong">%number%</span>',
-                    some: '<small>PC utilisation</small><br/><span class="lead strong">%number%</span>',
-                    none: '<small>PC utilisation</small><br/><span class="lead strong">None</span>'
+                    one: '<small>PC utilisation</small><br/><span class="big strong colour4">%number%</span>',
+                    some: '<small>PC utilisation</small><br/><span class="big strong colour4">%number%</span>',
+                    none: '<small>PC utilisation</small><br/><span class="big strong colour4">None</span>'
                 })
                 .group(pcNumGroup);
 
+            /////////////////////////////////
+            // Line chart: Usage over time
+            /////////////////////////////////
             var minDate = usageDateDim.bottom(1)[0].date;
             var maxDate = usageDateDim.top(1)[0].date;
-
             var usageLineChart = dc.compositeChart('#cht-usage');
             usageLineChart
                 .width($('#div-usage').width())
                 .height(250)
                 .dimension(usageDateDim)
-                .margins({ top: 40, right: 60, bottom: 30, left: 60 })
+                .margins({ top: 50, right: 60, bottom: 30, left: 60 })
+                .clipPadding(10)
                 .mouseZoomable(false)
                 .shareTitle(false)
+                .shareColors(true)
                 .round(d3.time.month.round)
                 .elasticX(true)
                 .elasticY(true)
                 .renderHorizontalGridLines(true)
-                .legend(dc.legend().x(0).y(0).horizontal(true).itemHeight(15).gap(10))
+                .legend(dc.legend().x(0).y(0).horizontal(true).itemHeight(20).gap(15))
                 .x(d3.time.scale().domain([minDate, maxDate]))
                 .compose([
                     dc.lineChart(usageLineChart)
                         .group(issuesTotal, 'Issues')
-                        .ordinalColors([config.colours[0]]),
+                        .interpolate('monotone')
+                        .colors(config.colours[0]),
                     dc.lineChart(usageLineChart)
                         .group(visitsTotal, 'Visits')
+                        .interpolate('monotone')
                         .title(function (d) {
                             var value = d.value.avg ? d.value.avg : d.value;
                             if (isNaN(value)) value = 0;
                             return dateFormat(d.key) + '\n' + numberFormat(value);
                         })
-                        .ordinalColors([config.colours[1]]),
+                        .colors(config.colours[1]),
                     dc.lineChart(usageLineChart)
                         .group(enquiriesTotal, 'Enquiries')
+                        .interpolate('monotone')
                         .title(function (d) {
                             var value = d.value.avg ? d.value.avg : d.value;
                             if (isNaN(value)) value = 0;
                             return dateFormat(d.key) + '\n' + numberFormat(value);
                         })
-                        .ordinalColors([config.colours[2]]),
+                        .dashStyle([0])
+                        .colors(config.colours[2]),
                     dc.lineChart(usageLineChart)
                         .group(sessionsTotal, 'PC utilisation')
+                        .interpolate('monotone')
                         .valueAccessor(function (p) {
                             return p.value.count > 0 ? p.value.total / p.value.count : 0;
                         })
-                        .ordinalColors([config.colours[3]])
+                        .dashStyle([3, 3])
                         .useRightYAxis(true)
                 ])
                 .yAxisLabel('Usage count')
@@ -182,18 +206,21 @@
                 return false;
             });
 
-            // Usage Year Row
+            /////////////////////////////////
+            // Row chart: Issues and Years
+            /////////////////////////////////
             var usageYearChart = dc.rowChart("#cht-usage-year");
             var usageYearChartWidth = document.getElementById('div-usage-year').offsetWidth;
             var usageYearDim = usageNdx.dimension(function (d) { return +d.year; });
             var usageYearTotal = usageYearDim.group().reduceSum(function (d) { return d.issues; });
-
             usageYearChart
                 .width(document.getElementById('div-usage-year').offsetWidth)
-                .height(250)
+                .height(300)
                 .margins({ top: 5, right: 0, bottom: 40, left: 5 })
                 .group(usageYearTotal)
+                .ordinalColors([config.colours[0]])
                 .dimension(usageYearDim)
+                .ordering(function (d) { return d })
                 .elasticX(true);
 
             $('#reset-chart-year').on('click', function (e) {
@@ -206,22 +233,30 @@
 
             usageYearChart.renderlet(function (chart) {
                 chart.selectAll("g.axis g.tick text").attr('transform', "translate(-10, 10) rotate(315)");
+                chart.selectAll(".row rect").each(function (d, i) {
+                    var colour = d3.select(this).attr('fill');
+                    d3.select(this).attr('style', 'stroke-width:1; stroke:' + colour);
+                })
             });
 
-            // Issues month bar chart
+            /////////////////////////////////
+            // Row chart: Issues and Months
+            /////////////////////////////////
             var usageMonthRowChart = dc.rowChart("#cht-usage-month");
             var usageMonthDim = usageNdx.dimension(function (d) { return d.month; });
             var usageMonthTotal = usageMonthDim.group().reduceSum(function (d) { return d['issues']; });
 
             usageMonthRowChart
                 .width(document.getElementById('div-usage-month').offsetWidth)
-                .height(250)
+                .height(300)
                 .label(function (d) {
                     return monthsFull[d.key];
                 })
                 .margins({ top: 5, right: 0, bottom: 40, left: 5 })
                 .group(usageMonthTotal)
+                .ordinalColors([config.colours[0]])
                 .dimension(usageMonthDim)
+                .ordering(function (d) { return d })
                 .elasticX(true);
 
             $('#reset-chart-month').on('click', function (e) {
@@ -233,16 +268,24 @@
             });
             usageMonthRowChart.renderlet(function (chart) {
                 chart.selectAll("g.axis g.tick text").attr('transform', "translate(-10, 10) rotate(315)");
+                chart.selectAll(".row rect").each(function (d, i) {
+                    var colour = d3.select(this).attr('fill');
+                    d3.select(this).attr('style', 'stroke-width:1; stroke:' + colour);
+                })
             });
 
+            /////////////////////////////////
+            // Bar chart: Issues and Branches
+            /////////////////////////////////
             var usageBranchBarChart = dc.barChart("#cht-usage-branch");
             var usageBranchDim = usageNdx.dimension(function (d) { return d.Library; });
             var usageBranchTotal = usageBranchDim.group().reduceSum(function (d) { return d['issues']; });
             usageBranchBarChart
                 .width($('#div-usage-branch').width())
-                .height(250)
+                .height(300)
                 .margins({ top: 5, right: 0, bottom: 80, left: 60 })
                 .group(usageBranchTotal)
+                .ordinalColors([config.colours[0]])
                 .dimension(usageBranchDim)
                 .elasticY(true)
                 .elasticX(true)
@@ -261,18 +304,24 @@
             });
             usageBranchBarChart.renderlet(function (chart) {
                 chart.selectAll("g.x text").attr('transform', "translate(-13,10) rotate(270)");
+                chart.selectAll(".column rect").each(function (d, i) {
+                    var colour = d3.select(this).attr('fill');
+                    d3.select(this).attr('style', 'stroke-width:1; stroke:' + colour);
+                })
             });
-            
 
-            // Issues table
+
+            /////////////////////////////////
+            // Table: All data
+            /////////////////////////////////
             var dataCount = dc.dataCount('.dc-data-count');
             dataCount
                 .dimension(usageNdx)
                 .group(usageNdx.groupAll())
                 .html({
-                    some: '<strong>%filter-count</strong> selected out of <strong>%total-count</strong> records' +
+                    some: '<strong>%filter-count</strong> selected out of <strong>%total-count</strong> usage records' +
                     ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>Reset All</a><br/> &nbsp',
-                    all: 'All records selected. Please click on the graph to apply filters.<br/> &nbsp'
+                    all: 'All records selected. Please click on the graphs to apply filters.<br/> &nbsp'
                 });
 
             var usageTable = dc.dataTable('#tbl-usage');

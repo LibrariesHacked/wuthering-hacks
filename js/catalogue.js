@@ -110,9 +110,9 @@
                     return d;
                 })
                 .html({
-                    one: '<small>items</small><br/><span class="lead strong">%number</span>',
-                    some: '<small>items</small><br/><span class="lead strong">%number</span>',
-                    none: '<small>items</small><br/><span class="lead strong">None</span>'
+                    one: '<small>Items</small><br/><span class="lead strong">%number</span>',
+                    some: '<small>Items</small><br/><span class="lead strong">%number</span>',
+                    none: '<small>Items</small><br/><span class="lead strong">None</span>'
                 })
                 .group(itemsNumGroup);
 
@@ -126,9 +126,9 @@
                     return d;
                 })
                 .html({
-                    one: '<small>issues</small><br/><span class="lead strong">%number</span>',
-                    some: '<small>issues</small><br/><span class="lead strong">%number</span>',
-                    none: '<small>issues</small><br/><span class="lead strong">None</span>'
+                    one: '<small>Issues</small><br/><span class="lead strong">%number</span>',
+                    some: '<small>Issues</small><br/><span class="lead strong">%number</span>',
+                    none: '<small>Issues</small><br/><span class="lead strong">None</span>'
                 })
                 .group(issuesNumGroup);
 
@@ -142,9 +142,9 @@
                     return d;
                 })
                 .html({
-                    one: '<small>renewals</small><br/><span class="lead strong">%number</span>',
-                    some: '<small>renewals</small><br/><span class="lead strong">%number</span>',
-                    none: '<small>renewals</small><br/><span class="lead strong">None</span>'
+                    one: '<small>Renewals</small><br/><span class="lead strong">%number</span>',
+                    some: '<small>Renewals</small><br/><span class="lead strong">%number</span>',
+                    none: '<small>Renewals</small><br/><span class="lead strong">None</span>'
                 })
                 .group(renewalsNumGroup);
 
@@ -158,9 +158,9 @@
                     return d;
                 })
                 .html({
-                    one: '<small>cost</small><br/><span class="lead strong">£%number</span>',
-                    some: '<small>cost</small><br/><span class="lead strong">£%number</span>',
-                    none: '<small>cost</small><br/><span class="lead strong">£None</span>'
+                    one: '<small>Cost</small><br/><span class="lead strong">£%number</span>',
+                    some: '<small>Cost</small><br/><span class="lead strong">£%number</span>',
+                    none: '<small>Cost</small><br/><span class="lead strong">£0</span>'
                 })
                 .group(costNumGroup);
 

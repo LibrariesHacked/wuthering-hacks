@@ -4,52 +4,74 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>catalogue</title>
-    <link href="bower_components/tether/dist/css/tether.min.css" rel="stylesheet" />
-    <link href="bower_components/bootswatch/materia/bootstrap.min.css" rel="stylesheet" />
-    <link href="bower_components/dcjs/dc.min.css" rel="stylesheet" />
-    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <title>catalogue | toonlibraries</title>
+    <link href="node_modules/tether/dist/css/tether.min.css" rel="stylesheet" />
+    <link href="node_modules/bootswatch/materia/bootstrap.min.css" rel="stylesheet" />
+    <link href="node_modules/dc/dc.min.css" rel="stylesheet" />
+    <link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="css/custom.css" rel="stylesheet" />
 </head>
-<body class="grey">
+<body>
+    <nav class="navbar navbar-toggleable-md navbar-light">
+        <div class="container">
+            <button class="navbar-toggler navbar-toggler-right" aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <span class="navbar-brand strong text-muted" href="/"><span class="fa fa-cube colour4"></span> toonlibraries</span>
+            <div class="collapse navbar-collapse" id="navbar" aria-expanded="false">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">usage</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link active" href="/catalogue">catalogue <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/members">members</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/libraries">libraries</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/toptitles">top titles</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div id="main" class="container main">
-        <ul class="nav nav-pills">
-            <li class="nav-item">
-                <a class="nav-link" href="/">Usage</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="/catalogue">Catalogue</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/members">Members</a>
-            </li>
-        </ul>
-        <hr />
-        <p class="lead">Catalogue data is made up of Items and Titles. <strong>Titles</strong> are the list of titles in the catalogue, including title, author, ISBN, etc. <strong>Items</strong> are individual items held, which are linked to a Title record, and have a date added to catalogue, library they're held at, and a count of issues and renewals.</p>
-        <p class="lead" id="loader"><span class="fa fa-spinner fa-spin"></span> Loading...</p>
-        <div class="row">
-            <div class="col-3">
-                <div id="div-number-items">
-                    <div id="cht-number-items"></div>
+        <p class="lead">Catalogue data is made up of Items and Titles. <strong>Titles</strong> are catalogue records, including author, ISBN, etc. <strong>Items</strong> are individual items held, linked to a Title record, with a date added to catalogue, library they're held at, and count of issues and renewals.</p>
+        <div class="container">
+            <div class="row">
+                <div class="dc-data-count">
+                    <p><span class="filter-count"></span> selected out of <span class="total-count"></span> records.<br /></p>
                 </div>
             </div>
-            <div class="col-3">
-                <div id="div-number-issues">
-                    <div id="cht-number-issues"></div>
+            <div class="row stat-bar">
+                <div class="col-3">
+                    <div id="div-number-items">
+                        <div id="cht-number-items"></div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-3">
-                <div id="div-number-renewals">
-                    <div id="cht-number-renewals"></div>
+                <div class="col-3">
+                    <div id="div-number-issues">
+                        <div id="cht-number-issues"></div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-3">
-                <div id="div-number-cost">
-                    <div id="cht-number-cost"></div>
+                <div class="col-3">
+                    <div id="div-number-renewals">
+                        <div id="cht-number-renewals"></div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div id="div-number-cost">
+                        <div id="cht-number-cost"></div>
+                    </div>
                 </div>
             </div>
         </div>
-        <hr />
+        <br />
+        <p class="lead" id="loader"><span class="fa fa-spinner fa-spin"></span> Loading...</p>
         <div class="row">
             <div class="col-sm-12">
                 <div id="div-catalogue">
@@ -99,9 +121,6 @@
         <hr />
         <div class="row">
             <div class="col-sm-12">
-                <div class="dc-data-count">
-                    <p><span class="filter-count"></span> selected out of <span class="total-count"></span> records.<br /></p>
-                </div>
                 <table id="tbl-catalogue-detail" class="table table-bordered"></table>
                 <div id="div-cataloguetable-paging">
                     Showing <span id="begin"></span>-<span id="end"></span>.
@@ -111,16 +130,16 @@
             </div>
         </div>
         <hr />
-        <p>An open source project available on <a href="https://github.com/LibrariesHacked/wuthering-hacks" target="_blank">GitHub</a>.  <a href="https://twitter.com/ToonLibraries" target="_blank" title="Newcastle Libraries on Twitter" class="strong">@ToonLibraries</a> release open data under a <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>.</p>
+        <p>An open source project available on <a href="https://github.com/LibrariesHacked/wuthering-hacks" target="_blank">GitHub</a>.  <a href="https://twitter.com/ToonLibraries" target="_blank" title="Newcastle Libraries on Twitter">@ToonLibraries</a> release open data under a <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>.</p>
     </div>
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/tether/dist/js/tether.min.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="bower_components/leaflet/dist/leaflet.js"></script>
-    <script src="bower_components/d3/d3.min.js"></script>
-    <script src="bower_components/crossfilter2/crossfilter.min.js"></script>
-    <script src="bower_components/dcjs/dc.min.js"></script>
-    <script src="bower_components/jquery-csv/src/jquery.csv.min.js"></script>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/tether/dist/js/tether.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="node_modules/leaflet/dist/leaflet.js"></script>
+    <script src="node_modules/d3/d3.min.js"></script>
+    <script src="node_modules/crossfilter2/crossfilter.min.js"></script>
+    <script src="node_modules/dc/dc.min.js"></script>
+    <script src="node_modules/jquery-csv/src/jquery.csv.min.js"></script>
     <script src="js/config.js"></script>
     <script src="js/catalogue.js"></script>
 </body>

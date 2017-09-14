@@ -9,13 +9,20 @@ import re
 from datetime import datetime
 import pandas
 
+MEMBERDATA = '..\\data\\newcastle_members.csv'
+
+def read_member_data():
+    member_data_frame = pandas.DataFrame(
+        pandas.read_csv(open(os.path.join(os.path.dirname(__file__), MEMBERDATA), 'r')), index=None)
+    return member_data_frame
+
 def run():
-
-    member_data_frame = pandas.DataFrame(pandas.read_csv(open(os.path.join(os.path.dirname(__file__), '..\\data\\newcastle_members.csv'), 'r')), index=None)
-
-    postcode = member_data_frame['Postcode'].unique()
-    library = member_data_frame['Library Registered At'].unique()
-    date_added = member_data_frame['Date Added'].unique()
-    time_added = member_data_frame['Date Added'].unique()
+    
+    members = read_member_data()
+    
+    postcode = members['Postcode'].unique()
+    library = members['Library Registered At'].unique()
+    date_added = members['Date Added'].unique()
+    time_added = members['Date Added'].unique()
 
 run()
