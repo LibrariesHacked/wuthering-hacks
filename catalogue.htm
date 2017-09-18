@@ -40,7 +40,7 @@
         </div>
     </nav>
     <div id="main" class="container main">
-        <p class="lead">Catalogue data is made up of Items and Titles. <strong>Titles</strong> are catalogue records, including author, ISBN, etc. <strong>Items</strong> are individual items held, linked to a Title record, with a date added to catalogue, library they're held at, and count of issues and renewals.</p>
+        <p class="lead"><strong class="colour1">Titles</strong> are catalogue records, with fields like <strong class="colour2">author</strong>, a <strong class="colour3">published year</strong>, book <strong class="colour4">edition</strong>, a <strong class="colour5">language</strong>, and <strong class="colour6">publisher</strong>. <strong class="colour2">Items</strong> are individual copies of titles, with a <strong class="colour3">date added</strong> to catalogue, <strong class="colour4">library</strong> held at, and number of <strong class="colour5">issues</strong> and <strong class="colour6">renewals</strong>.</p>
         <div class="container">
             <div class="row">
                 <div class="dc-data-count">
@@ -48,24 +48,34 @@
                 </div>
             </div>
             <div class="row stat-bar">
-                <div class="col-3">
+                <div class="col-2">
+                    <div id="div-number-yearcount">
+                        <div id="cht-number-yearcount"></div>
+                    </div>
+                </div>
+                <div class="col-2">
                     <div id="div-number-items">
                         <div id="cht-number-items"></div>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-2">
                     <div id="div-number-issues">
                         <div id="cht-number-issues"></div>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-2">
                     <div id="div-number-renewals">
                         <div id="cht-number-renewals"></div>
                     </div>
                 </div>
-                <div class="col-3">
-                    <div id="div-number-cost">
-                        <div id="cht-number-cost"></div>
+                <div class="col-2">
+                    <div id="div-number-issuesandrenewals">
+                        <div id="cht-number-issuesandrenewals"></div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div id="div-number-price">
+                        <div id="cht-number-price"></div>
                     </div>
                 </div>
             </div>
@@ -87,8 +97,8 @@
                 </div>
             </div>
             <div class="col-md-3 col-sm-12">
-                <div id="div-catalogue-month">
-                    <div id="cht-catalogue-month"><p>Filter by month added. <span class="reset" style="display: none">Range: <span class="filter"></span>  <a id="reset-chart-month" href="#">Reset</a></span></p></div>
+                <div id="div-catalogue-edition">
+                    <div id="cht-catalogue-edition"><p>Filter by edition. <span class="reset" style="display: none">Range: <span class="filter"></span>  <a id="reset-chart-edition" href="#">Reset</a></span></p></div>
                 </div>
             </div>
         </div>

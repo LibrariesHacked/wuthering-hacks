@@ -7,6 +7,11 @@
 
     // Load in all the CSVs.  These are the main grouping of catalogue data, and the lookups for branches and categories
     $.when(
+        $.ajax(config.catalogueAuthorsCsv),
+        $.ajax(config.catalogueBranchesCsv),
+        $.ajax(config.catalogueCategoriesCsv),
+        $.ajax(config.catalogueClassificationsCsv),
+        $.ajax(config.catalogueEditionsCsv),
         $.ajax(config.catalogueGroupedCsv, {
             xhr: function () {
                 var xhr = new window.XMLHttpRequest();
@@ -18,41 +23,47 @@
                 return xhr;
             }
         }),
-        $.ajax(config.catalogueBranchesCsv),
-        $.ajax(config.catalogueCategoriesCsv),
-        $.ajax(config.catalogueMonthsCsv),
+        $.ajax(config.catalogueLanguagesCsv),
         $.ajax(config.cataloguePublishersCsv))
-        .then(function (c, b, ca, m, p) {
-
-            var catalogue = $.csv.toObjects(c[0]);
+        .then(function (a, b, ca, cl, e, c, l, p) {
+            var authors = $.csv.toObjects(a[0]);
             var branches = $.csv.toObjects(b[0]);
             var categories = $.csv.toObjects(ca[0]);
-            var months = $.csv.toObjects(m[0]);
+            var classifications = $.csv.toObjects(cl[0]);
+            var editions = $.csv.toObjects(e[0]);
+            var catalogue = $.csv.toObjects(c[0]);
+            var languages = $.csv.toObjects(l[0]);
             var publishers = $.csv.toObjects(p[0]);
 
+            var authorLookup = {};
+            $.each(authors, function (i, x) { authorLookup[x.id] = x.author; });
             var branchLookup = {};
             $.each(branches, function (i, x) { branchLookup[x.id] = x.branch; });
             var catLookup = {};
             $.each(categories, function (i, x) { catLookup[x.id] = x.category; });
-            var monthLookup = {};
-            $.each(months, function (i, x) { monthLookup[x.id] = x.month; });
+            var classLookup = {};
+            $.each(classifications, function (i, x) { classLookup[x.id] = x.classification; });
+            var editionLookup = {};
+            $.each(editions, function (i, x) { editionLookup[x.id] = x.edition; });
+            var languageLookup = {};
+            $.each(languages, function (i, x) { languageLookup[x.id] = x.language; });
             var publisherLookup = {};
             $.each(publishers, function (i, x) { publisherLookup[x.id] = x.publisher; });
 
             // For each row in the usage CSV, format all the fields required
             catalogue.forEach(function (d) {
-                d.dateAdded = monthLookup[d.monthAddedId];
-                d.date = parseDate(d.dateAdded);
-                d.year = d.date ? d.date.getFullYear() : null;
-                d.day = d.dayAdded ? d.dayAdded : null;
-                d.month = d.date ? d.date.getMonth() : null;
-                d.branch = toTitleCase(branchLookup[d.branchId]);
-                d.category = toTitleCase(catLookup[d.categoryId]);
-                d.publisher = toTitleCase(publisherLookup[d.publisherId]);
+                d.branch = toTitleCase(branchLookup[d.branch_id]);
+                d.category = toTitleCase(catLookup[d.category_id]);
+                d.classification = toTitleCase(classLookup[d.classification_id]);
                 d.count = +d.count;
+                d.edition = toTitleCase(editionLookup[d.edition_id]);
                 d.issues = +d.issues;
-                d.renewals = +d.renewals;
+                d.language = toTitleCase(languageLookup[d.language_id]);
                 d.price = +d.price;
+                d.published_year = d.published_year;
+                d.publisher = toTitleCase(publisherLookup[d.publisher_id]);
+                d.renewals = +d.renewals;
+                d.year_added = d.year_added;
             });
 
             // Function: removeEmpty
@@ -94,11 +105,27 @@
             var reduceInitial = function () { return { count: 0, total: 0 }; };
 
             var catalogueNdx = crossfilter(catalogue);
-            var catalogueDateDim = catalogueNdx.dimension(function (d) { return d.date; });
+            var catalogueDateDim = catalogueNdx.dimension(function (d) { return d.year_added; });
             var itemsTotal = removeEmpty(catalogueDateDim.group().reduceSum(function (d) { return d['count']; }));
             var priceTotal = removeEmptyCost(catalogueDateDim.group().reduceSum(function (d) { return d['price']; }));
             var issuesTotal = removeEmpty(catalogueDateDim.group().reduceSum(function (d) { return d['issues']; }));
             var renewalsTotal = removeEmpty(catalogueDateDim.group().reduceSum(function (d) { return d['renewals']; }));
+
+            ////////////////////////////////////////////////////////////////
+            // Chart: Years cataloguing
+            ////////////////////////////////////////////////////////////////
+            var yearsNumberDisplay = dc.numberDisplay('#cht-number-items');
+            var yearsNumGroup = catalogueNdx.groupAll().reduceSum(function (d) { return d['count']; });
+            yearsNumberDisplay
+                .valueAccessor(function (d) {
+                    return d;
+                })
+                .html({
+                    one: '<small>Items</small><br/><span class="lead strong">%number</span>',
+                    some: '<small>Items</small><br/><span class="lead strong">%number</span>',
+                    none: '<small>Items</small><br/><span class="lead strong">None</span>'
+                })
+                .group(yearsNumGroup);
 
             ////////////////////////////////////////////////////////////////
             // Chart: Issues Number Display
@@ -167,8 +194,8 @@
             ////////////////////////////////////////////////////////////////
             // Chart: Catalogue Line Chart
             ////////////////////////////////////////////////////////////////
-            var minDate = catalogueDateDim.bottom(1)[0].date;
-            var maxDate = catalogueDateDim.top(1)[0].date;
+            var minDate = catalogueDateDim.bottom(1)[0].year_added;
+            var maxDate = catalogueDateDim.top(1)[0].year_added;
 
             var catalogueLineChart = dc.compositeChart("#cht-catalogue");
             catalogueLineChart
@@ -263,26 +290,26 @@
             ////////////////////////////////////////////////////////////////
             // Chart: Filter by Month (Row Chart)
             ////////////////////////////////////////////////////////////////
-            var catalogueMonthBarChart = dc.rowChart("#cht-catalogue-month");
-            var catalogueMonthDim = catalogueNdx.dimension(function (d) { return d.month; });
-            var catalogueMonthTotal = catalogueMonthDim.group().reduceSum(function (d) { return d['count']; });
+            var catalogueEditionBarChart = dc.rowChart("#cht-catalogue-edition");
+            var catalogueEditionDim = catalogueNdx.dimension(function (d) { return d.edition; });
+            var catalogueEditionTotal = catalogueEditionDim.group().reduceSum(function (d) { return d['count']; });
 
-            catalogueMonthBarChart
-                .width(document.getElementById('div-catalogue-month').offsetWidth)
+            catalogueEditionBarChart
+                .width(document.getElementById('div-catalogue-edition').offsetWidth)
                 .height(300)
                 .label(function (d) {
-                    return monthsFull[d.key];
+                    return d.key;
                 })
                 .margins({ top: 5, right: 0, bottom: 40, left: 5 })
-                .group(catalogueMonthTotal)
-                .dimension(catalogueMonthDim)
+                .group(catalogueEditionTotal)
+                .dimension(catalogueEditionDim)
                 .elasticX(true);
-            catalogueMonthBarChart.on('renderlet', function (chart) {
+            catalogueEditionBarChart.on('renderlet', function (chart) {
                 chart.selectAll("g.axis g.tick text").attr('transform', "translate(-10, 20) rotate(270)");
             });
-            $('#reset-chart-month').on('click', function (e) {
+            $('#reset-chart-edition').on('click', function (e) {
                 e.preventDefault();
-                catalogueMonthBarChart.filterAll();
+                catalogueEditionBarChart.filterAll();
                 dc.redrawAll();
                 return false;
             });
@@ -290,29 +317,29 @@
             ////////////////////////////////////////////////////////////////
             // Chart: Filter by Day (Row Chart)
             ////////////////////////////////////////////////////////////////
-            var catalogueDayBarChart = dc.rowChart("#cht-catalogue-day");
-            var catalogueDayDim = catalogueNdx.dimension(function (d) { return d.day; });
-            var catalogueDayTotal = catalogueDayDim.group().reduceSum(function (d) { return d['count']; });
+            //var catalogueDayBarChart = dc.rowChart("#cht-catalogue-day");
+            //var catalogueDayDim = catalogueNdx.dimension(function (d) { return d.day; });
+            //var catalogueDayTotal = catalogueDayDim.group().reduceSum(function (d) { return d['count']; });
 
-            catalogueDayBarChart
-                .width(document.getElementById('div-catalogue-day').offsetWidth)
-                .height(250)
-                .label(function (d) {
-                    return daysFull[d.key];
-                })
-                .margins({ top: 5, right: 0, bottom: 40, left: 5 })
-                .group(catalogueDayTotal)
-                .dimension(catalogueDayDim)
-                .elasticX(true);
-            catalogueDayBarChart.on('renderlet', function (chart) {
-                chart.selectAll("g.axis g.tick text").attr('transform', "translate(-10, 20) rotate(270)");
-            });
-            $('#reset-chart-day').on('click', function (e) {
-                e.preventDefault();
-                catalogueDayBarChart.filterAll();
-                dc.redrawAll();
-                return false;
-            });
+            //catalogueDayBarChart
+            //    .width(document.getElementById('div-catalogue-day').offsetWidth)
+            //    .height(250)
+            //    .label(function (d) {
+            //        return daysFull[d.key];
+            //    })
+            //    .margins({ top: 5, right: 0, bottom: 40, left: 5 })
+            //    .group(catalogueDayTotal)
+            //    .dimension(catalogueDayDim)
+            //    .elasticX(true);
+            //catalogueDayBarChart.on('renderlet', function (chart) {
+            //    chart.selectAll("g.axis g.tick text").attr('transform', "translate(-10, 20) rotate(270)");
+            //});
+            //$('#reset-chart-day').on('click', function (e) {
+            //    e.preventDefault();
+            //    catalogueDayBarChart.filterAll();
+            //    dc.redrawAll();
+            //    return false;
+            //});
 
             ////////////////////////////////////////////////////////////////
             // Chart: Filter by Publisher (Bar Chart)
@@ -349,7 +376,7 @@
             ////////////////////////////////////////////////////////////////
             var catalogueYearChart = dc.barChart("#cht-catalogue-year");
             var catalogueYearChartWidth = document.getElementById('div-catalogue-year').offsetWidth;
-            var catalogueYearDim = catalogueNdx.dimension(function (d) { return +d.year; });
+            var catalogueYearDim = catalogueNdx.dimension(function (d) { return +d.year_added; });
             var catalogueYearTotal = catalogueYearDim.group().reduceSum(function (d) { return d.count; });
             catalogueYearChart
                 .width(document.getElementById('div-catalogue-year').offsetWidth)
@@ -472,7 +499,7 @@
             $(window).on('resize', function () {
                 catalogueLineChart.width(document.getElementById('div-catalogue').offsetWidth);
                 catalogueCategoryChart.width(document.getElementById('div-catalogue-category').offsetWidth);
-                catalogueMonthBarChart.width(document.getElementById('div-catalogue-month').offsetWidth);
+                catalogueMonthBarChart.width(document.getElementById('div-catalogue-edition').offsetWidth);
                 catalogueDayBarChart.width(document.getElementById('div-catalogue-day').offsetWidth);
                 cataloguePublisherChart.width(document.getElementById('div-catalogue-publisher').offsetWidth);
                 catalogueYearChart.width(document.getElementById('div-catalogue-year').offsetWidth);
