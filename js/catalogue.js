@@ -63,7 +63,7 @@
                 d.published_year = d.published_year;
                 d.publisher = toTitleCase(publisherLookup[d.publisher_id]);
                 d.renewals = +d.renewals;
-                d.year_added = d.year_added;
+                d.year_added = +d.year_added;
             });
 
             // Function: removeEmpty
@@ -111,24 +111,9 @@
             var issuesTotal = removeEmpty(catalogueDateDim.group().reduceSum(function (d) { return d['issues']; }));
             var renewalsTotal = removeEmpty(catalogueDateDim.group().reduceSum(function (d) { return d['renewals']; }));
 
-            ////////////////////////////////////////////////////////////////
-            // Chart: Years cataloguing
-            ////////////////////////////////////////////////////////////////
-            var yearsNumberDisplay = dc.numberDisplay('#cht-number-items');
-            var yearsNumGroup = catalogueNdx.groupAll().reduceSum(function (d) { return d['count']; });
-            yearsNumberDisplay
-                .valueAccessor(function (d) {
-                    return d;
-                })
-                .html({
-                    one: '<small>Items</small><br/><span class="lead strong">%number</span>',
-                    some: '<small>Items</small><br/><span class="lead strong">%number</span>',
-                    none: '<small>Items</small><br/><span class="lead strong">None</span>'
-                })
-                .group(yearsNumGroup);
 
             ////////////////////////////////////////////////////////////////
-            // Chart: Issues Number Display
+            // Chart: Items Number Display
             ////////////////////////////////////////////////////////////////
             var itemsNumberDisplay = dc.numberDisplay('#cht-number-items');
             var itemsNumGroup = catalogueNdx.groupAll().reduceSum(function (d) { return d['count']; });
@@ -137,9 +122,9 @@
                     return d;
                 })
                 .html({
-                    one: '<small>Items</small><br/><span class="lead strong">%number</span>',
-                    some: '<small>Items</small><br/><span class="lead strong">%number</span>',
-                    none: '<small>Items</small><br/><span class="lead strong">None</span>'
+                    one: '<small>Items</small><br/><span class="big colour1">%number</span>',
+                    some: '<small>Items</small><br/><span class="big colour1">%number</span>',
+                    none: '<small>Items</small><br/><span class="big colour1">None</span>'
                 })
                 .group(itemsNumGroup);
 
@@ -153,14 +138,14 @@
                     return d;
                 })
                 .html({
-                    one: '<small>Issues</small><br/><span class="lead strong">%number</span>',
-                    some: '<small>Issues</small><br/><span class="lead strong">%number</span>',
-                    none: '<small>Issues</small><br/><span class="lead strong">None</span>'
+                    one: '<small>Issues</small><br/><span class="big colour2">%number</span>',
+                    some: '<small>Issues</small><br/><span class="big colour2">%number</span>',
+                    none: '<small>Issues</small><br/><span class="big colour2">None</span>'
                 })
                 .group(issuesNumGroup);
 
             ////////////////////////////////////////////////////////////////
-            // Chart: Renewals Number Display
+            // Chart: Issuea and Renewals Number Display
             ////////////////////////////////////////////////////////////////
             var renewalsNumberDisplay = dc.numberDisplay('#cht-number-renewals');
             var renewalsNumGroup = catalogueNdx.groupAll().reduceSum(function (d) { return d['renewals']; });
@@ -169,9 +154,9 @@
                     return d;
                 })
                 .html({
-                    one: '<small>Renewals</small><br/><span class="lead strong">%number</span>',
-                    some: '<small>Renewals</small><br/><span class="lead strong">%number</span>',
-                    none: '<small>Renewals</small><br/><span class="lead strong">None</span>'
+                    one: '<small>Renewals</small><br/><span class="big colour3">%number</span>',
+                    some: '<small>Renewals</small><br/><span class="big colour3">%number</span>',
+                    none: '<small>Renewals</small><br/><span class="big colour3">None</span>'
                 })
                 .group(renewalsNumGroup);
 
@@ -185,9 +170,9 @@
                     return d;
                 })
                 .html({
-                    one: '<small>Cost</small><br/><span class="lead strong">£%number</span>',
-                    some: '<small>Cost</small><br/><span class="lead strong">£%number</span>',
-                    none: '<small>Cost</small><br/><span class="lead strong">£0</span>'
+                    one: '<small>Cost</small><br/><span class="big colour4">£%number</span>',
+                    some: '<small>Cost</small><br/><span class="big colour4">£%number</span>',
+                    none: '<small>Cost</small><br/><span class="big colour4">£0</span>'
                 })
                 .group(costNumGroup);
 
@@ -205,12 +190,11 @@
                 .margins({ top: 40, right: 60, bottom: 20, left: 60 })
                 .mouseZoomable(false)
                 .shareTitle(false)
-                .round(d3.time.month.round)
                 .elasticX(true)
                 .elasticY(true)
                 .renderHorizontalGridLines(true)
                 .legend(dc.legend().x(0).y(0).horizontal(true).itemHeight(15).gap(10))
-                .x(d3.time.scale().domain([minDate, maxDate]))
+                .x(d3.scale.linear().domain([0, maxDate]))
                 .compose([
                     dc.lineChart(catalogueLineChart)
                         .group(itemsTotal, 'Added')
