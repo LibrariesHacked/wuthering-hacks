@@ -1,7 +1,7 @@
+## Requires Python v3 and pandas (pip install pandas)
 ## This script takes the newcastle membership csv and attempts
 ## to reduce the file size as much as possible through aggregation and lookups
 ## Two lookup files to provide library names and dates are also created.
-## Requires Python v3 and pandas (pip install pandas)
 
 import csv
 import os
@@ -20,9 +20,9 @@ def run():
     
     members = read_member_data()
     
-    postcode = members['Postcode'].unique()
-    library = members['Library Registered At'].unique()
-    date_added = members['Date Added'].unique()
-    time_added = members['Date Added'].unique()
+    postcodes = members['Postcode'].unique()
+    libraries = members['Library Registered At'].unique()
+    dates_added = members['Date Added'].unique()
+    times_added = members['Date Added'].unique()
 
 run()

@@ -1,5 +1,5 @@
-## This script takes the usage CSV files,and combines them to produce a single monthly usage file
 ## Requires Python v3
+## This script takes the usage CSV files,and combines them to produce a single monthly usage file
 
 import csv
 import os

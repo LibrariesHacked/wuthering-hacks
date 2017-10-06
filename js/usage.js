@@ -259,6 +259,10 @@
                 .ordering(function (d) { return d })
                 .elasticX(true);
 
+            usageMonthRowChart.filterPrinter(function (filters) {
+                return filters.map(function (f) { return monthsFull[f]; }).join(', ');
+            });
+
             $('#reset-chart-month').on('click', function (e) {
                 e.preventDefault();
                 usageMonthRowChart.filterAll();
