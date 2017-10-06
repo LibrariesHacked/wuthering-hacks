@@ -17,13 +17,15 @@
   },
   "homepage": "https://github.com/LibrariesHacked/wuthering-hacks#readme",
   "dependencies": {
-    "bootstrap": "^4.0.0-alpha.6",
+    "bootstrap": "^4.0.0-beta",
     "bootswatch": "github:thomaspark/bootswatch#v4",
     "colorbrewer": "^1.0.0",
     "dc": "^2.1.8",
     "dc.leaflet": "^0.3.3",
     "font-awesome": "^4.7.0",
+    "jquery": "^3.2.1",
     "jquery-csv": "^0.8.3",
-    "leaflet": "^1.2.0"
+    "leaflet": "^1.2.0",
+    "popper.js": "^1.12.5"
   }
 }

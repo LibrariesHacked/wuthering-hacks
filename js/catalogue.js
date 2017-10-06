@@ -194,7 +194,7 @@
                 .elasticY(true)
                 .renderHorizontalGridLines(true)
                 .legend(dc.legend().x(0).y(0).horizontal(true).itemHeight(15).gap(10))
-                .x(d3.scale.linear().domain([0, maxDate]))
+                .x(d3.scale.linear())
                 .compose([
                     dc.lineChart(catalogueLineChart)
                         .group(itemsTotal, 'Added')
@@ -219,6 +219,11 @@
                 ])
                 .yAxisLabel("Issues and Renewals")
                 .rightYAxisLabel('Items added');
+
+            catalogueLineChart.xAxis().tickFormat(d3.format('d'))
+            catalogueLineChart.filterPrinter(function (filters) {
+                return $.map(filters[0], function (f) { return parseInt(f); }).join('-');
+            });
             // There seems to be a bug with composite charts.
             catalogueLineChart._brushing = function () {
                 var extent = catalogueLineChart.extendBrush();
