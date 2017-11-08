@@ -9,7 +9,7 @@ import re
 from datetime import datetime
 import pandas
 
-TITLEDATA = '..\\data\\newcastle_titles_refined.csv'
+TITLEDATA = '..\\data\\titlesincatalogue220317.csv'
 ITEMDATA = '..\\data\\itemsincatalogue220317.csv'
 
 def read_catalogue_data():
@@ -231,9 +231,16 @@ def run():
     groupeditems.price = groupeditems.price.round(2)
 
     itemdata.to_csv(
+        os.path.join(os.path.dirname(__file__), '..\\data\\dashboard_items_titles_merged.csv'),
+        index=False, columns=[
+            'key', 'rcn', 'published_year', 'author', 'title',
+            'classification', 'isbn', 'edition', 'language',
+            'price', 'branch', 'date_added', 'issues', 'renewals']
+        )
+    itemdata.to_csv(
         os.path.join(os.path.dirname(__file__), '..\\data\\dashboard_catalogue.csv'),
         index=False, columns=[
-            'rcn', 'item', 'category_id', 'branch_id', 'date_added', 'issues', 'renewals', 'price']
+            'rcn', 'item', 'category', 'date_added', 'issues', 'renewals', 'price']
         )
     groupeditems.to_csv(
         os.path.join(os.path.dirname(__file__), '..\\data\\dashboard_catalogue_grouped.csv')
