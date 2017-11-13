@@ -110,7 +110,7 @@ def construct_references(ref):
             reference[key] = ['Other']
             for i, val in enumerate(sorteditems):
                 reference[key].append(val[0])
-                if i == 10:
+                if i == 9:
                     break
     return reference
 
@@ -227,7 +227,7 @@ def run():
     classificationsdata.index.name = 'id'
     publishersdata = pandas.DataFrame(cat_references['publishers'], index=None, columns=['publisher'])
     publishersdata.index.name = 'id'
-    groupeditems = itemdata.groupby(['branch_id', 'category_id', 'year_added', 'published_year', 'language_id', 'edition_id', 'classification_id', 'publisher_id']).agg({'count': 'sum', 'price': 'sum', 'issues': 'sum', 'renewals': 'sum'})
+    groupeditems = itemdata.groupby(['branch_id', 'category_id', 'year_added', 'day_added', 'published_year', 'language_id', 'edition_id', 'classification_id', 'publisher_id']).agg({'count': 'sum', 'price': 'sum', 'issues': 'sum', 'renewals': 'sum'})
     groupeditems.price = groupeditems.price.round(2)
 
     itemdata.to_csv(

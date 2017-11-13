@@ -50,6 +50,17 @@
             var publisherLookup = {};
             $.each(publishers, function (i, x) { publisherLookup[x.id] = x.publisher; });
 
+            // For removing Unknown
+            var removeUnknown = function (group) {
+                return {
+                    all: function () {
+                        return group.all().filter(function (d) {
+                            return d.key !== 'Unknown' && d.key != 'Other';
+                        });
+                    }
+                };
+            }
+
             // For each row in the usage CSV, format all the fields required
             catalogue.forEach(function (d) {
                 d.branch = toTitleCase(branchLookup[d.branch_id]);
@@ -64,6 +75,7 @@
                 d.publisher = toTitleCase(publisherLookup[d.publisher_id]);
                 d.renewals = +d.renewals;
                 d.year_added = +d.year_added;
+                d.day = +d.day_added;
             });
 
             // Function: removeEmpty
@@ -187,35 +199,40 @@
                 .width(document.getElementById('div-catalogue').offsetWidth)
                 .height(250)
                 .dimension(catalogueDateDim)
-                .margins({ top: 40, right: 60, bottom: 20, left: 60 })
+                .margins({ top: 50, right: 60, bottom: 30, left: 60 })
+                .clipPadding(10)
                 .mouseZoomable(false)
                 .shareTitle(false)
+                .shareColors(true)
                 .elasticX(true)
                 .elasticY(true)
                 .renderHorizontalGridLines(true)
-                .legend(dc.legend().x(0).y(0).horizontal(true).itemHeight(15).gap(10))
+                .legend(dc.legend().x(0).y(0).horizontal(true).itemHeight(20).gap(15))
                 .x(d3.scale.linear())
                 .compose([
                     dc.lineChart(catalogueLineChart)
                         .group(itemsTotal, 'Added')
-                        .ordinalColors([config.colours[0]])
+                        .interpolate('monotone')
+                        .colors(config.colours[0])
                         .useRightYAxis(true),
                     dc.lineChart(catalogueLineChart)
                         .group(issuesTotal, 'Issues')
+                        .interpolate('monotone')
                         .title(function (d) {
                             var value = d.value.avg ? d.value.avg : d.value;
                             if (isNaN(value)) value = 0;
                             return dateFormat(d.key) + "\n" + numberFormat(value);
                         })
-                        .ordinalColors([config.colours[1]]),
+                        .colors(config.colours[1]),
                     dc.lineChart(catalogueLineChart)
                         .group(renewalsTotal, 'Renewals')
+                        .interpolate('monotone')
                         .title(function (d) {
                             var value = d.value.avg ? d.value.avg : d.value;
                             if (isNaN(value)) value = 0;
                             return dateFormat(d.key) + "\n" + numberFormat(value);
                         })
-                        .ordinalColors([config.colours[2]])
+                        .colors(config.colours[2])
                 ])
                 .yAxisLabel("Issues and Renewals")
                 .rightYAxisLabel('Items added');
@@ -262,6 +279,7 @@
                 .xUnits(dc.units.ordinal)
                 .brushOn(false)
                 .x(d3.scale.ordinal())
+                .ordinalColors([config.colours[0]])
                 .renderHorizontalGridLines(true)
                 .yAxisLabel('Items')
                 .xAxis().tickFormat(function (d) { return d; });
@@ -282,6 +300,7 @@
             var catalogueEditionBarChart = dc.rowChart("#cht-catalogue-edition");
             var catalogueEditionDim = catalogueNdx.dimension(function (d) { return d.edition; });
             var catalogueEditionTotal = catalogueEditionDim.group().reduceSum(function (d) { return d['count']; });
+            var catalogueEditionTotalFiltered = removeUnknown(catalogueEditionTotal);
 
             catalogueEditionBarChart
                 .width(document.getElementById('div-catalogue-edition').offsetWidth)
@@ -290,7 +309,8 @@
                     return d.key;
                 })
                 .margins({ top: 5, right: 0, bottom: 40, left: 5 })
-                .group(catalogueEditionTotal)
+                .ordinalColors([config.colours[0]])
+                .group(catalogueEditionTotalFiltered)
                 .dimension(catalogueEditionDim)
                 .elasticX(true);
             catalogueEditionBarChart.on('renderlet', function (chart) {
@@ -306,29 +326,29 @@
             ////////////////////////////////////////////////////////////////
             // Chart: Filter by Day (Row Chart)
             ////////////////////////////////////////////////////////////////
-            //var catalogueDayBarChart = dc.rowChart("#cht-catalogue-day");
-            //var catalogueDayDim = catalogueNdx.dimension(function (d) { return d.day; });
-            //var catalogueDayTotal = catalogueDayDim.group().reduceSum(function (d) { return d['count']; });
+            var catalogueDayBarChart = dc.rowChart("#cht-catalogue-day");
+            var catalogueDayDim = catalogueNdx.dimension(function (d) { return d.day; });
+            var catalogueDayTotal = catalogueDayDim.group().reduceSum(function (d) { return d['count']; });
 
-            //catalogueDayBarChart
-            //    .width(document.getElementById('div-catalogue-day').offsetWidth)
-            //    .height(250)
-            //    .label(function (d) {
-            //        return daysFull[d.key];
-            //    })
-            //    .margins({ top: 5, right: 0, bottom: 40, left: 5 })
-            //    .group(catalogueDayTotal)
-            //    .dimension(catalogueDayDim)
-            //    .elasticX(true);
-            //catalogueDayBarChart.on('renderlet', function (chart) {
-            //    chart.selectAll("g.axis g.tick text").attr('transform', "translate(-10, 20) rotate(270)");
-            //});
-            //$('#reset-chart-day').on('click', function (e) {
-            //    e.preventDefault();
-            //    catalogueDayBarChart.filterAll();
-            //    dc.redrawAll();
-            //    return false;
-            //});
+            catalogueDayBarChart
+                .width(document.getElementById('div-catalogue-day').offsetWidth)
+                .height(250)
+                .label(function (d) {
+                    return daysFull[d.key];
+                })
+                .margins({ top: 5, right: 0, bottom: 40, left: 5 })
+                .group(catalogueDayTotal)
+                .dimension(catalogueDayDim)
+                .elasticX(true);
+            catalogueDayBarChart.on('renderlet', function (chart) {
+                chart.selectAll("g.axis g.tick text").attr('transform', "translate(-10, 20) rotate(270)");
+            });
+            $('#reset-chart-day').on('click', function (e) {
+                e.preventDefault();
+                catalogueDayBarChart.filterAll();
+                dc.redrawAll();
+                return false;
+            });
 
             ////////////////////////////////////////////////////////////////
             // Chart: Filter by Publisher (Bar Chart)
