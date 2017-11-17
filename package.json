@@ -17,8 +17,8 @@
   },
   "homepage": "https://github.com/LibrariesHacked/wuthering-hacks#readme",
   "dependencies": {
-    "bootstrap": "^4.0.0-beta",
-    "bootswatch": "github:thomaspark/bootswatch#v4",
+    "bootstrap": "^4.0.0-beta.2",
+    "bootswatch": "^4.0.0-beta.2",
     "colorbrewer": "^1.0.0",
     "dc": "^2.1.8",
     "dc.leaflet": "^0.3.3",
