@@ -379,13 +379,17 @@
             // Hide the loading spinner
             $('#loader').hide();
 
+            var width = $(window).width();
             // Event: Resize Window.  Resize all the charts based on their new container widths.
             $(window).on('resize', function () {
-                usageLineChart.width(document.getElementById('div-usage').offsetWidth);
-                usageYearChart.width(document.getElementById('div-usage-year').offsetWidth);
-                usageBranchBarChart.width(document.getElementById('div-usage-branch').offsetWidth);
-                usageMonthRowChart.width(document.getElementById('div-usage-month').offsetWidth);
-                dc.renderAll();
+                if ($(window).width() != width) {
+                    width = $(window).width();
+                    usageLineChart.width(document.getElementById('div-usage').offsetWidth);
+                    usageYearChart.width(document.getElementById('div-usage-year').offsetWidth);
+                    usageBranchBarChart.width(document.getElementById('div-usage-branch').offsetWidth);
+                    usageMonthRowChart.width(document.getElementById('div-usage-month').offsetWidth);
+                    dc.renderAll();
+                }
             });
         });
 });

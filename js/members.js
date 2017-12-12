@@ -344,14 +344,18 @@
             // Hide the loading spinner
             $('#loader').hide();
 
+            var width = $(window).width();
             // Event: Resize Window.  Resize all the charts based on their new container widths.
             $(window).on('resize', function () {
-                membersLineChart.width($('#div-members-date').width());
-                postcodesChoro.width($('#div-members-map').width());
-                memberBranchBarChart.width($('#div-members-branch').width());
-                membersHourJoinedBarChart.width($('#div-members-hourjoined').width());
-                membersDayJoinedBarChart.width($('#div-members-dayjoined').width());
-                dc.renderAll();
+                if ($(window).width() != width) {
+                    width = $(window).width();
+                    membersLineChart.width($('#div-members-date').width());
+                    postcodesChoro.width($('#div-members-map').width());
+                    memberBranchBarChart.width($('#div-members-branch').width());
+                    membersHourJoinedBarChart.width($('#div-members-hourjoined').width());
+                    membersDayJoinedBarChart.width($('#div-members-dayjoined').width());
+                    dc.renderAll();
+                }
             });
         });
 });

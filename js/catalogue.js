@@ -512,18 +512,22 @@
 
             $('#loader').hide();
 
+            var width = $(window).width();
             ////////////////////////////////////////////////////////////////
             // Event: Resize Window.
             ////////////////////////////////////////////////////////////////
             $(window).on('resize', function () {
-                catalogueLineChart.width(document.getElementById('div-catalogue').offsetWidth);
-                catalogueCategoryChart.width(document.getElementById('div-catalogue-category').offsetWidth);
-                catalogueDayBarChart.width(document.getElementById('div-catalogue-day').offsetWidth);
-                cataloguePublisherChart.width(document.getElementById('div-catalogue-publisher').offsetWidth);
-                catalogueEditionBarChart.width(document.getElementById('div-catalogue-edition').offsetWidth);
-                catalogueYearChart.width(document.getElementById('div-catalogue-year').offsetWidth);
-                catalogueRowBranchChart.width(document.getElementById('div-catalogue-branch').offsetWidth);
-                dc.renderAll();
+                if ($(window).width() != width) {
+                    width = $(window).width();
+                    catalogueLineChart.width(document.getElementById('div-catalogue').offsetWidth);
+                    catalogueCategoryChart.width(document.getElementById('div-catalogue-category').offsetWidth);
+                    catalogueDayBarChart.width(document.getElementById('div-catalogue-day').offsetWidth);
+                    cataloguePublisherChart.width(document.getElementById('div-catalogue-publisher').offsetWidth);
+                    catalogueEditionBarChart.width(document.getElementById('div-catalogue-edition').offsetWidth);
+                    catalogueYearChart.width(document.getElementById('div-catalogue-year').offsetWidth);
+                    catalogueRowBranchChart.width(document.getElementById('div-catalogue-branch').offsetWidth);
+                    dc.renderAll();
+                }
             });
         });
 });
