@@ -11,13 +11,13 @@
     <link href="css/custom.css" rel="stylesheet" />
 </head>
 <body>
-    <nav class="navbar navbar-toggleable-md navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <button class="navbar-toggler navbar-toggler-right" aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbar">
+            <span class="navbar-brand" href="#"><span class="fa fa-cube colour4"></span> toonlibraries</span>
+            <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarColor03" aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbarColor03">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <span class="navbar-brand strong text-muted" href="/"><span class="fa fa-cube colour4"></span> toonlibraries</span>
-            <div class="collapse navbar-collapse" id="navbar" aria-expanded="false">
+            <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                         <a class="nav-link active" href="/">usage <span class="sr-only">(current)</span></a>
@@ -33,7 +33,7 @@
         </div>
     </nav>
     <div id="main" class="container main">
-        <p class="lead">Usage data is by month and library since 2008. <strong class="colour1">Issues</strong> are items being borrowed. <strong class="colour2">Visits</strong> are people entering a library. <strong class="colour3">Enquiries</strong> are questions asked by the public. <strong class="colour4">PC utilisation</strong> is percentage of available time computers were booked.</p>
+        <p class="lead">Usage data is by month and library since April 2008. <strong class="colour1">Issues</strong> are items being borrowed. <strong class="colour2">Visits</strong> are people entering a library. <strong class="colour3">Enquiries</strong> are questions asked by the public. <strong class="colour4">PC utilisation</strong> is percentage of available time computers were booked.</p>
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -96,7 +96,7 @@
         <div class="row">
             <div class="col-sm-12">
 
-                <table id="tbl-usage" class="table table-bordered"></table>
+                <table id="tbl-usage" class="table table-bordered table-condensed"></table>
                 <div id="div-usagetable-paging">
                     Showing <span id="begin"></span>-<span id="end"></span>.
                     <a id="btn-previous" class="btn btn-link" href="#">Previous</a>

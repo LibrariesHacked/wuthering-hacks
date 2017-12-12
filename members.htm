@@ -6,29 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>members | toonlibraries</title>
     <link href="node_modules/tether/dist/css/tether.min.css" rel="stylesheet" />
-    <link href="node_modules/bootswatch/materia/bootstrap.min.css" rel="stylesheet" />
+    <link href="node_modules/bootswatch/dist/materia/bootstrap.min.css" rel="stylesheet" />
     <link href="node_modules/dc/dc.min.css" rel="stylesheet" />
     <link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="node_modules/leaflet/dist/leaflet.css" rel="stylesheet" />
     <link href="css/custom.css" rel="stylesheet" />
 </head>
 <body>
-    <nav class="navbar navbar-toggleable-md navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <button class="navbar-toggler navbar-toggler-right" aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbar">
+            <span class="navbar-brand" href="#"><span class="fa fa-cube colour4"></span> toonlibraries</span>
+            <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarColor03" aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbarColor03">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <span class="navbar-brand strong text-muted" href="/"><span class="fa fa-cube colour4"></span> toonlibraries</span>
-            <div class="collapse navbar-collapse" id="navbar" aria-expanded="false">
+            <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/">usage</a>
+                        <a class="nav-link" href="/">usage <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/catalogue">catalogue</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link active" href="/members">members <span class="sr-only">(current)</span></a>
+                        <a class="nav-link active" href="/members">members</a>
                     </li>
                 </ul>
             </div>
@@ -72,12 +72,12 @@
         </div>
         <hr />
         <div class="row">
-            <div class="col-sm-9">
+            <div class="col-sm-6">
                 <div id="div-members-map">
                     <div id="map"><p>Filter by member postcode district.  <span class="reset" style="display: none"><span class="filter"></span> | <a id="reset-members-postcodedistrict" href="#">Reset</a></span></p></div>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-6">
                 <div id="div-members-branch">
                     <div id="cht-members-branch"><p>Filter by member branch.  <span class="reset" style="display: none"><span class="filter"></span> | <a id="reset-members-branch" href="#">Reset</a></span></p></div>
                 </div>

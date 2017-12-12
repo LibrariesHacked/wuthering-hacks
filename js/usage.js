@@ -70,9 +70,9 @@
                     return d;
                 })
                 .html({
-                    one: '<small>Issues</small><br/><span class="big strong colour1">%number</span>',
-                    some: '<small>Issues</small><br/><span class="big strong colour1">%number</span>',
-                    none: '<small>Issues</small><br/><span class="big strong colour1">None</span>'
+                    one: '<small class="colour1">Issues</small><br/><span class="big strong colour1">%number</span>',
+                    some: '<small class="colour1">Issues</small><br/><span class="big strong colour1">%number</span>',
+                    none: '<small class="colour1">Issues</small><br/><span class="big strong colour1">None</span>'
                 })
                 .group(issuesNumGroup);
 
@@ -86,9 +86,9 @@
                     return d;
                 })
                 .html({
-                    one: '<small>Visits</small><br/><span class="big strong colour2">%number</span>',
-                    some: '<small>Visits</small><br/><span class="big strong colour2">%number</span>',
-                    none: '<small>Visits</small><br/><span class="big strong colour2">None</span>'
+                    one: '<small class="colour2">Visits</small><br/><span class="big strong colour2">%number</span>',
+                    some: '<small class="colour2">Visits</small><br/><span class="big strong colour2">%number</span>',
+                    none: '<small class="colour2">Visits</small><br/><span class="big strong colour2">None</span>'
                 })
                 .group(visitsNumGroup);
 
@@ -102,9 +102,9 @@
                     return d;
                 })
                 .html({
-                    one: '<small>Enquiries</small><br/><span class="big strong colour3">%number</span>',
-                    some: '<small>Enquiries</small><br/><span class="big strong colour3">%number</span>',
-                    none: '<small>Enquiries</small><br/><span class="big strong colour3">None</span>'
+                    one: '<small class="colour3">Enquiries</small><br/><span class="big strong colour3">%number</span>',
+                    some: '<small class="colour3">Enquiries</small><br/><span class="big strong colour3">%number</span>',
+                    none: '<small class="colour3">Enquiries</small><br/><span class="big strong colour3">None</span>'
                 })
                 .group(enquiriesNumGroup);
 
@@ -118,9 +118,9 @@
                     return ((d.total / d.count)).toFixed(1);
                 })
                 .html({
-                    one: '<small>PC utilisation</small><br/><span class="big strong colour4">%number%</span>',
-                    some: '<small>PC utilisation</small><br/><span class="big strong colour4">%number%</span>',
-                    none: '<small>PC utilisation</small><br/><span class="big strong colour4">None</span>'
+                    one: '<small class="colour4">PC utilisation</small><br/><span class="big strong colour4">%number%</span>',
+                    some: '<small class="colour4">PC utilisation</small><br/><span class="big strong colour4">%number%</span>',
+                    none: '<small class="colour4">PC utilisation</small><br/><span class="big strong colour4">None</span>'
                 })
                 .group(pcNumGroup);
 
@@ -132,9 +132,9 @@
             var usageLineChart = dc.compositeChart('#cht-usage');
             usageLineChart
                 .width($('#div-usage').width())
-                .height(250)
+                .height(270)
                 .dimension(usageDateDim)
-                .margins({ top: 50, right: 60, bottom: 30, left: 60 })
+                .margins({ top: 30, right: 50, bottom: 25, left: 60 })
                 .clipPadding(10)
                 .mouseZoomable(false)
                 .shareTitle(false)
@@ -215,7 +215,7 @@
             var usageYearTotal = usageYearDim.group().reduceSum(function (d) { return d.issues; });
             usageYearChart
                 .width(document.getElementById('div-usage-year').offsetWidth)
-                .height(300)
+                .height(280)
                 .margins({ top: 5, right: 0, bottom: 40, left: 5 })
                 .group(usageYearTotal)
                 .ordinalColors([config.colours[0]])
@@ -248,7 +248,7 @@
 
             usageMonthRowChart
                 .width(document.getElementById('div-usage-month').offsetWidth)
-                .height(300)
+                .height(280)
                 .label(function (d) {
                     return monthsFull[d.key];
                 })
@@ -286,7 +286,7 @@
             var usageBranchTotal = usageBranchDim.group().reduceSum(function (d) { return d['issues']; });
             usageBranchBarChart
                 .width($('#div-usage-branch').width())
-                .height(300)
+                .height(280)
                 .margins({ top: 5, right: 0, bottom: 80, left: 60 })
                 .group(usageBranchTotal)
                 .ordinalColors([config.colours[0]])

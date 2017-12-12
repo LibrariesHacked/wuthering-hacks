@@ -1,14 +1,4 @@
-﻿/* Page setup */
-
-#main {
-    padding-top: 30px;
-}
-
-/* Tables */
-
-
-
-/* Text */
+﻿/* Text */
 
 .big {
     font-weight: 700;
@@ -26,7 +16,7 @@
 }
 
 .colour1 {
-    color: #36A2EB;
+    color: #36A2EB !important;
 }
 
 .colour2 {
@@ -60,7 +50,7 @@
 /* Map */
 
 #div-members-map #map > div {
-    height: 300px;
+    height: 220px;
     border: 1px #EAEBEF solid;
 }
 

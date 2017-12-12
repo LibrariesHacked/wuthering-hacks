@@ -6,25 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>catalogue | toonlibraries</title>
     <link href="node_modules/tether/dist/css/tether.min.css" rel="stylesheet" />
-    <link href="node_modules/bootswatch/materia/bootstrap.min.css" rel="stylesheet" />
+    <link href="node_modules/bootswatch/dist/materia/bootstrap.min.css" rel="stylesheet" />
     <link href="node_modules/dc/dc.min.css" rel="stylesheet" />
     <link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="css/custom.css" rel="stylesheet" />
 </head>
 <body>
-    <nav class="navbar navbar-toggleable-md navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <button class="navbar-toggler navbar-toggler-right" aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbar">
+            <span class="navbar-brand" href="#"><span class="fa fa-cube colour4"></span> toonlibraries</span>
+            <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarColor03" aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbarColor03">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <span class="navbar-brand strong text-muted" href="/"><span class="fa fa-cube colour4"></span> toonlibraries</span>
-            <div class="collapse navbar-collapse" id="navbar" aria-expanded="false">
+            <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/">usage</a>
+                        <a class="nav-link" href="/">usage <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link active" href="/catalogue">catalogue <span class="sr-only">(current)</span></a>
+                        <a class="nav-link active" href="/catalogue">catalogue</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/members">members</a>
@@ -75,12 +75,12 @@
         </div>
         <hr />
         <div class="row">
-            <div class="col-md-9 col-sm-12">
-                <div id="div-catalogue-category">
-                    <div id="cht-catalogue-category"><p>Filter by item category (top 20 shown). <span class="reset" style="display: none">Range: <span class="filter"></span>  <a id="reset-chart-category" href="#">Reset</a></span></p></div>
+            <div class="col-md-8 col-sm-12">
+                <div id="div-catalogue-publisher">
+                    <div id="cht-catalogue-publisher"><p>Filter by publishers (top 10 shown). <span class="reset" style="display: none">Range: <span class="filter"></span> <a id="reset-chart-publisher" href="#">Reset</a></span></p></div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-12">
+            <div class="col-md-4 col-sm-12">
                 <div id="div-catalogue-edition">
                     <div id="cht-catalogue-edition"><p>Filter by edition. <span class="reset" style="display: none">Range: <span class="filter"></span>  <a id="reset-chart-edition" href="#">Reset</a></span></p></div>
                 </div>
@@ -88,22 +88,22 @@
         </div>
         <hr />
         <div class="row">
+            <div class="col-md-9 col-sm-12">
+                <div id="div-catalogue-year">
+                    <div id="cht-catalogue-year"><p>Filter by year added. <span class="reset" style="display: none">Range: <span class="filter"></span> <a id="reset-chart-year" href="#">Reset</a></span></p></div>
+                </div>
+            </div>
             <div class="col-md-3 col-sm-12">
                 <div id="div-catalogue-day">
                     <div id="cht-catalogue-day"><p>Filter by day added. <span class="reset" style="display: none">Range: <span class="filter"></span> <a id="reset-chart-day" href="#">Reset</a></span></p></div>
-                </div>
-            </div>
-            <div class="col-md-9 col-sm-12">
-                <div id="div-catalogue-publisher">
-                    <div id="cht-catalogue-publisher"><p>Filter by publishers (top 20 shown). <span class="reset" style="display: none">Range: <span class="filter"></span> <a id="reset-chart-publisher" href="#">Reset</a></span></p></div>
                 </div>
             </div>
         </div>
         <hr />
         <div class="row">
             <div class="col-md-6 col-sm-12">
-                <div id="div-catalogue-year">
-                    <div id="cht-catalogue-year"><p>Filter by year added. <span class="reset" style="display: none">Range: <span class="filter"></span> <a id="reset-chart-year" href="#">Reset</a></span></p></div>
+                <div id="div-catalogue-category">
+                    <div id="cht-catalogue-category"><p>Filter by item category (top 10 shown). <span class="reset" style="display: none">Range: <span class="filter"></span>  <a id="reset-chart-category" href="#">Reset</a></span></p></div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
@@ -115,7 +115,7 @@
         <hr />
         <div class="row">
             <div class="col-sm-12">
-                <table id="tbl-catalogue-detail" class="table table-bordered"></table>
+                <table id="tbl-catalogue-detail" class="table table-bordered table-condensed"></table>
                 <div id="div-cataloguetable-paging">
                     Showing <span id="begin"></span>-<span id="end"></span>.
                     <a id="btn-previous" class="btn btn-link" href="#">Previous</a>

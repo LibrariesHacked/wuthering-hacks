@@ -58,9 +58,9 @@
                     return d;
                 })
                 .html({
-                    one: '<small>Members</small><br/><span class="big strong colour1">%number</span>',
-                    some: '<small>Members</small><br/><span class="big strong colour1">%number</span>',
-                    none: '<small>Members</small><br/><span class="big strong colour1">None</span>'
+                    one: '<small class="colour1">Members</small><br/><span class="big strong colour1">%number</span>',
+                    some: '<small class="colour1">Members</small><br/><span class="big strong colour1">%number</span>',
+                    none: '<small class="colour1">Members</small><br/><span class="big strong colour1">None</span>'
                 })
                 .group(membersNumGroup);
 
@@ -77,9 +77,9 @@
                     return d;
                 })
                 .html({
-                    one: '<small>Libraries</small><br/><span class="big strong colour2">%number</span>',
-                    some: '<small>Libraries</small><br/><span class="big strong colour2">%number</span>',
-                    none: '<small>Libraries</small><br/><span class="big strong colour2">None</span>'
+                    one: '<small class="colour2">Libraries</small><br/><span class="big strong colour2">%number</span>',
+                    some: '<small class="colour2">Libraries</small><br/><span class="big strong colour2">%number</span>',
+                    none: '<small class="colour2">Libraries</small><br/><span class="big strong colour2">None</span>'
                 });
 
             branchesNumberDisplay.group({
@@ -104,9 +104,9 @@
                     return d;
                 })
                 .html({
-                    one: '<small>Postcode districts</small><br/><span class="big strong colour3">%number</span>',
-                    some: '<small>Postcode districts</small><br/><span class="big strong colour3">%number</span>',
-                    none: '<small>Postcode districts</small><br/><span class="big strong colour3">None</span>'
+                    one: '<small class="colour3">Postcode districts</small><br/><span class="big strong colour3">%number</span>',
+                    some: '<small class="colour3">Postcode districts</small><br/><span class="big strong colour3">%number</span>',
+                    none: '<small class="colour3">Postcode districts</small><br/><span class="big strong colour3">None</span>'
                 });
             postcodedistrictsNumberDisplay.group({
                 value: function () {
@@ -133,9 +133,9 @@
                     return daysFull[d];
                 })
                 .html({
-                    none: '<small>Popular joining day</small><br/><span class="big strong colour4">%number</span>',
-                    one: '<small>Popular joining day</small><br/><span class="big strong colour4">%number</span>',
-                    some: '<small>Popular joining day</small><br/><span class="big strong colour4">%number</span>'
+                    none: '<small class="colour4">Popular joining day</small><br/><span class="big strong colour4">%number</span>',
+                    one: '<small class="colour4">Popular joining day</small><br/><span class="big strong colour4">%number</span>',
+                    some: '<small class="colour4">Popular joining day</small><br/><span class="big strong colour4">%number</span>'
                 });
 
             popularJoiningNumberDisplay.group({
@@ -152,21 +152,21 @@
             ///////////////////////////////////////////////
             var minDate = membersDateDim.bottom(1)[0].dateadded;
             var maxDate = membersDateDim.top(1)[0].dateadded;
- 
+
             var membersLineChart = dc.lineChart('#cht-members-date');
             membersLineChart
                 .width($('#div-members-date').width())
                 .height(200)
                 .dimension(membersDateDim)
                 .group(membersTotal)
-                .colors(config.colours[0])
                 .margins({ top: 5, right: 60, bottom: 30, left: 60 })
-                .elasticX(true)
+                .colors(config.colours[1])
+                //.elasticX(true)
                 .elasticY(true)
                 .renderHorizontalGridLines(true)
-                .x(d3.time.scale().domain([minDate, maxDate]))
+                .x(d3.time.scale().domain([new Date('09-09-1996'), maxDate]))
                 .xAxisLabel('Month')
-                .yAxisLabel('Members joined');
+                .yAxisLabel('Members');
             $('#reset-members-date').on('click', function (e) {
                 e.preventDefault();
                 membersLineChart.filterAll();
@@ -238,27 +238,36 @@
                     }
                 };
             };
-            var memberBranchRowChart = dc.rowChart("#cht-members-branch");
+            var memberBranchBarChart = dc.barChart("#cht-members-branch");
             var memberBranchDim = membersNdx.dimension(function (d) { return d.library; });
             var memberBranchTotal = memberBranchDim.group().reduceCount(function (d) { return 1; });
-            memberBranchRowChart
+            memberBranchBarChart
                 .width($('#div-members-branch').width())
-                .height(350)
+                .height(250)
+                .margins({ top: 5, right: 0, bottom: 80, left: 60 })
                 .group(removeZBranches(memberBranchTotal))
+                .ordinalColors([config.colours[0]])
                 .dimension(memberBranchDim)
-                .margins({ top: 5, right: 0, bottom: 20, left: 5 })
-                .elasticX(true);
-            $('#reset-chart-branch').on('click', function (e) {
+                .elasticY(true)
+                .elasticX(true)
+                .xUnits(dc.units.ordinal)
+                .brushOn(false)
+                .x(d3.scale.ordinal())
+                .yAxisLabel('Members')
+                .renderHorizontalGridLines(true)
+                .xAxis().tickFormat(function (d) { return d; });
+            $('#reset-members-branch').on('click', function (e) {
                 e.preventDefault();
-                memberBranchRowChart.filterAll();
+                memberBranchBarChart.filterAll();
                 dc.redrawAll();
                 return false;
             });
-            $('#reset-members-branch').on('click', function (e) {
-                e.preventDefault();
-                memberBranchRowChart.filterAll();
-                dc.redrawAll();
-                return false;
+            memberBranchBarChart.renderlet(function (chart) {
+                chart.selectAll("g.x text").attr('transform', "translate(-13,10) rotate(270)");
+                chart.selectAll(".column rect").each(function (d, i) {
+                    var colour = d3.select(this).attr('fill');
+                    d3.select(this).attr('style', 'stroke-width:1; stroke:' + colour);
+                })
             });
 
             // Graph 4: Hour Joined
@@ -270,21 +279,16 @@
                 .height(200)
                 .margins({ top: 5, right: 0, bottom: 20, left: 60 })
                 .group(membersHourJoinedTotal)
+                .ordinalColors([config.colours[2]])
                 .dimension(membersHourJoinedDim)
                 .elasticY(true)
                 .elasticX(true)
                 .xUnits(dc.units.ordinal)
                 .brushOn(false)
                 .x(d3.scale.ordinal())
-                .yAxisLabel('Members joined')
+                .yAxisLabel('Members')
                 .renderHorizontalGridLines(true)
                 .xAxis().tickFormat(function (d) { return d; });
-            $('#reset-chart-hourjoined').on('click', function (e) {
-                e.preventDefault();
-                membersHourJoinedBarChart.filterAll();
-                dc.redrawAll();
-                return false;
-            });
             $('#reset-members-hourjoined').on('click', function (e) {
                 e.preventDefault();
                 membersHourJoinedBarChart.filterAll();
@@ -301,6 +305,7 @@
                 .height(200)
                 .margins({ top: 5, right: 0, bottom: 20, left: 60 })
                 .group(membersDayJoinedTotal)
+                .ordinalColors([config.colours[2]])
                 .dimension(membersDayJoinedDim)
                 .label(function (d) {
                     return d.y;
@@ -310,7 +315,7 @@
                 .xUnits(dc.units.ordinal)
                 .brushOn(false)
                 .x(d3.scale.ordinal())
-                .yAxisLabel('Members joined')
+                .yAxisLabel('Members')
                 .renderHorizontalGridLines(true)
                 .xAxis().tickFormat(function (d) { return daysFull[d]; });
             $('#reset-chart-dayjoined').on('click', function (e) {
@@ -338,5 +343,15 @@
 
             // Hide the loading spinner
             $('#loader').hide();
+
+            // Event: Resize Window.  Resize all the charts based on their new container widths.
+            $(window).on('resize', function () {
+                membersLineChart.width($('#div-members-date').width());
+                postcodesChoro.width($('#div-members-map').width());
+                memberBranchBarChart.width($('#div-members-branch').width());
+                membersHourJoinedBarChart.width($('#div-members-hourjoined').width());
+                membersDayJoinedBarChart.width($('#div-members-dayjoined').width());
+                dc.renderAll();
+            });
         });
 });
