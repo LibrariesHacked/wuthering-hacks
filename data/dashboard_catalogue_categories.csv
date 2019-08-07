@@ -1,12 +1,12 @@
 id,category
 0,Other
-1,ADULT NON FICTION
-2,REFERENCE
-3,ADULT FICTION
-4,PICTURE BOOKS
-5,JUNIOR FICTION
-6,JUNIOR NON FICTION
-7,LARGE PRINT
-8,CRIME
-9,READ ALONE
-10,LOCAL LENDING
+1,Adult Book
+2,Reference
+3,Junior Book
+4,Adult Audiobook
+5,Teenage Book
+6,New Stock
+7,Favourites DVDs
+8,Junior Rented DVD
+9,Graphic Novel 16+
+10,Graphic Novels 14+

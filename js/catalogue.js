@@ -1,10 +1,5 @@
 ﻿$(function () {
 
-    ///////////////////////////////////////////////////////////////////////////////
-    // Common Functions
-    ///////////////////////////////////////////////////////////////////////////////
-    var parseDate = d3.time.format("%Y%m").parse;
-
     // Load in all the CSVs.  These are the main grouping of catalogue data, and the lookups for branches and categories
     $.when(
         $.ajax(config.catalogueAuthorsCsv),
@@ -23,16 +18,14 @@
                 return xhr;
             }
         }),
-        $.ajax(config.catalogueLanguagesCsv),
         $.ajax(config.cataloguePublishersCsv))
-        .then(function (a, b, ca, cl, e, c, l, p) {
+        .then(function (a, b, ca, cl, e, c, p) {
             var authors = $.csv.toObjects(a[0]);
             var branches = $.csv.toObjects(b[0]);
             var categories = $.csv.toObjects(ca[0]);
             var classifications = $.csv.toObjects(cl[0]);
             var editions = $.csv.toObjects(e[0]);
             var catalogue = $.csv.toObjects(c[0]);
-            var languages = $.csv.toObjects(l[0]);
             var publishers = $.csv.toObjects(p[0]);
 
             var authorLookup = {};
@@ -45,8 +38,6 @@
             $.each(classifications, function (i, x) { classLookup[x.id] = x.classification; });
             var editionLookup = {};
             $.each(editions, function (i, x) { editionLookup[x.id] = x.edition; });
-            var languageLookup = {};
-            $.each(languages, function (i, x) { languageLookup[x.id] = x.language; });
             var publisherLookup = {};
             $.each(publishers, function (i, x) { publisherLookup[x.id] = x.publisher; });
 
@@ -69,7 +60,6 @@
                 d.count = +d.count;
                 d.edition = toTitleCase(editionLookup[d.edition_id]);
                 d.issues = +d.issues;
-                d.language = toTitleCase(languageLookup[d.language_id]);
                 d.price = +d.price;
                 d.published_year = d.published_year;
                 d.publisher = toTitleCase(publisherLookup[d.publisher_id]);
@@ -208,7 +198,7 @@
                 .elasticY(true)
                 .renderHorizontalGridLines(true)
                 .legend(dc.legend().x(0).y(0).horizontal(true).itemHeight(20).gap(15))
-                .x(d3.scale.linear())
+                .x(d3.scaleLinear())
                 .compose([
                     dc.lineChart(catalogueLineChart)
                         .group(itemsTotal, 'Added')
@@ -241,20 +231,7 @@
             catalogueLineChart.filterPrinter(function (filters) {
                 return $.map(filters[0], function (f) { return parseInt(f); }).join('-');
             });
-            // There seems to be a bug with composite charts.
-            catalogueLineChart._brushing = function () {
-                var extent = catalogueLineChart.extendBrush();
-                var rangedFilter = null;
-                if (!catalogueLineChart.brushIsEmpty(extent)) rangedFilter = dc.filters.RangedFilter(extent[0], extent[1]);
-                dc.events.trigger(function () {
-                    if (!rangedFilter) {
-                        catalogueLineChart.filter(null);
-                    } else {
-                        catalogueLineChart.replaceFilter(rangedFilter);
-                    }
-                    catalogueLineChart.redrawGroup();
-                }, dc.constants.EVENT_DELAY);
-            };
+            
             $('#reset-chart-catalogue').on('click', function (e) {
                 e.preventDefault();
                 catalogueLineChart.filterAll();
@@ -278,7 +255,7 @@
                 .elasticX(true)
                 .xUnits(dc.units.ordinal)
                 .brushOn(false)
-                .x(d3.scale.ordinal())
+                .x(d3.scaleBand())
                 .renderHorizontalGridLines(true)
                 .ordinalColors([config.colours[0]])
                 .yAxisLabel('Items')
@@ -339,7 +316,7 @@
                 .elasticX(true)
                 .xUnits(dc.units.ordinal)
                 .brushOn(false)
-                .x(d3.scale.ordinal())
+                .x(d3.scaleBand())
                 .ordinalColors([config.colours[1]])
                 .renderHorizontalGridLines(true)
                 .xAxis().tickFormat(function (d) { return d; });
@@ -398,7 +375,7 @@
                 .elasticX(true)
                 .xUnits(dc.units.ordinal)
                 .brushOn(false)
-                .x(d3.scale.ordinal())
+                .x(d3.scaleBand())
                 .ordinalColors([config.colours[0]])
                 .renderHorizontalGridLines(true)
                 .yAxisLabel('Items')
@@ -430,7 +407,7 @@
                 .elasticX(true)
                 .xUnits(dc.units.ordinal)
                 .brushOn(false)
-                .x(d3.scale.ordinal())
+                .x(d3.scaleBand())
                 .ordinalColors([config.colours[0]])
                 .renderHorizontalGridLines(true)
                 .yAxisLabel('Items')
@@ -455,7 +432,7 @@
                 .html({
                     some: '<strong>%filter-count</strong> selected out of <strong>%total-count</strong> records' +
                     ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>Reset All</a><br/> &nbsp',
-                    all: 'All records selected. Please click on the graph to apply filters.<br/> &nbsp'
+                    all: 'All records selected. Please click on the graphs to filter the data.<br/> &nbsp'
                 });
 
             var ofs = 0, pag = 10;

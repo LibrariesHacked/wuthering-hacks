@@ -9,91 +9,82 @@ import re
 from datetime import datetime
 import pandas
 
-TITLEDATA = '..\\data\\titlesincatalogue220317.csv'
-ITEMDATA = '..\\data\\itemsincatalogue220317.csv'
+TITLEDATA = '..\\data\\Cataloguetitles-20190806.csv'
+ITEMDATA = '..\\data\\Catalogueitems-20190806.csv'
 
 def read_catalogue_data():
     """Return a catalogue titles data object"""
     cat = {
-        'records': {}, 'pub_years': {}, 'authors': {}, 'languages': {},
+        'records': {}, 'pub_years': {}, 'authors': {},
         'editions': {}, 'classifications': {}, 'publishers': {}
         }
     path = os.path.join(os.path.dirname(__file__), TITLEDATA)
-    catreader = csv.DictReader(open(path, 'r'), delimiter=',', quotechar='"', lineterminator='\n')
+    catreader = csv.DictReader(open(path, 'r', encoding='utf-8'), delimiter=',', quotechar='"', lineterminator='\n')
     # Loop through the CSV
     for row in catreader:
 
-        # Record number
-        record_number = row['rcn']
-        # ISBN
+        # first read all the rows
+        record_number = row['biblionumber']
         isbn = row['isbn']
-        # Published year
-        published_year = row['publ_y']
+        published_year = row['copyrightdate']
+        author = row['author']
+        title = row['title']
+        price = row['price']
+        edition = row['editionstatement']
+        classification = row['itemcallnumber']
+        publisher = row['publishercode']
+        acpy = row['Copies']
+
         if published_year == '':
             published_year = 0
         if published_year not in cat['pub_years']:
             cat['pub_years'][published_year] = 1
         else:
             cat['pub_years'][published_year] = cat['pub_years'][published_year] + 1
-        # Author
-        author = row['author']
+        
+        if price != '':
+            price = round(float(re.sub(r'[^\d.]+', '', price)), 2)
+        else:
+            price = 0
+
         if author == '':
             author = 'Unknown'
         if author not in cat['authors']:
             cat['authors'][author] = 1
         else:
             cat['authors'][author] = cat['authors'][author] + 1
-        # Title
-        title = row['title']
-        # Price
-        price = round(float(re.sub(r'[^\d.]+', '', row['price'])), 2)
-        # Language
-        language = row['langua']
-        if language == '':
-            language = 'Unknown'
-        if language not in cat['languages']:
-            cat['languages'][language] = 1
-        else:
-            cat['languages'][language] = cat['languages'][language] + 1
-        # Edition
-        edition = row['editio']
+
         if edition == '':
             edition = 'Unknown'
         if edition not in cat['editions']:
             cat['editions'][edition] = 1
         else:
             cat['editions'][edition] = cat['editions'][edition] + 1
-        # Classification
-        classification = row['class']
+        
         if classification == '':
             classification = 'Unknown'
         if classification not in cat['classifications']:
             cat['classifications'][classification] = 1
         else:
             cat['classifications'][classification] = cat['classifications'][classification] + 1
-        # Publisher
-        publisher = row['publisher']
+
         if publisher == '':
             publisher = 'Unknown'
         if publisher not in cat['publishers']:
             cat['publishers'][publisher] = 1
         else:
             cat['publishers'][publisher] = cat['publishers'][publisher] + 1
-        # First copy date
-        firstcopydate = row['firstcopydate']
-        if firstcopydate == '':
-            firstcopydate = 'Unknown'
-        # Acpy
-        acpy = row['acpy']
+
         if acpy == '':
             acpy = 'Unknown'
 
         cat['records'][record_number] = {
             'isbn': isbn, 'published_year': published_year, 'author': author, 'title': title,
-            'price': price, 'language': language, 'edition': edition,
+            'price': price, 'edition': edition,
             'classification': classification, 'publisher': publisher,
-            'firstcopydate': firstcopydate, 'acpy': acpy
+            'acpy': acpy
             }
+
     return cat
 
 def construct_references(ref):
@@ -124,18 +115,28 @@ def read_item_data():
     items = {'records': [], 'branches': {}, 'categories': {}, 'days_added': {}, 'months_added': {}, 'years_added': {}}
 
     for row in itemreader:
-        if row['rcn'] != '':
-            key = row['item']
-            rcn = row['rcn']
-            branch = row['name']
+        if row['biblionumber'] != '':
+
+            key = row['barcode']
+            rcn = row['biblionumber']
+            category = row['itemtype']
+            branch = row['homebranch']
+            raw_date_added = row['dateaccessioned']
+            issues = 0
+            if row['issues'] != '':
+                issues = int(row['issues'])
+            renewals = 0
+            if row['renewals'] != '':
+                renewals = int(row['renewals'])
+
             if branch not in items['branches']:
                 items['branches'][branch] = 0
             items['branches'][branch] = items['branches'][branch] + 1
-            category = row['text']
+            
             if category not in items['categories']:
                 items['categories'][category] = 0
             items['categories'][category] = items['categories'][category] + 1
-            raw_date_added = row['added']
+            
             date_added = ''
             month_added = ''
             day_added = ''
@@ -159,17 +160,13 @@ def read_item_data():
             if year_added not in items['years_added']:
                 items['years_added'][year_added] = 0
             items['years_added'][year_added] = items['years_added'][year_added] + 1
-            issues_current = int(row['issues current branch'])
-            issues_previous = int(row['issues previous branch'])
-            renewals_current = int(row['renewals current branch'])
-            renewals_previous = int(row['renewals previous branch'])
 
             items['records'].append(
                 {
                     'key': key, 'rcn': rcn, 'branch': branch, 'category': category,
                     'date_added': date_added, 'day_added': day_added, 'month_added': month_added,
-                    'year_added': year_added, 'issues': (issues_current + issues_previous),
-                    'renewals': (renewals_current + renewals_previous)})
+                    'year_added': year_added, 'issues': issues,
+                    'renewals': renewals})
 
     return items
 
@@ -192,7 +189,7 @@ def run():
                 'year_added': i['year_added'], 'issues': i['issues'], 'renewals': i['renewals'],
                 'isbn': cat['isbn'], 'published_year': cat['published_year'],
                 'author': cat['author'], 'author_id': 0, 'title': cat['title'],
-                'price':cat['price'], 'language': cat['language'], 'language_id': 0,
+                'price':cat['price'],
                 'edition': cat['edition'], 'edition_id': 0, 'classification': cat['classification'],
                 'classification_id': 0, 'publisher': cat['publisher'], 'publisher_id': 0, 'count': 1
                 }
@@ -202,8 +199,6 @@ def run():
                 record['category_id'] = item_references['categories'].index(i['category'])
             if cat['author'] in cat_references['authors']:
                 record['author_id'] = cat_references['authors'].index(cat['author'])
-            if cat['language'] in cat_references['languages']:
-                record['language_id'] = cat_references['languages'].index(cat['language'])
             if cat['edition'] in cat_references['editions']:
                 record['edition_id'] = cat_references['editions'].index(cat['edition'])
             if cat['classification'] in cat_references['classifications']:
@@ -219,22 +214,20 @@ def run():
     categorydata.index.name = 'id'
     authorsdata = pandas.DataFrame(cat_references['authors'], index=None, columns=['author'])
     authorsdata.index.name = 'id'
-    languagesdata = pandas.DataFrame(cat_references['languages'], index=None, columns=['language'])
-    languagesdata.index.name = 'id'
     editionsdata = pandas.DataFrame(cat_references['editions'], index=None, columns=['edition'])
     editionsdata.index.name = 'id'
     classificationsdata = pandas.DataFrame(cat_references['classifications'], index=None, columns=['classification'])
     classificationsdata.index.name = 'id'
     publishersdata = pandas.DataFrame(cat_references['publishers'], index=None, columns=['publisher'])
     publishersdata.index.name = 'id'
-    groupeditems = itemdata.groupby(['branch_id', 'category_id', 'year_added', 'day_added', 'published_year', 'language_id', 'edition_id', 'classification_id', 'publisher_id']).agg({'count': 'sum', 'price': 'sum', 'issues': 'sum', 'renewals': 'sum'})
+    groupeditems = itemdata.groupby(['branch_id', 'category_id', 'year_added', 'day_added', 'published_year', 'edition_id', 'classification_id', 'publisher_id']).agg({'count': 'sum', 'price': 'sum', 'issues': 'sum', 'renewals': 'sum'})
     groupeditems.price = groupeditems.price.round(2)
 
     itemdata.to_csv(
         os.path.join(os.path.dirname(__file__), '..\\data\\dashboard_items_titles_merged.csv'),
         index=False, columns=[
             'key', 'rcn', 'published_year', 'author', 'title',
-            'classification', 'isbn', 'edition', 'language',
+            'classification', 'isbn', 'edition',
             'price', 'branch', 'date_added', 'issues', 'renewals']
         )
     itemdata.to_csv(
@@ -253,9 +246,6 @@ def run():
         )
     authorsdata.to_csv(
         os.path.join(os.path.dirname(__file__), '..\\data\\dashboard_catalogue_authors.csv')
-        )
-    languagesdata.to_csv(
-        os.path.join(os.path.dirname(__file__), '..\\data\\dashboard_catalogue_languages.csv')
         )
     editionsdata.to_csv(
         os.path.join(os.path.dirname(__file__), '..\\data\\dashboard_catalogue_editions.csv')

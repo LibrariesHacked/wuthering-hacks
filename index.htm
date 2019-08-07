@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,11 +11,13 @@
     <link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="css/custom.css" rel="stylesheet" />
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <span class="navbar-brand" href="#"><span class="fa fa-cube colour4"></span> toonlibraries</span>
-            <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarColor03" aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbarColor03">
+            <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarColor03"
+                aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbarColor03">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarColor03">
@@ -25,20 +28,22 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/catalogue">catalogue</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/members">members</a>
-                    </li>
                 </ul>
             </div>
         </div>
     </nav>
     <div id="main" class="container main">
-        <p class="lead">Usage data is by month and library since April 2008. <strong class="colour1">Issues</strong> are items being borrowed. <strong class="colour2">Visits</strong> are people entering a library. <strong class="colour3">Enquiries</strong> are questions asked by the public. <strong class="colour4">PC utilisation</strong> is percentage of available time computers were booked.</p>
+        <p class="lead">Newcastle Libraries usage data is published per month and library, since April 2008. <strong
+                class="colour1">Issues</strong> are
+            items being borrowed. <strong class="colour2">Visits</strong> are people entering a library. <strong
+                class="colour3">Enquiries</strong> are questions asked by the public. <strong class="colour4">PC
+                utilisation</strong> is percentage of available time computers were booked.</p>
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="dc-data-count">
-                        <p><span class="filter-count"></span> selected out of <span class="total-count"></span> records.</p>
+                        <p><span class="filter-count"></span> selected out of <span class="total-count"></span> records.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -70,7 +75,10 @@
         <div class="row">
             <div class="col-12">
                 <div id="div-usage">
-                    <div id="cht-usage"><p>Usage by date <span class="reset" style="display: none"><span class="filter"></span> | <a id="reset-chart-usage" href="#">Reset</a></span></p></div>
+                    <div id="cht-usage">
+                        <p>Usage by date <span class="reset" style="display: none"><span class="filter"></span> | <a
+                                    id="reset-chart-usage" href="#">Reset</a></span></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -78,17 +86,26 @@
         <div class="row">
             <div class="col-md-3 col-sm-12">
                 <div id="div-usage-year">
-                    <div id="cht-usage-year"><p>Issues by year <span class="reset" style="display: none"><span class="filter"></span> | <a id="reset-chart-year" href="#">Reset</a></span></p></div>
+                    <div id="cht-usage-year">
+                        <p>Issues by year <span class="reset" style="display: none"><span class="filter"></span> | <a
+                                    id="reset-chart-year" href="#">Reset</a></span></p>
+                    </div>
                 </div>
             </div>
             <div class="col-md-3 col-sm-12">
                 <div id="div-usage-month">
-                    <div id="cht-usage-month"><p>Issues by month <span class="reset" style="display: none"><span class="filter"></span> | <a id="reset-chart-month" href="#">Reset</a></span></p></div>
+                    <div id="cht-usage-month">
+                        <p>Issues by month <span class="reset" style="display: none"><span class="filter"></span> | <a
+                                    id="reset-chart-month" href="#">Reset</a></span></p>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div id="div-usage-branch">
-                    <div id="cht-usage-branch"><p>Issues by library <span class="reset" style="display: none"><span class="filter"></span> | <a id="reset-chart-branch" href="#">Reset</a></span></p></div>
+                    <div id="cht-usage-branch">
+                        <p>Issues by library <span class="reset" style="display: none"><span class="filter"></span> | <a
+                                    id="reset-chart-branch" href="#">Reset</a></span></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -105,17 +122,21 @@
             </div>
         </div>
         <hr />
-        <p>An open source project available on <a href="https://github.com/LibrariesHacked/wuthering-hacks" target="_blank">GitHub</a>.  <a href="https://twitter.com/ToonLibraries" target="_blank" title="Newcastle Libraries on Twitter">@ToonLibraries</a> release open data under a <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>.</p>
+        <p>an open source project available on <a href="https://github.com/LibrariesHacked/wuthering-hacks"
+                target="_blank">GitHub</a>. <a href="https://twitter.com/ToonLibraries" target="_blank"
+                title="Newcastle Libraries on Twitter">@ToonLibraries</a> release open data under a <a
+                href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank"
+                title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>.</p>
     </div>
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="node_modules/leaflet/dist/leaflet.js"></script>
-    <script src="node_modules/d3/d3.min.js"></script>
+    <script src="node_modules/d3/dist/d3.min.js"></script>
     <script src="node_modules/crossfilter2/crossfilter.min.js"></script>
     <script src="node_modules/dc/dc.js"></script>
     <script src="node_modules/jquery-csv/src/jquery.csv.min.js"></script>
     <script src="js/config.js"></script>
     <script src="js/usage.js"></script>
 </body>
+
 </html>

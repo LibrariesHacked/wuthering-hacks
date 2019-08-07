@@ -3,7 +3,7 @@
     ///////////////////////////////////////////////////////////////////////////////
     // Common Functions
     ///////////////////////////////////////////////////////////////////////////////
-    var parseDate = d3.time.format("%Y-%m").parse;
+    var parseDate = d3.timeParse("%Y-%m");
 
     // Load in all the CSVs
     $.when($.ajax(config.usagecsv))
@@ -139,12 +139,12 @@
                 .mouseZoomable(false)
                 .shareTitle(false)
                 .shareColors(true)
-                .round(d3.time.month.round)
+                .round(d3.timeMonth.round)
                 .elasticX(true)
                 .elasticY(true)
                 .renderHorizontalGridLines(true)
                 .legend(dc.legend().x(0).y(0).horizontal(true).itemHeight(20).gap(15))
-                .x(d3.time.scale().domain([minDate, maxDate]))
+                .x(d3.scaleTime().domain([minDate, maxDate]))
                 .compose([
                     dc.lineChart(usageLineChart)
                         .group(issuesTotal, 'Issues')
@@ -180,23 +180,6 @@
                 ])
                 .yAxisLabel('Usage count')
                 .rightYAxisLabel('PC utilisation %');
-
-            // There seems to be a bug with composite charts.
-            usageLineChart._brushing = function () {
-                var extent = usageLineChart.extendBrush();
-                var rangedFilter = null;
-                if (!usageLineChart.brushIsEmpty(extent)) {
-                    rangedFilter = dc.filters.RangedFilter(extent[0], extent[1]);
-                }
-                dc.events.trigger(function () {
-                    if (!rangedFilter) {
-                        usageLineChart.filter(null);
-                    } else {
-                        usageLineChart.replaceFilter(rangedFilter);
-                    }
-                    usageLineChart.redrawGroup();
-                }, dc.constants.EVENT_DELAY);
-            };
 
             $('#reset-chart-usage').on('click', function (e) {
                 e.preventDefault();
@@ -295,7 +278,7 @@
                 .elasticX(true)
                 .xUnits(dc.units.ordinal)
                 .brushOn(false)
-                .x(d3.scale.ordinal())
+                .x(d3.scaleBand())
                 .yAxisLabel('Issues')
                 .renderHorizontalGridLines(true);
 
@@ -325,7 +308,7 @@
                 .html({
                     some: '<strong>%filter-count</strong> selected out of <strong>%total-count</strong> usage records' +
                     ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>Reset All</a><br/> &nbsp',
-                    all: 'All records selected. Please click on the graphs to apply filters.<br/> &nbsp'
+                    all: 'All records selected. Please click on the graphs to filter the data.<br/> &nbsp'
                 });
 
             var usageTable = dc.dataTable('#tbl-usage');
