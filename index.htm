@@ -5,39 +5,27 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>usage | toonlibraries</title>
-    <link href="node_modules/bootswatch/dist/materia/bootstrap.min.css" rel="stylesheet" />
+    <title>Usage | Toon Libraries</title>
+    <link href="node_modules/bootswatch/dist/sandstone/bootstrap.min.css" rel="stylesheet" />
     <link href="node_modules/dc/dc.min.css" rel="stylesheet" />
     <link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="css/custom.css" rel="stylesheet" />
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <span class="navbar-brand" href="#"><span class="fa fa-cube colour4"></span> toonlibraries</span>
-            <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarColor03"
-                aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbarColor03">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarColor03">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link active" href="/">usage <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/catalogue">catalogue</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div id="main" class="container main">
-        <p class="lead">Newcastle Libraries usage data is published per month and library, since April 2008. <strong
-                class="colour1">Issues</strong> are
-            items being borrowed. <strong class="colour2">Visits</strong> are people entering a library. <strong
-                class="colour3">Enquiries</strong> are questions asked by the public. <strong class="colour4">PC
-                utilisation</strong> is percentage of available time computers were booked.</p>
+    <div class="container">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link active" href="/">Usage</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/catalogue">Catalogue</a>
+            </li>
+        </ul>
+    </div>
+    <div id="main" class="container">
+        <p class="lead">Newcastle Libraries publish usage data per month and library, from April 2008.</p>
+        <p class="lead" id="loader"><span class="fa fa-spinner fa-spin"></span> Loading...</p>
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -69,64 +57,154 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <hr />
-        <p class="lead" id="loader"><span class="fa fa-spinner fa-spin"></span> Loading...</p>
-        <div class="row">
-            <div class="col-12">
-                <div id="div-usage">
-                    <div id="cht-usage">
-                        <p>Usage by date <span class="reset" style="display: none"><span class="filter"></span> | <a
-                                    id="reset-chart-usage" href="#">Reset</a></span></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr />
-        <div class="row">
-            <div class="col-md-3 col-sm-12">
-                <div id="div-usage-year">
-                    <div id="cht-usage-year">
-                        <p>Issues by year <span class="reset" style="display: none"><span class="filter"></span> | <a
-                                    id="reset-chart-year" href="#">Reset</a></span></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-12">
-                <div id="div-usage-month">
-                    <div id="cht-usage-month">
-                        <p>Issues by month <span class="reset" style="display: none"><span class="filter"></span> | <a
-                                    id="reset-chart-month" href="#">Reset</a></span></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <div id="div-usage-branch">
-                    <div id="cht-usage-branch">
-                        <p>Issues by library <span class="reset" style="display: none"><span class="filter"></span> | <a
-                                    id="reset-chart-branch" href="#">Reset</a></span></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr />
-        <div class="row">
-            <div class="col-sm-12">
 
-                <table id="tbl-usage" class="table table-bordered table-condensed"></table>
-                <div id="div-usagetable-paging">
-                    Showing <span id="begin"></span>-<span id="end"></span>.
-                    <a id="btn-previous" class="btn btn-link" href="#">Previous</a>
-                    <a id="btn-next" class="btn btn-link" href="#">Next</a>
+            <h4>Issues</h4>
+            <p>Issues are items being borrowed.</p>
+            <hr />
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    <div id="div-issues-year">
+                        <div id="cht-issues-year">
+                            <p>Issues by year. <span class="reset" style="display: none"><span class="filter"></span> |
+                                    <a id="reset-chart-issues-year" href="#">Reset</a></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <div id="div-issues-month">
+                        <div id="cht-issues-month">
+                            <p>Issues by month <span class="reset" style="display: none"><span class="filter"></span> |
+                                    <a id="reset-chart-issues-month" href="#">Reset</a></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div id="div-issues-branch">
+                        <div id="cht-issues-branch">
+                            <p>Issues by library <span class="reset" style="display: none"><span class="filter"></span>
+                                    | <a id="reset-chart-issues-branch" href="#">Reset</a></span></p>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <hr /><br />
+
+            <h4>Visits</h4>
+            <p>Visits are people entering a library.</p>
+            <hr />
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    <div id="div-visits-year">
+                        <div id="cht-visits-year">
+                            <p>Visits by year. <span class="reset" style="display: none"><span class="filter"></span> |
+                                    <a id="reset-chart-visits-year" href="#">Reset</a></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <div id="div-visits-month">
+                        <div id="cht-visits-month">
+                            <p>Visits by month <span class="reset" style="display: none"><span class="filter"></span> |
+                                    <a id="reset-chart-visits-month" href="#">Reset</a></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div id="div-visits-branch">
+                        <div id="cht-visits-branch">
+                            <p>Visits by library <span class="reset" style="display: none"><span class="filter"></span>
+                                    | <a id="reset-chart-visits-branch" href="#">Reset</a></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Enquiries</h4>
+            <p>Enquiries are questions asked by the public.</p>
+            <hr />
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    <div id="div-enquiries-year">
+                        <div id="cht-enquiries-year">
+                            <p>Enquiries by year. <span class="reset" style="display: none"><span class="filter"></span>
+                                    |
+                                    <a id="reset-chart-enquiries-year" href="#">Reset</a></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <div id="div-enquiries-month">
+                        <div id="cht-enquiries-month">
+                            <p>Enquiries by month <span class="reset" style="display: none"><span class="filter"></span>
+                                    |
+                                    <a id="reset-chart-enquiries-month" href="#">Reset</a></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div id="div-enquiries-branch">
+                        <div id="cht-enquiries-branch">
+                            <p>Enquiries by library <span class="reset" style="display: none"><span
+                                        class="filter"></span>
+                                    | <a id="reset-chart-enquiries-branch" href="#">Reset</a></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h4>PC utilisation</h4>
+            <p>PC utilisation is percentage of available time computers were booked.</p>
+            <hr />
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    <div id="div-pc-year">
+                        <div id="cht-pc-year">
+                            <p>PC utilisation by year. <span class="reset" style="display: none"><span
+                                        class="filter"></span> |
+                                    <a id="reset-chart-pc-year" href="#">Reset</a></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <div id="div-pc-month">
+                        <div id="cht-pc-month">
+                            <p>PC utilisation by month <span class="reset" style="display: none"><span
+                                        class="filter"></span> |
+                                    <a id="reset-chart-pc-month" href="#">Reset</a></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div id="div-pc-branch">
+                        <div id="cht-pc-branch">
+                            <p>PC utilisation by library <span class="reset" style="display: none"><span
+                                        class="filter"></span>
+                                    | <a id="reset-chart-pc-branch" href="#">Reset</a></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h4>All usage</h4>
+            <hr />
+            <div class="row">
+                <div class="col-12">
+                    <div id="div-usage">
+                        <div id="cht-usage">
+                            <p><span class="reset" style="display: none"><span class="filter"></span> | <a
+                                        id="reset-chart-usage" href="#">Reset</a></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+            <p>an open source project available on <a href="https://github.com/LibrariesHacked/wuthering-hacks"
+                    target="_blank">GitHub</a>. <a href="https://twitter.com/ToonLibraries" target="_blank"
+                    title="Newcastle Libraries on Twitter">@ToonLibraries</a> release open data under a <a
+                    href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank"
+                    title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>.</p>
         </div>
-        <hr />
-        <p>an open source project available on <a href="https://github.com/LibrariesHacked/wuthering-hacks"
-                target="_blank">GitHub</a>. <a href="https://twitter.com/ToonLibraries" target="_blank"
-                title="Newcastle Libraries on Twitter">@ToonLibraries</a> release open data under a <a
-                href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank"
-                title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>.</p>
     </div>
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>

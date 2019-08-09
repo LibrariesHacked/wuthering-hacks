@@ -1,21 +1,24 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>catalogue | toonlibraries</title>
+    <title>Catalogue | Toon Libraries</title>
     <link href="node_modules/tether/dist/css/tether.min.css" rel="stylesheet" />
-    <link href="node_modules/bootswatch/dist/materia/bootstrap.min.css" rel="stylesheet" />
+    <link href="node_modules/bootswatch/dist/sandstone/bootstrap.min.css" rel="stylesheet" />
     <link href="node_modules/dc/dc.min.css" rel="stylesheet" />
     <link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="css/custom.css" rel="stylesheet" />
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <span class="navbar-brand" href="#"><span class="fa fa-cube colour4"></span> toonlibraries</span>
-            <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarColor03" aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbarColor03">
+            <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarColor03"
+                aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbarColor03">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarColor03">
@@ -31,11 +34,17 @@
         </div>
     </nav>
     <div id="main" class="container main">
-        <p class="lead">Titles are catalogue records, with fields like <strong class="colour1">author</strong>, a <strong class="colour2">published year</strong>, book <strong class="colour3">edition</strong>, a <strong class="colour5">publisher</strong>, and <strong class="colour6">price</strong>. Items are individual copies of titles, with a <strong class="colour1">date added</strong> to catalogue, <strong class="colour2">library</strong>, number of <strong class="colour3">issues</strong>, and <strong class="colour4">renewals</strong>.</p>
+        <p class="lead">Titles are catalogue records, with fields like <strong class="colour1">author</strong>, a
+            <strong class="colour2">published year</strong>, book <strong class="colour3">edition</strong>, a <strong
+                class="colour5">publisher</strong>, and <strong class="colour6">price</strong>. Items are individual
+            copies of titles, with a <strong class="colour1">date added</strong> to catalogue, <strong
+                class="colour2">library</strong>, number of <strong class="colour3">issues</strong>, and <strong
+                class="colour4">renewals</strong>.</p>
         <div class="container">
             <div class="row">
                 <div class="dc-data-count">
-                    <p><span class="filter-count"></span> selected out of <span class="total-count"></span> records.<br /></p>
+                    <p><span class="filter-count"></span> selected out of <span class="total-count"></span>
+                        records.<br /></p>
                 </div>
             </div>
             <div class="row stat-bar">
@@ -66,7 +75,10 @@
         <div class="row">
             <div class="col-sm-12">
                 <div id="div-catalogue">
-                    <div id="cht-catalogue"><p>Filter by date added to catalogue. <span class="reset" style="display: none">Range: <span class="filter"></span>  <a id="reset-chart-catalogue" href="#">Reset</a></span></p></div>
+                    <div id="cht-catalogue">
+                        <p>Filter by date added to catalogue. <span class="reset" style="display: none">Range: <span
+                                    class="filter"></span> <a id="reset-chart-catalogue" href="#">Reset</a></span></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,12 +86,18 @@
         <div class="row">
             <div class="col-md-8 col-sm-12">
                 <div id="div-catalogue-publisher">
-                    <div id="cht-catalogue-publisher"><p>Filter by publishers (top 10 shown). <span class="reset" style="display: none">Range: <span class="filter"></span> <a id="reset-chart-publisher" href="#">Reset</a></span></p></div>
+                    <div id="cht-catalogue-publisher">
+                        <p>Filter by publishers (top 10 shown). <span class="reset" style="display: none">Range: <span
+                                    class="filter"></span> <a id="reset-chart-publisher" href="#">Reset</a></span></p>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-12">
                 <div id="div-catalogue-edition">
-                    <div id="cht-catalogue-edition"><p>Filter by edition. <span class="reset" style="display: none">Range: <span class="filter"></span>  <a id="reset-chart-edition" href="#">Reset</a></span></p></div>
+                    <div id="cht-catalogue-edition">
+                        <p>Filter by edition. <span class="reset" style="display: none">Range: <span
+                                    class="filter"></span> <a id="reset-chart-edition" href="#">Reset</a></span></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -87,12 +105,18 @@
         <div class="row">
             <div class="col-md-9 col-sm-12">
                 <div id="div-catalogue-year">
-                    <div id="cht-catalogue-year"><p>Filter by year added. <span class="reset" style="display: none">Range: <span class="filter"></span> <a id="reset-chart-year" href="#">Reset</a></span></p></div>
+                    <div id="cht-catalogue-year">
+                        <p>Filter by year added. <span class="reset" style="display: none">Range: <span
+                                    class="filter"></span> <a id="reset-chart-year" href="#">Reset</a></span></p>
+                    </div>
                 </div>
             </div>
             <div class="col-md-3 col-sm-12">
                 <div id="div-catalogue-day">
-                    <div id="cht-catalogue-day"><p>Filter by day added. <span class="reset" style="display: none">Range: <span class="filter"></span> <a id="reset-chart-day" href="#">Reset</a></span></p></div>
+                    <div id="cht-catalogue-day">
+                        <p>Filter by day added. <span class="reset" style="display: none">Range: <span
+                                    class="filter"></span> <a id="reset-chart-day" href="#">Reset</a></span></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -100,28 +124,27 @@
         <div class="row">
             <div class="col-md-6 col-sm-12">
                 <div id="div-catalogue-category">
-                    <div id="cht-catalogue-category"><p>Filter by item category (top 10 shown). <span class="reset" style="display: none">Range: <span class="filter"></span>  <a id="reset-chart-category" href="#">Reset</a></span></p></div>
+                    <div id="cht-catalogue-category">
+                        <p>Filter by item category (top 10 shown). <span class="reset" style="display: none">Range:
+                                <span class="filter"></span> <a id="reset-chart-category" href="#">Reset</a></span></p>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div id="div-catalogue-branch">
-                    <div id="cht-catalogue-branch"><p>Filter by item branch. <span class="reset" style="display: none">Range: <span class="filter"></span> <a id="reset-chart-branch" href="#">Reset</a></span></p></div>
+                    <div id="cht-catalogue-branch">
+                        <p>Filter by item branch. <span class="reset" style="display: none">Range: <span
+                                    class="filter"></span> <a id="reset-chart-branch" href="#">Reset</a></span></p>
+                    </div>
                 </div>
             </div>
         </div>
         <hr />
-        <div class="row">
-            <div class="col-sm-12">
-                <table id="tbl-catalogue-detail" class="table table-bordered table-condensed"></table>
-                <div id="div-cataloguetable-paging">
-                    Showing <span id="begin"></span>-<span id="end"></span>.
-                    <a id="btn-previous" class="btn btn-link" href="#">Previous</a>
-                    <a id="btn-next" class="btn btn-link" href="#">Next</a>
-                </div>
-            </div>
-        </div>
-        <hr />
-        <p>an open source project available on <a href="https://github.com/LibrariesHacked/wuthering-hacks" target="_blank">GitHub</a>.  <a href="https://twitter.com/ToonLibraries" target="_blank" title="Newcastle Libraries on Twitter">@ToonLibraries</a> release open data under a <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>.</p>
+        <p>an open source project available on <a href="https://github.com/LibrariesHacked/wuthering-hacks"
+                target="_blank">GitHub</a>. <a href="https://twitter.com/ToonLibraries" target="_blank"
+                title="Newcastle Libraries on Twitter">@ToonLibraries</a> release open data under a <a
+                href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank"
+                title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>.</p>
     </div>
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/tether/dist/js/tether.min.js"></script>
@@ -134,4 +157,5 @@
     <script src="js/config.js"></script>
     <script src="js/catalogue.js"></script>
 </body>
+
 </html>

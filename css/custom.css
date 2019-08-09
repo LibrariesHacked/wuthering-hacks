@@ -1,19 +1,24 @@
-﻿/* Text */
+﻿body {
+    background-color: #F5F5F5;
+}
+
+#main {
+    padding-top: 10px
+}
+
+.nav {
+    margin-top: 10px
+}
+
+/* Text */
 
 .big {
     font-weight: 700;
     font-size: 2.1em;
 }
 
-.strong {
-    font-weight: 700;
-}
-
 /* Custom colours */
 
-.grey {
-    background-color: #F2F4F8;
-}
 
 .colour1 {
     color: #36A2EB !important;
@@ -37,14 +42,12 @@
 
 /* Components */
 
-.navbar {
-    box-shadow: none;
-}
-
 .stat-bar {
-    background-color: #F2F4F8;
+    background-color: #FFF;
     border: 1px #EAEBEF solid;
+    border-radius: 5px;
     padding: 10px;
+    margin-bottom: 15px;
 }
 
 /* Map */
@@ -105,10 +108,6 @@
     text-anchor: end !important;
 }
 
-
-
-
-
 .dc-chart .grid-line, .dc-chart .axis .grid-line, .dc-chart .grid-line line, .dc-chart .axis .grid-line line {
     fill: none;
     stroke: #ccc;
@@ -129,8 +128,6 @@
     fill: #eee;
     stroke: #666;
 }
-
-
 
 .dc-chart path.area {
     fill-opacity: .3;

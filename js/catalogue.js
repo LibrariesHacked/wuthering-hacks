@@ -231,7 +231,7 @@
             catalogueLineChart.filterPrinter(function (filters) {
                 return $.map(filters[0], function (f) { return parseInt(f); }).join('-');
             });
-            
+
             $('#reset-chart-catalogue').on('click', function (e) {
                 e.preventDefault();
                 catalogueLineChart.filterAll();
@@ -422,67 +422,15 @@
                 return false;
             });
 
-            ////////////////////////////////////////////////////////////////
-            // Table: Main data table
-            ////////////////////////////////////////////////////////////////
             var dataCount = dc.dataCount('.dc-data-count');
             dataCount
                 .dimension(catalogueNdx)
                 .group(catalogueNdx.groupAll())
                 .html({
                     some: '<strong>%filter-count</strong> selected out of <strong>%total-count</strong> records' +
-                    ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>Reset All</a><br/> &nbsp',
+                        ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>Reset All</a><br/> &nbsp',
                     all: 'All records selected. Please click on the graphs to filter the data.<br/> &nbsp'
                 });
-
-            var ofs = 0, pag = 10;
-
-            var displayCatalogueTable = function () {
-                d3.select('#begin').text(ofs);
-                d3.select('#end').text(ofs + pag - 1);
-                d3.select('#btn-previous').attr('disabled', ofs - pag < 0 ? 'true' : null);
-                d3.select('#btn-next').attr('disabled', ofs + pag >= catalogueNdx.size() ? 'true' : null);
-            };
-
-            var updateCatalogueTable = function () {
-                catalogueTable.beginSlice(ofs);
-                catalogueTable.endSlice(ofs + pag);
-                displayCatalogueTable();
-            };
-
-            var catalogueTableNext = function () {
-                ofs += pag;
-                updateCatalogueTable();
-                catalogueTable.redraw();
-            };
-            $('#div-cataloguetable-paging a#btn-next').on('click', function (e) { e.preventDefault(); catalogueTableNext(); });
-
-            var catalogueTableLast = function () {
-                ofs -= pag;
-                updateCatalogueTable();
-                catalogueTable.redraw();
-            };
-            $('#div-cataloguetable-paging a#btn-previous').on('click', function (e) { e.preventDefault(); catalogueTableLast(); });
-
-            var catalogueTable = dc.dataTable('#tbl-catalogue-detail');
-            catalogueTable
-                .dimension(catalogueDateDim)
-                .group(function (d) { return d.year || 'Unknown'; })
-                .size(Infinity)
-                .columns([
-                    { label: 'Branch', format: function (d) { return d.branch; } },
-                    { label: 'Category', format: function (d) { return d.category; } },
-                    { label: 'Class', format: function (d) { return d.classification; } },
-                    { label: 'Edition', format: function (d) { return d.edition; } },
-                    { label: 'Publisher', format: function (d) { return d.publisher; } },
-                    { label: 'Pub. Year', format: function (d) { return d.published_year; } },
-                    { label: 'Day added', format: function (d) { return daysFull[d.day] || 'Unknown'; } },
-                    { label: 'Count', format: function (d) { return d.count; } },
-                    { label: 'Issued', format: function (d) { return d.issues; } },
-                    { label: 'Renewed', format: function (d) { return d.renewals; } },
-                    { label: 'Cost', format: function (d) { return '£' + d.price; } }
-                ]);
-            updateCatalogueTable();
 
             // Startup: Render all the charts
             dc.renderAll();
