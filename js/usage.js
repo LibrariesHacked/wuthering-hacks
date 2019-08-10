@@ -307,7 +307,7 @@
                 .height(280)
                 .margins({ top: 5, right: 0, bottom: 40, left: 5 })
                 .group(enquiriesYearTotal)
-                .ordinalColors([config.colours[2]])
+                .ordinalColors([config.colours[3]])
                 .dimension(usageYearDim)
                 .ordering(function (d) { return d })
                 .elasticX(true);
@@ -334,7 +334,7 @@
                 })
                 .margins({ top: 5, right: 0, bottom: 40, left: 5 })
                 .group(enquiriesMonthTotal)
-                .ordinalColors([config.colours[2]])
+                .ordinalColors([config.colours[3]])
                 .dimension(usageMonthDim)
                 .ordering(function (d) { return d })
                 .elasticX(true);
@@ -361,7 +361,7 @@
                 .height(280)
                 .margins({ top: 5, right: 0, bottom: 80, left: 60 })
                 .group(enquiriesBranchTotal)
-                .ordinalColors([config.colours[2]])
+                .ordinalColors([config.colours[3]])
                 .dimension(usageBranchDim)
                 .elasticY(true)
                 .elasticX(true)
@@ -392,7 +392,7 @@
                 .valueAccessor(function (p) {
                     return p.value.count > 0 ? p.value.total / p.value.count : 0;
                 })
-                .ordinalColors([config.colours[3]])
+                .ordinalColors([config.colours[2]])
                 .dimension(usageYearDim)
                 .ordering(function (d) { return d })
                 .elasticX(true);
@@ -422,7 +422,7 @@
                 .valueAccessor(function (p) {
                     return p.value.count > 0 ? p.value.total / p.value.count : 0;
                 })
-                .ordinalColors([config.colours[3]])
+                .ordinalColors([config.colours[2]])
                 .dimension(usageMonthDim)
                 .ordering(function (d) { return d })
                 .elasticX(true);
@@ -453,7 +453,7 @@
                 .valueAccessor(function (p) {
                     return p.value.count > 0 ? p.value.total / p.value.count : 0;
                 })
-                .ordinalColors([config.colours[3]])
+                .ordinalColors([config.colours[2]])
                 .dimension(pcBranchDim)
                 .elasticY(true)
                 .elasticX(true)
