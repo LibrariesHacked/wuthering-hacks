@@ -23,16 +23,19 @@
             </li>
         </ul>
     </div>
+
     <div id="main" class="container">
-        <p class="lead">Newcastle Libraries publish usage data per month and library, from April 2008.</p>
-        <p class="lead" id="loader"><span class="fa fa-spinner fa-spin"></span> Loading...</p>
+        <p class="lead">Newcastle Libraries publish usage data per month and library, including issues, visits,
+            enquiries, and PC utlisation. Data from April 2008.</p>
+        <p class="lead" id="loader">
+            <span class="fa fa-spinner fa-spin"></span> Loading...
+        </p>
         <div class="container">
             <div class="row">
-                <div class="col-12">
-                    <div class="dc-data-count">
-                        <p><span class="filter-count"></span> selected out of <span class="total-count"></span> records.
-                        </p>
-                    </div>
+                <div class="dc-data-count">
+                    <p>
+                        <span class="filter-count"></span> selected out of <span class="total-count"></span> records.
+                    </p>
                 </div>
             </div>
             <div class="row stat-bar">
@@ -87,7 +90,7 @@
                     </div>
                 </div>
             </div>
-            <hr /><br />
+            <br /><br />
 
             <h4>Visits</h4>
             <p>Visits are people entering a library.</p>
@@ -104,8 +107,8 @@
                 <div class="col-md-3 col-sm-12">
                     <div id="div-visits-month">
                         <div id="cht-visits-month">
-                            <p>Visits by month <span class="reset" style="display: none"><span class="filter"></span> |
-                                    <a id="reset-chart-visits-month" href="#">Reset</a></span></p>
+                            <p>Visits by month <span class="reset" style="display: none"><span class="filter"></span>
+                                    | <a id="reset-chart-visits-month" href="#">Reset</a></span></p>
                         </div>
                     </div>
                 </div>
@@ -118,6 +121,7 @@
                     </div>
                 </div>
             </div>
+            <br /><br />
 
             <h4>Enquiries</h4>
             <p>Enquiries are questions asked by the public.</p>
@@ -151,6 +155,7 @@
                     </div>
                 </div>
             </div>
+            <br /><br />
 
             <h4>PC utilisation</h4>
             <p>PC utilisation is percentage of available time computers were booked.</p>
@@ -184,6 +189,7 @@
                     </div>
                 </div>
             </div>
+            <br /><br />
 
             <h4>All usage</h4>
             <hr />
@@ -197,7 +203,7 @@
                     </div>
                 </div>
             </div>
-
+            <br /><br />
             <hr />
             <p>an open source project available on <a href="https://github.com/LibrariesHacked/wuthering-hacks"
                     target="_blank">GitHub</a>. <a href="https://twitter.com/ToonLibraries" target="_blank"
@@ -206,12 +212,13 @@
                     title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>.</p>
         </div>
     </div>
+
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="node_modules/d3/dist/d3.min.js"></script>
     <script src="node_modules/crossfilter2/crossfilter.min.js"></script>
-    <script src="node_modules/dc/dc.js"></script>
+    <script src="node_modules/dc/dc.min.js"></script>
     <script src="node_modules/jquery-csv/src/jquery.csv.min.js"></script>
     <script src="js/config.js"></script>
     <script src="js/usage.js"></script>

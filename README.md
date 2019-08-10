@@ -1,17 +1,16 @@
 Wuthering Hacks
 ===============
 
-A data dashboard to display Newcastle libraries open data.  Currently published at:
+A data dashboard to display Newcastle libraries open data. Currently published at:
 
 [https://newcastle.librarydata.uk](https://newcastle.librarydata.uk)
 
 What is it?
 -----------
 
-Newcastle public libraries publish as much of their data as possible under a very open Public Domain licence (https://creativecommons.org/publicdomain/zero/1.0/).  Details of existing datasets can be found at [Libraries data sets](https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-sets).
+Newcastle public libraries publish as much of their data as possible under a Public Domain licence (https://creativecommons.org/publicdomain/zero/1.0/). Details of existing datasets can be found at [Libraries data sets](https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-sets).
 
 They also have a GitHub account at [ToonLibraries](https://github.com/ToonLibraries), and an open data repository within this account at [library-open-data](https://github.com/ToonLibraries/library-open-data).
-
 
 Dashboard pages
 ---------------
@@ -46,14 +45,14 @@ The dashboard uses CSVs published by Newcastle libraries under the Public Domain
 | Catalogue | [CSV](https://www.newcastle.gov.uk/sites/default/files/wwwfileroot/catalogue190916.csv) | Extract from the Library Management System (LMS) catalogue |
 | Items | [CSV](https://www.newcastle.gov.uk/sites/default/files/wwwfileroot/items190916.csv) | Items in the Library Management System (LMS) catalogue |
 
-The code does not link directly to these files but uses a copy held within the project.  This means that updates to those open data files need to be manually copied into this project.  See Build section for instructions.
+The code does not link directly to these files but uses a copy held within the project. This means that updates to those open data files need to be manually copied into this project. See Build section for instructions.
 
 Data definitions
 ----------------
 
 The data that the dashboard uses is converted from the source data, and put into a format that is most efficient for the code to use.
 
-However, the original data can be copied into this project when it is published.  The definitions of the datasets used are included below.
+However, the original data can be copied into this project when it is published. The definitions of the datasets used are included below.
 
 ### Libraries
 
@@ -78,7 +77,7 @@ The columns go on to cover each month in the form of YYYY-MM.
 
 #### Comments
 
-It would be nice to have this dataset with the month in a row, rather than a column header.  For example:
+It would be nice to have this dataset with the month in a row, rather than a column header. For example:
 
 | Field | Description | Example |
 | ----- | ----------- | ------- |
@@ -86,7 +85,7 @@ It would be nice to have this dataset with the month in a row, rather than a col
 | Month | The month | *2008-04* |
 | Enquiries | The number of enquiries for the month | *312* |
 
-That way the structure would be fixed to three columns and would increase in rows (rather than columns) as new months are added.  The same applies to the following datasets on usage.
+That way the structure would be fixed to three columns and would increase in rows (rather than columns) as new months are added. The same applies to the following datasets on usage.
 
 ### Monthly issues
 
@@ -146,13 +145,13 @@ That way the structure would be fixed to three columns and would increase in row
 
 #### Comments
 
-It's probably down to the tool used to create the CSV, but the header is on the second row.  The first row includes a timestamp.
+It's probably down to the tool used to create the CSV, but the header is on the second row. The first row includes a timestamp.
 
 ```
 __ Mon Sep,19 13:33:20 2016,______
 ```
 
-Never mind though, it'll be easy enough to ignore.  There seems to be a final column on the end that doesn't have any data in.  Will ignore that.  Pound (£) signs are included in the price column.  I don't think there are any other currencies so will remove these and just have a decimal number.  The number of copies sometimes seems to have a pipe character (|), maybe some remnant from a MARC field, so will also remove these.
+Never mind though, it'll be easy enough to ignore. There seems to be a final column on the end that doesn't have any data in. Will ignore that. Pound (£) signs are included in the price column. I don't think there are any other currencies so will remove these and just have a decimal number. The number of copies sometimes seems to have a pipe character (|), maybe some remnant from a MARC field, so will also remove these.
 
 ### Items
 
@@ -173,7 +172,7 @@ Never mind though, it'll be easy enough to ignore.  There seems to be a final co
 Combining usage data
 --------------------
 
-To produce a file that is efficient to show for usage data, it's worth merging together a number of the files on usage: enquiries, issues, vists, and computer usage.  Each of these include libraries and months, so when separate contain a lot of duplicated data.
+To produce a file that is efficient to show for usage data, it's worth merging together a number of the files on usage: enquiries, issues, vists, and computer usage. Each of these include libraries and months, so when separate contain a lot of duplicated data.
 
 The goal will be to produce a file to be used by the dashboard that looks like the following.
 
@@ -186,7 +185,7 @@ The goal will be to produce a file to be used by the dashboard that looks like t
 | Visits | *1768* |
 | Computer Usage | *50%* |
 
-The data is created using a [python script](https://github.com/libraries-hacked/wuthering-hacks/scripts/combine_usage.py).  This is included in the scripts directory of this project and prduces 1 file.
+The data is created using a [python script](https://github.com/libraries-hacked/wuthering-hacks/scripts/combine_usage.py). This is included in the scripts directory of this project and prduces 1 file.
 
 - dashboard_usage.csv
 
@@ -195,9 +194,9 @@ This file is then used in the usage page of the data dashboard.
 Combining and aggregating catalogue and items
 ---------------------------------------------
 
-Both the catalogue and item extracts are fairly large files (29MB and 27MB).  Given that this project mainly processes data client-side (in the web browser), those files are too large to expect users to download.
+Both the catalogue and item extracts are fairly large files (29MB and 27MB). Given that this project mainly processes data client-side (in the web browser), those files are too large to expect users to download.
 
-We mainly need aggregated data (e.g. x thousand items, x thousand items of a particular category).  For this purpose I have created a single aggregated dataset for catalogue and items.  This is made smaller by using Ids for category and branch.  These lookups are then included as a separate export.
+We mainly need aggregated data (e.g. x thousand items, x thousand items of a particular category). For this purpose I have created a single aggregated dataset for catalogue and items. This is made smaller by using Ids for category and branch. These lookups are then included as a separate export.
 
 | Field | Description | Example |
 |------ | ----------- | ------- | 
@@ -209,19 +208,19 @@ We mainly need aggregated data (e.g. x thousand items, x thousand items of a par
 | BranchId | An integer ID of the branch. | *0* |
 | Branch | The textual name of the location. | *CITY STACK* |
 
-| Field | Description | Example |  1,1,,7278,2430.46,188799,31121
+| Field | Description | Example |
 |------ | ----------- | ------- |
-| CategoryId | Derived from the **text** field in the item data.  | *1* |
+| CategoryId | Derived from the **text** field in the item data. | *1* |
 | BranchId | Derived from the **name** field from the item table. | *1* |
-| Added |  Month the items were added to the catalogue.  | *2016-01* |
+| Added |  Month the items were added to the catalogue. | *2016-01* |
 | Count | A count of the number of items. | *1* |
 | Issues  | A count of the number of issues | **419757** |
 | Renewals | A count of the number of renewals | **605263** |
-| Price | Taken from the price field of the title data, in this case a total price for the items.  Will be in pounds but with no symbol. | **462969.67** |
+| Price | Taken from the price field of the title data, in this case a total price for the items. Will be in pounds but with no symbol. | **462969.67** |
 
 So, the above example would show that 
 
-The data is created using a [python script](https://github.com/libraries-hacked/wuthering-hacks/scripts/aggregate_catalogue.py).  This is included in the scripts directory of this project and prduces 3 files.
+The data is created using a [python script](https://github.com/libraries-hacked/wuthering-hacks/scripts/aggregate_catalogue.py). This is included in the scripts directory of this project and prduces 3 files.
 
 - dashboard_catalogue.csv
 - dashboard_catalogue_grouped.csv
@@ -237,7 +236,7 @@ The following technologies (with licences listed) are used in this project.
 
 | Technology | Used for | Link | Licence |
 | ---------- | -------- | ---- | ------- |
-| Bootstrap | To provide the page structure.  Currently using version 4 Alpha 6. | [Bootstrap](http://getbootstrap.com/) | [MIT](https://github.com/twbs/bootstrap/blob/master/LICENSE) |
+| Bootstrap | To provide the page structure. Currently using version 4 Alpha 6. | [Bootstrap](http://getbootstrap.com/) | [MIT](https://github.com/twbs/bootstrap/blob/master/LICENSE) |
 | jQuery | Required by bootstrap and to provide JavaScript code shortcuts | [jQuery](https://jquery.com/) | [MIT](https://jquery.org/license/) |
 | DC JS | Dimensional Charting JavaScript library - used for the dynamic charts | [dc.js](https://dc-js.github.io/dc.js/) | [Apache](https://github.com/dc-js/dc.js/blob/develop/LICENSE) |
 | Crossfilter | Required by DC JS, provides the cross flitering functionality | [Crossfilter](http://square.github.io/crossfilter/) | [Apache](https://github.com/square/crossfilter/blob/master/LICENSE) |

@@ -6,7 +6,7 @@ var months = ['Ja', 'Fe', 'Mr', 'Ap', 'My', 'Jn', 'Jl', 'Au', 'Se', 'Oc', 'Nv', 
 var monthsFull = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 var config = {
-    colours: ['#36A2EB', '#FF6384', '#FF9F40', '#4BC0C0', '#9966FF'],
+    colours: ['#36A2EB', '#FF9F40', '#FF6384', '#4BC0C0', '#9966FF'],
     librariescsv: 'data/libraries.csv',
     librariesExtendedCsv: 'data/newcastle_libraries_extended.csv',
     usagecsv: 'data/dashboard_usage.csv',

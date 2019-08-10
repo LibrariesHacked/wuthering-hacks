@@ -2,11 +2,9 @@
 
     // Load in all the CSVs.  These are the main grouping of catalogue data, and the lookups for branches and categories
     $.when(
-        $.ajax(config.catalogueAuthorsCsv),
+
         $.ajax(config.catalogueBranchesCsv),
         $.ajax(config.catalogueCategoriesCsv),
-        $.ajax(config.catalogueClassificationsCsv),
-        $.ajax(config.catalogueEditionsCsv),
         $.ajax(config.catalogueGroupedCsv, {
             xhr: function () {
                 var xhr = new window.XMLHttpRequest();
