@@ -21,6 +21,9 @@
             <li class="nav-item">
                 <a class="nav-link active" href="/catalogue">Catalogue</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/members">Members</a>
+            </li>
         </ul>
     </div>
 
@@ -30,99 +33,98 @@
             <span class="fa fa-spinner fa-spin"></span> Loading...
         </p>
 
-        <div class="container">
-            <div class="row">
-                <div class="dc-data-count">
-                    <p>
-                        <span class="filter-count"></span> selected out of <span class="total-count"></span>
-                        records.<br />
-                    </p>
-                </div>
+        <div class="row">
+            <div class="dc-data-count">
+                <p>
+                    <span class="filter-count"></span> selected out of <span class="total-count"></span>
+                    records.<br />
+                </p>
             </div>
-            <div class="row stat-bar">
-                <div class="col-3">
-                    <div id="div-number-items">
-                        <div id="cht-number-items"></div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div id="div-number-issues">
-                        <div id="cht-number-issues"></div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div id="div-number-renewals">
-                        <div id="cht-number-renewals"></div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div id="div-number-cost">
-                        <div id="cht-number-cost"></div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col-sm-12">
-                    <div id="div-catalogue">
-                        <div id="cht-catalogue">
-                            <p>Date added to catalogue. <span class="reset" style="display: none">Range: <span
-                                        class="filter"></span> <a id="reset-chart-catalogue" href="#">Reset</a></span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr /><br />
-
-            <div class="row">
-                <div class="col-md-9 col-sm-12">
-                    <div id="div-catalogue-year">
-                        <div id="cht-catalogue-year">
-                            <p>Year added. <span class="reset" style="display: none">Range: <span
-                                        class="filter"></span> <a id="reset-chart-year" href="#">Reset</a></span></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-12">
-                    <div id="div-catalogue-day">
-                        <div id="cht-catalogue-day">
-                            <p>Day added. <span class="reset" style="display: none">Range: <span
-                                        class="filter"></span> <a id="reset-chart-day" href="#">Reset</a></span></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr /><br />
-
-            <div class="row">
-                <div class="col-md-6 col-sm-12">
-                    <div id="div-catalogue-category">
-                        <div id="cht-catalogue-category">
-                            <p>Item category (top 10 shown). <span class="reset" style="display: none">Range:
-                                    <span class="filter"></span> <a id="reset-chart-category" href="#">Reset</a></span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <div id="div-catalogue-branch">
-                        <div id="cht-catalogue-branch">
-                            <p>Item branch. <span class="reset" style="display: none">Range: <span
-                                        class="filter"></span> <a id="reset-chart-branch" href="#">Reset</a></span></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr /><br />
-
-            <p>An open source project available on <a href="https://github.com/LibrariesHacked/wuthering-hacks"
-                    target="_blank">GitHub</a>. <a href="https://twitter.com/ToonLibraries" target="_blank"
-                    title="Newcastle Libraries on Twitter">@ToonLibraries</a> release open data under a <a
-                    href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank"
-                    title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>.</p>
         </div>
+        <div class="row stat-bar">
+            <div class="col-3">
+                <div id="div-number-items">
+                    <div id="cht-number-items"></div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div id="div-number-issues">
+                    <div id="cht-number-issues"></div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div id="div-number-renewals">
+                    <div id="cht-number-renewals"></div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div id="div-number-cost">
+                    <div id="cht-number-cost"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="div-catalogue">
+                    <div id="cht-catalogue">
+                        <p>Date added to catalogue. <span class="reset" style="display: none">Range: <span
+                                    class="filter"></span> <a id="reset-chart-catalogue" href="#">Reset</a></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr /><br />
+
+        <div class="row">
+            <div class="col-md-9 col-sm-12">
+                <div id="div-catalogue-year">
+                    <div id="cht-catalogue-year">
+                        <p>Year added. <span class="reset" style="display: none">Range: <span class="filter"></span>
+                                <a id="reset-chart-year" href="#">Reset</a></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <div id="div-catalogue-day">
+                    <div id="cht-catalogue-day">
+                        <p>Day added. <span class="reset" style="display: none">Range: <span class="filter"></span>
+                                <a id="reset-chart-day" href="#">Reset</a></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr /><br />
+
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div id="div-catalogue-category">
+                    <div id="cht-catalogue-category">
+                        <p>Item category (top 10 shown). <span class="reset" style="display: none">Range:
+                                <span class="filter"></span> <a id="reset-chart-category" href="#">Reset</a></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div id="div-catalogue-branch">
+                    <div id="cht-catalogue-branch">
+                        <p>Item branch. <span class="reset" style="display: none">Range: <span class="filter"></span> <a
+                                    id="reset-chart-branch" href="#">Reset</a></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr /><br />
+
+        <p>An open source project available on <a href="https://github.com/LibrariesHacked/wuthering-hacks"
+                target="_blank">GitHub</a>. <a href="https://twitter.com/ToonLibraries" target="_blank"
+                title="Newcastle Libraries on Twitter">@ToonLibraries</a> release open data under a <a
+                href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank"
+                title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>.</p>
+
     </div>
 
     <script src="node_modules/jquery/dist/jquery.min.js"></script>

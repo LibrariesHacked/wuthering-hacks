@@ -14,7 +14,7 @@
                 d.issues = +d.issues;
                 d.year = d.date.getFullYear();
                 d.month = d.date.getMonth();
-                d.sessions ? d.sessions = +d.sessions.replace('%', '') : d.sessions = 0;
+                d.sessions = +d.sessions.replace('%', '');
             });
 
             // Function: removeEmpty
@@ -22,7 +22,6 @@
                 return {
                     all: function () {
                         return group.all().filter(function (d) {
-                            if (d.value.count === 0) return false;
                             return d && d.value !== 0;
                         });
                     }
@@ -52,7 +51,6 @@
             var issuesTotal = removeEmpty(usageDateDim.group().reduceSum(function (d) { return d['issues']; }));
             var enquiriesTotal = removeEmpty(usageDateDim.group().reduceSum(function (d) { return d['enquiries']; }));
             var visitsTotal = removeEmpty(usageDateDim.group().reduceSum(function (d) { return d['visits']; }));
-            var sessionsTotal = removeEmpty(usageDateDim.group().reduce(reduceAdd, reduceRemove, reduceInitial));
 
             /////////////////////////////////
             // Number display: Issues
@@ -70,9 +68,9 @@
                 })
                 .group(issuesNumGroup);
 
-            /////////////////////////////////
+            /////////////////////////
             // Number display: Visits
-            /////////////////////////////////
+            /////////////////////////
             var visitsNumberDisplay = dc.numberDisplay('#cht-number-visits');
             var visitsNumGroup = usageNdx.groupAll().reduceSum(function (d) { return d['visits']; });
             visitsNumberDisplay
@@ -440,7 +438,7 @@
             });
 
             /////////////////////////////////
-            // Bar chart: pc and Branches
+            // Bar chart: PC and Branches
             /////////////////////////////////
             var pcBranchBarChart = dc.barChart("#cht-pc-branch");
             var pcBranchDim = usageNdx.dimension(function (d) { return d.Library; });
@@ -479,13 +477,12 @@
             var usageLineChart = dc.compositeChart('#cht-usage');
             usageLineChart
                 .width($('#div-usage').width())
-                .height(270)
+                .height(250)
                 .dimension(usageDateDim)
-                .margins({ top: 30, right: 50, bottom: 25, left: 60 })
-                .clipPadding(10)
+                .margins({ top: 50, right: 60, bottom: 30, left: 60 })
                 .mouseZoomable(false)
                 .shareTitle(false)
-                .shareColors(true)
+                .shareColors(false)
                 .round(d3.timeMonth.round)
                 .elasticX(true)
                 .elasticY(true)
@@ -516,16 +513,8 @@
                         })
                         .dashStyle([0])
                         .colors(config.colours[2]),
-                    dc.lineChart(usageLineChart)
-                        .group(sessionsTotal, 'PC utilisation')
-                        .interpolate('monotone')
-                        .valueAccessor(function (p) {
-                            return p.value.count > 0 ? p.value.total / p.value.count : 0;
-                        })
-                        .useRightYAxis(true)
                 ])
-                .yAxisLabel('Usage count')
-                .rightYAxisLabel('PC utilisation %');
+                .yAxisLabel('Usage count');
 
             $('#reset-chart-usage').on('click', function (e) {
                 e.preventDefault();

@@ -34,9 +34,7 @@ def read_catalogue_data():
         publisher = row['publishercode']
         acpy = row['Copies']
 
-        if published_year == '':
-            published_year = 0
-        if int(published_year) >= 1980:
+        if published_year != '':
             if published_year not in cat['pub_years']:
                 cat['pub_years'][published_year] = 1
             else:
@@ -62,7 +60,7 @@ def read_catalogue_data():
         if acpy == '':
             acpy = 'Unknown'
 
-        if int(published_year) >= 1980:
+        if published_year != '':
             cat['records'][record_number] = {
                 'isbn': isbn, 'published_year': published_year, 'author': author, 'title': title,
                 'price': price, 'edition': edition,
@@ -88,7 +86,6 @@ def construct_references(ref):
             for i, val in enumerate(sorteditems):
                 reference[key].append(val[0])
     return reference
-
 
 def read_item_data():
     """Return item data object"""
@@ -170,7 +167,6 @@ def run():
 
     cat_records = read_catalogue_data()
     item_records = read_item_data()
-    cat_references = construct_references(cat_records)
     item_references = construct_references(item_records)
 
     final_records = []

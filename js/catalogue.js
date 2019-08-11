@@ -154,7 +154,6 @@
                 .height(250)
                 .dimension(catalogueDateDim)
                 .margins({ top: 50, right: 60, bottom: 30, left: 60 })
-                .clipPadding(10)
                 .mouseZoomable(false)
                 .shareTitle(false)
                 .shareColors(false)
