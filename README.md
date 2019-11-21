@@ -22,8 +22,6 @@ The dashboard splits visualisations into pages, focussing on different areas of 
 | Usage | Details of issues, computer use, enquiries, and visits by month and by library |
 | Catalogue | Details on the library catalogue - from titles and items data |
 | Members | Details on membership by postcode area and date joined/active |
-| Utilities | Details on gas, electricity and water consumption in the City library |
-| Libraries | Full details on libraries, merged with geographic statistical data |
 
 Data provided
 -------------
@@ -36,11 +34,7 @@ The dashboard uses CSVs published by Newcastle libraries under the Public Domain
 | Monthly computer usage | [CSV](https://www.newcastle.gov.uk/libraries-2008-2016-monthly-computer-use) | Monthly computer usage figures by branch for April 2008 to Present |
 | Monthly enquiries | [CSV](https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-enquiries-csv) | Monthly enquiry figures by branch for April 2008 to Present |
 | Monthly issues | [CSV](https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-issues-csv) | Monthly loan figures (number of items issued) by branch for April 2008 to Present |
-| Online resources usage | [CSV](https://www.newcastle.gov.uk/sites/default/files/wwwfileroot/online_resources_usage.csv) | Monthly usage figures for online resources including databases and e-book platforms when available, for January 2005 to present |
 | Monthly visits | [CSV](https://www.newcastle.gov.uk/benefits-and-council-tax/libraries-2008-2016-monthly-visits-csv) | Monthly issue figures by branch for April 2008 to Present |
-| City library electricity consumption | [CSV](https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-set-1) | Monthly electricity consumption at Newcastle City Library |
-| City library gas consumption | [CSV](https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-se-32) | Monthly gas consumption at Newcastle City Library |
-| City library water consumption | [CSV](https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-se-10) | Monthly water consumption at Newcastle City Library |
 | Members | [CSV](https://raw.githubusercontent.com/ToonLibraries/library-open-data/master/membership/active%20members%20branch%20%26%20postcode%202016-04-06.csv) | Anonymised member data including postcode district, library registered at, date added and last used |
 | Catalogue | [CSV](https://www.newcastle.gov.uk/sites/default/files/wwwfileroot/catalogue190916.csv) | Extract from the Library Management System (LMS) catalogue |
 | Items | [CSV](https://www.newcastle.gov.uk/sites/default/files/wwwfileroot/items190916.csv) | Items in the Library Management System (LMS) catalogue |
@@ -53,18 +47,6 @@ Data definitions
 The data that the dashboard uses is converted from the source data, and put into a format that is most efficient for the code to use.
 
 However, the original data can be copied into this project when it is published. The definitions of the datasets used are included below.
-
-### Libraries
-
-| Field | Description | Example |
-| ----- | ----------- | ------- |
-| Library | The name of the library | *Blakelaw* |
-| Type | The type of library (Library/Partnership Library/Library and Customer Service Centre) | *Library* |
-| Computer Provision | The provision of computers to the public | *Public Computer Access* |
-| No of PCs | The number of public access PCs | *8* |
-| Wi-Fi Provision | The provision of Wi-Fi to the public | *Public Wi-Fi* |
-| Latitude | The latitude geo-coordinate of the library | *54.984162* |
-| Longitude | The longitude geo-coordinate of the library | *-1.660813* |
 
 ### Monthly enquiries
 

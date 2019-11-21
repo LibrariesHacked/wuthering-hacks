@@ -145,64 +145,6 @@
                 });
 
             ////////////////////////////////////////////////////////////////
-            // Chart: Catalogue Line Chart
-            ////////////////////////////////////////////////////////////////
-
-            var catalogueLineChart = dc.compositeChart("#cht-catalogue");
-            catalogueLineChart
-                .width($('div-catalogue').width())
-                .height(250)
-                .dimension(catalogueDateDim)
-                .margins({ top: 50, right: 60, bottom: 30, left: 60 })
-                .mouseZoomable(false)
-                .shareTitle(false)
-                .shareColors(false)
-                .elasticX(true)
-                .elasticY(true)
-                .renderHorizontalGridLines(true)
-                .legend(dc.legend().x(0).y(0).horizontal(true).itemHeight(20).gap(15))
-                .x(d3.scaleLinear())
-                .compose([
-                    dc.lineChart(catalogueLineChart)
-                        .group(itemsTotal, 'Added')
-                        .interpolate('monotone')
-                        .colors(config.colours[0])
-                        .useRightYAxis(true),
-                    dc.lineChart(catalogueLineChart)
-                        .group(issuesTotal, 'Issues')
-                        .interpolate('monotone')
-                        .title(function (d) {
-                            var value = d.value.avg ? d.value.avg : d.value;
-                            if (isNaN(value)) value = 0;
-                            return dateFormat(d.key) + "\n" + numberFormat(value);
-                        })
-                        .colors(config.colours[1]),
-                    dc.lineChart(catalogueLineChart)
-                        .group(renewalsTotal, 'Renewals')
-                        .interpolate('monotone')
-                        .title(function (d) {
-                            var value = d.value.avg ? d.value.avg : d.value;
-                            if (isNaN(value)) value = 0;
-                            return dateFormat(d.key) + "\n" + numberFormat(value);
-                        })
-                        .colors(config.colours[2])
-                ])
-                .yAxisLabel("Issues and Renewals")
-                .rightYAxisLabel('Items added');
-
-            catalogueLineChart.xAxis().tickFormat(d3.format('d'))
-            catalogueLineChart.filterPrinter(function (filters) {
-                return $.map(filters[0], function (f) { return parseInt(f); }).join('-');
-            });
-
-            $('#reset-chart-catalogue').on('click', function (e) {
-                e.preventDefault();
-                catalogueLineChart.filterAll();
-                dc.redrawAll();
-                return false;
-            });
-
-            ////////////////////////////////////////////////////////////////
             // Chart: Filter by Year (Bar Chart)
             ////////////////////////////////////////////////////////////////
             var catalogueYearChart = dc.barChart("#cht-catalogue-year");

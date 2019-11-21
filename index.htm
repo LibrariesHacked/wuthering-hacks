@@ -28,8 +28,8 @@
     </div>
 
     <div id="main" class="container">
-        <p class="lead">Newcastle Libraries publish usage data per month and library, including issues, visits,
-            enquiries, and PC utlisation. Data from April 2008.</p>
+        <p class="lead">Newcastle Libraries publish usage data per month and library, including loans, visits,
+            enquiries, and PC utilisation.</p>
         <p class="lead" id="loader">
             <span class="fa fa-spinner fa-spin"></span> Loading...
         </p>
@@ -63,14 +63,16 @@
             </div>
         </div>
 
-        <h4>Issues</h4>
-        <p>Issues are items being borrowed.</p>
+        <br/>
+
+        <h4>Loans</h4>
+        <p>Loans are items being borrowed.</p>
         <hr />
         <div class="row">
             <div class="col-md-3 col-sm-12">
                 <div id="div-issues-year">
                     <div id="cht-issues-year">
-                        <p>Issues by year. <span class="reset" style="display: none"><span class="filter"></span> |
+                        <p>Loans by year. <span class="reset" style="display: none"><span class="filter"></span> |
                                 <a id="reset-chart-issues-year" href="#">Reset</a></span></p>
                     </div>
                 </div>
@@ -78,7 +80,7 @@
             <div class="col-md-3 col-sm-12">
                 <div id="div-issues-month">
                     <div id="cht-issues-month">
-                        <p>Issues by month. <span class="reset" style="display: none"><span class="filter"></span> |
+                        <p>Loans by month. <span class="reset" style="display: none"><span class="filter"></span> |
                                 <a id="reset-chart-issues-month" href="#">Reset</a></span></p>
                     </div>
                 </div>
@@ -86,7 +88,7 @@
             <div class="col-md-6 col-sm-12">
                 <div id="div-issues-branch">
                     <div id="cht-issues-branch">
-                        <p>Issues by library. <span class="reset" style="display: none"><span class="filter"></span>
+                        <p>Loans by library. <span class="reset" style="display: none"><span class="filter"></span>
                                 | <a id="reset-chart-issues-branch" href="#">Reset</a></span></p>
                     </div>
                 </div>
@@ -158,7 +160,7 @@
         </div>
         <br /><br />
 
-        <h4>PC utilisation %</h4>
+        <h4>PC utilisation</h4>
         <p>PC utilisation is percentage of available time computers were booked.</p>
         <hr />
         <div class="row">
@@ -192,7 +194,7 @@
         </div>
         <br /><br />
 
-        <h4>Usage compared</h4>
+        <h4>Usage by type over time</h4>
         <hr />
         <div class="row">
             <div class="col-12">
@@ -204,7 +206,8 @@
                 </div>
             </div>
         </div>
-        <br /><br />
+        <br />
+        <br />
         <hr />
         <p>An open source project available on <a href="https://github.com/LibrariesHacked/wuthering-hacks"
                 target="_blank">GitHub</a>. <a href="https://twitter.com/ToonLibraries" target="_blank"

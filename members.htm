@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Members | Toon Libraries</title>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css' rel='stylesheet' />
     <link href="node_modules/bootswatch/dist/sandstone/bootstrap.min.css" rel="stylesheet" />
     <link href="node_modules/dc/dc.min.css" rel="stylesheet" />
     <link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
@@ -29,9 +30,17 @@
     </div>
 
     <div id="main" class="container">
-
-
-
+        <p class="lead">Newcastle Libraries published a snapshot of anonymised membership data from 2016, with registered library, date and time of joining, and postcode district of the member.</p>
+        <p class="lead" id="loader">
+            <span class="fa fa-spinner fa-spin"></span> Loading...
+        </p>
+        <div class="row">
+            <div class="dc-data-count">
+                <p>
+                    <span class="filter-count"></span> selected out of <span class="total-count"></span> records.
+                </p>
+            </div>
+        </div>
         <div class="row stat-bar">
             <div class="col-3">
                 <div id="div-number-members">
@@ -56,18 +65,7 @@
         </div>
 
         <br />
-        <p class="lead" id="loader"><span class="fa fa-spinner fa-spin"></span> Loading...</p>
-        <div class="row">
-            <div class="col-12">
-                <div id="div-members-date">
-                    <div id="cht-members-date">
-                        <p>Filter by added date. <span class="reset" style="display: none"><span class="filter"></span>
-                                | <a id="reset-members-date" href="#">Reset</a></span></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr />
+
         <div class="row">
             <div class="col-sm-6">
                 <div id="div-members-map">
@@ -89,11 +87,13 @@
             </div>
         </div>
         <hr />
+
         <div class="row">
             <div class="col-sm-6">
                 <div id="div-members-hourjoined">
                     <div id="cht-members-hourjoined">
-                        <p>Filter by hour joined. <span class="reset" style="display: none"><span class="filter"></span>
+                        <p>Filter by hour of day members joined. <span class="reset" style="display: none"><span
+                                    class="filter"></span>
                                 | <a id="reset-members-hourjoined" href="#">Reset</a></span></p>
                     </div>
                 </div>
@@ -101,27 +101,21 @@
             <div class="col-sm-6">
                 <div id="div-members-dayjoined">
                     <div id="cht-members-dayjoined">
-                        <p>Filter by day joined. <span class="reset" style="display: none"><span class="filter"></span>
+                        <p>Filter by the day of the week members joined. <span class="reset" style="display: none"><span
+                                    class="filter"></span>
                                 | <a id="reset-members-dayjoined" href="#">Reset</a></span></p>
                     </div>
                 </div>
             </div>
         </div>
+        <br />
+        <br />
         <hr />
-        <div class="row">
-            <div class="col-sm-6">
-                <div id="div-members-monthjoined">
-                    <div id="cht-members-monthjoined"></div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div id="div-members-yearjoined">
-                    <div id="cht-members-yearjoined"></div>
-                </div>
-            </div>
-        </div>
-        <hr />
-        
+        <p>An open source project available on <a href="https://github.com/LibrariesHacked/wuthering-hacks"
+                target="_blank">GitHub</a>. <a href="https://twitter.com/ToonLibraries" target="_blank"
+                title="Newcastle Libraries on Twitter">@ToonLibraries</a> release open data under a <a
+                href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank"
+                title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>.</p>
     </div>
 
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
@@ -132,8 +126,10 @@
     <script src="node_modules/crossfilter2/crossfilter.min.js"></script>
     <script src="node_modules/dc/dc.min.js"></script>
     <script src="node_modules/dc.leaflet/dc.leaflet.min.js"></script>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js'></script>
+    <script src="node_modules/mapbox-gl-leaflet/leaflet-mapbox-gl.js"></script>
     <script src="node_modules/jquery-csv/src/jquery.csv.min.js"></script>
-    <script src="node_modules/colorbrewer/colorbrewer.js"></script>
+    <script src="node_modules/colorbrewer/index.js"></script>
     <script src="js/config.js"></script>
     <script src="js/members.js"></script>
 </body>

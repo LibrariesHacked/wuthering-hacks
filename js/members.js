@@ -1,13 +1,12 @@
 ﻿$(function () {
 
-    var parseDate = d3.time.format("%d/%m/%y %H:%M:%S").parse;
-    var parseDate2 = d3.time.format("%d/%m/%Y %H:%M:%S").parse;
-    var parseDate3 = d3.time.format("%d/%m/%y").parse;
-    var parseDate4 = d3.time.format("%d/%m/%Y").parse;
-    var monthFormat = d3.time.format("%B %Y");
-    var hourFormat = d3.time.format("%H");
-    var dayFormat = d3.time.format("%d");
-    var monthParse = d3.time.format("%B %Y").parse;
+    var parseDate = d3.timeParse("%d/%m/%y %H:%M:%S");
+    var parseDate2 = d3.timeParse("%d/%m/%Y %H:%M:%S");
+    var parseDate3 = d3.timeParse("%d/%m/%y");
+    var parseDate4 = d3.timeParse("%d/%m/%Y");
+    var monthFormat = d3.timeFormat("%B %Y");
+    var hourFormat = d3.timeFormat("%H");
+    var monthParse = d3.timeFormat("%B %Y");
 
     ////////////////////////////////////////////
     // LOAD DATA
@@ -31,18 +30,6 @@
                 m.postcodedistrict = m['Postcode'];
                 m.postcodearea = m['Postcode'].replace(/\d/g, '');
             });
-
-            // Function: removeEmpty
-            var removeEmpty = function (group) {
-                return {
-                    all: function () {
-                        return group.all().filter(function (d) {
-                            if (d.value.count === 0) return false;
-                            return d && d.value !== 0;
-                        });
-                    }
-                };
-            };
 
             var membersNdx = crossfilter(members);
             var membersDateDim = membersNdx.dimension(function (d) { return d.dateaddedmonth; });
@@ -147,54 +134,29 @@
             });
             popularJoiningNumberDisplay.dimension(joiningGroup);
 
-            ///////////////////////////////////////////////
-            // Line Chart: Timeline
-            ///////////////////////////////////////////////
-            var minDate = membersDateDim.bottom(1)[0].dateadded;
-            var maxDate = membersDateDim.top(1)[0].dateadded;
+            var dataCount = dc.dataCount('.dc-data-count');
+            dataCount
+                .dimension(membersNdx)
+                .group(membersNdx.groupAll())
+                .html({
+                    some: '<strong>%filter-count</strong> selected out of <strong>%total-count</strong> records' +
+                        ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>Reset All</a><br/> &nbsp',
+                    all: 'All records selected. Please click on the graphs to apply filters.<br/> &nbsp'
+                });
 
-            var membersLineChart = dc.lineChart('#cht-members-date');
-            membersLineChart
-                .width($('#div-members-date').width())
-                .height(200)
-                .dimension(membersDateDim)
-                .group(membersTotal)
-                .margins({ top: 5, right: 60, bottom: 30, left: 60 })
-                .colors(config.colours[1])
-                //.elasticX(true)
-                .elasticY(true)
-                .renderHorizontalGridLines(true)
-                .x(d3.time.scale().domain([new Date('09-09-1996'), maxDate]))
-                .xAxisLabel('Month')
-                .yAxisLabel('Members');
-            $('#reset-members-date').on('click', function (e) {
-                e.preventDefault();
-                membersLineChart.filterAll();
-                dc.redrawAll();
-                return false;
-            });
-
-            // Graph 2: Map
             var postcodedimension = membersNdx.dimension(function (d) { return d.postcodedistrict; });
             var postcodetotal = postcodedimension.group().reduceCount(function (d) { return 1; });
 
-            var mapboxtiles = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>.  Geolytix postcode polygons.',
-                maxZoom: 18,
-                id: 'mapbox.light',
-                accessToken: config.mapToken
-            });
-
             var postcodesChoro = dc_leaflet.choroplethChart('#map')
-                .center([55, -1.62])
-                .zoom(11)
+                .center([54.98, -1.61])
+                .zoom(12)
                 .width($('#div-members-map').width())
                 .brushOn(true)
                 .geojson(p)
                 .renderPopup(false)
                 .dimension(postcodedimension)
                 .group(postcodetotal)
-                .colors(colorbrewer.OrRd[7])
+                .colors(colorbrewer.Blues[7])
                 .colorDomain([
                     d3.min(postcodetotal.all(), dc.pluck('value')),
                     d3.max(postcodetotal.all(), dc.pluck('value'))
@@ -205,9 +167,9 @@
                 .featureOptions(function (feature) {
                     return {
                         weight: 1,
-                        color: '#ccc',
+                        color: '#e5e5e5',
                         opacity: 1,
-                        fillOpacity: 0.3,
+                        fillOpacity: 0.5,
                         visible: true
                     }
                 })
@@ -246,13 +208,13 @@
                 .height(250)
                 .margins({ top: 5, right: 0, bottom: 80, left: 60 })
                 .group(removeZBranches(memberBranchTotal))
-                .ordinalColors([config.colours[0]])
+                .ordinalColors([config.colours[1]])
                 .dimension(memberBranchDim)
                 .elasticY(true)
                 .elasticX(true)
+                .x(d3.scaleBand())
                 .xUnits(dc.units.ordinal)
                 .brushOn(false)
-                .x(d3.scale.ordinal())
                 .yAxisLabel('Members')
                 .renderHorizontalGridLines(true)
                 .xAxis().tickFormat(function (d) { return d; });
@@ -283,9 +245,9 @@
                 .dimension(membersHourJoinedDim)
                 .elasticY(true)
                 .elasticX(true)
+                .x(d3.scaleBand())
                 .xUnits(dc.units.ordinal)
                 .brushOn(false)
-                .x(d3.scale.ordinal())
                 .yAxisLabel('Members')
                 .renderHorizontalGridLines(true)
                 .xAxis().tickFormat(function (d) { return d; });
@@ -305,16 +267,16 @@
                 .height(200)
                 .margins({ top: 5, right: 0, bottom: 20, left: 60 })
                 .group(membersDayJoinedTotal)
-                .ordinalColors([config.colours[2]])
+                .ordinalColors([config.colours[3]])
                 .dimension(membersDayJoinedDim)
                 .label(function (d) {
                     return d.y;
                 })
                 .elasticY(true)
                 .elasticX(true)
+                .x(d3.scaleBand())
                 .xUnits(dc.units.ordinal)
                 .brushOn(false)
-                .x(d3.scale.ordinal())
                 .yAxisLabel('Members')
                 .renderHorizontalGridLines(true)
                 .xAxis().tickFormat(function (d) { return daysFull[d]; });
@@ -338,8 +300,13 @@
             postcodesChoro.map().eachLayer(function (l) {
                 if (l instanceof L.TileLayer) postcodesChoro.map().removeLayer(l);
             });
+
             // Add the Mapbox tile layer
-            postcodesChoro.map().addLayer(mapboxtiles);
+            var zoomstack_tiles = L.mapboxGL({
+                accessToken: 'none',
+                style: 'style.json'
+            });
+            postcodesChoro.map().addLayer(zoomstack_tiles);
 
             // Hide the loading spinner
             $('#loader').hide();

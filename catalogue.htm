@@ -28,7 +28,9 @@
     </div>
 
     <div id="main" class="container">
-        <p class="lead"></p>
+        <p class="lead">Newcastle Libraries publish their catalogue as title and item records. These graphs show a few
+            aspects of the catalogue,
+            such as item category, library held at, and number of issues and renewals for those items.</p>
         <p class="lead" id="loader">
             <span class="fa fa-spinner fa-spin"></span> Loading...
         </p>
@@ -66,12 +68,20 @@
 
 
         <div class="row">
-            <div class="col-sm-12">
-                <div id="div-catalogue">
-                    <div id="cht-catalogue">
-                        <p>Date added to catalogue. <span class="reset" style="display: none">Range: <span
-                                    class="filter"></span> <a id="reset-chart-catalogue" href="#">Reset</a></span>
+            <div class="col-md-6 col-sm-12">
+                <div id="div-catalogue-category">
+                    <div id="cht-catalogue-category">
+                        <p>Number of items by category. <span class="reset" style="display: none">Range:
+                                <span class="filter"></span> <a id="reset-chart-category" href="#">Reset</a></span>
                         </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div id="div-catalogue-branch">
+                    <div id="cht-catalogue-branch">
+                        <p>Number of items by branch. <span class="reset" style="display: none">Range: <span
+                                    class="filter"></span> <a id="reset-chart-branch" href="#">Reset</a></span></p>
                     </div>
                 </div>
             </div>
@@ -96,35 +106,14 @@
                 </div>
             </div>
         </div>
-        <hr /><br />
-
-        <div class="row">
-            <div class="col-md-6 col-sm-12">
-                <div id="div-catalogue-category">
-                    <div id="cht-catalogue-category">
-                        <p>Item category (top 10 shown). <span class="reset" style="display: none">Range:
-                                <span class="filter"></span> <a id="reset-chart-category" href="#">Reset</a></span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <div id="div-catalogue-branch">
-                    <div id="cht-catalogue-branch">
-                        <p>Item branch. <span class="reset" style="display: none">Range: <span class="filter"></span> <a
-                                    id="reset-chart-branch" href="#">Reset</a></span></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr /><br />
-
+        <br />
+        <br />
+        <hr />
         <p>An open source project available on <a href="https://github.com/LibrariesHacked/wuthering-hacks"
                 target="_blank">GitHub</a>. <a href="https://twitter.com/ToonLibraries" target="_blank"
                 title="Newcastle Libraries on Twitter">@ToonLibraries</a> release open data under a <a
                 href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank"
                 title="Creative Commons Licence Details">Creative Commons Public Domain licence</a>.</p>
-
     </div>
 
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
