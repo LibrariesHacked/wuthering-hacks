@@ -28,45 +28,46 @@
     </div>
 
     <div id="main" class="container">
-        <p class="lead">Newcastle Libraries publish usage data per month and library, including loans, visits,
+        <p class="lead">Newcastle libraries publish usage data per month and library, including loans, visits,
             enquiries, and PC utilisation.</p>
         <p class="lead" id="loader">
             <span class="fa fa-spinner fa-spin"></span> Loading...
         </p>
-        <div class="row">
-            <div class="dc-data-count">
-                <p>
-                    <span class="filter-count"></span> selected out of <span class="total-count"></span> records.
-                </p>
+        <div class="container">
+            <div class="row">
+                <div class="dc-data-count">
+                    <p>
+                        <span class="filter-count"></span> selected out of <span class="total-count"></span> records.
+                    </p>
+                </div>
+            </div>
+            <div class="row stat-bar">
+                <div class="col-3">
+                    <div id="div-number-issues">
+                        <div id="cht-number-issues"></div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div id="div-number-visits">
+                        <div id="cht-number-visits"></div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div id="div-number-enquiries">
+                        <div id="cht-number-enquiries"></div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div id="div-number-pc">
+                        <div id="cht-number-pc"></div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row stat-bar">
-            <div class="col-3">
-                <div id="div-number-issues">
-                    <div id="cht-number-issues"></div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div id="div-number-visits">
-                    <div id="cht-number-visits"></div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div id="div-number-enquiries">
-                    <div id="cht-number-enquiries"></div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div id="div-number-pc">
-                    <div id="cht-number-pc"></div>
-                </div>
-            </div>
-        </div>
-
         <br/>
 
         <h4>Loans</h4>
-        <p>Loans are items being borrowed.</p>
+        <p>Loans are items being borrowed or renewed. You can see differences between the number of items being borrowed over the years, but also the pattern over a year, and between different libraries.</p>
         <hr />
         <div class="row">
             <div class="col-md-3 col-sm-12">
@@ -97,7 +98,7 @@
         <br /><br />
 
         <h4>Visits</h4>
-        <p>Visits are people entering a library.</p>
+        <p>Visits are people entering a library. This shows a similar pattern of usage to loans, though with less variation between months.</p>
         <hr />
         <div class="row">
             <div class="col-md-3 col-sm-12">
@@ -161,7 +162,7 @@
         <br /><br />
 
         <h4>PC utilisation</h4>
-        <p>PC utilisation is percentage of available time computers were booked.</p>
+        <p>PC utilisation is percentage of available time computers were booked. This shows a more uniform pattern of usage between libraries as the measure is relative to how many computer hours are available.</p>
         <hr />
         <div class="row">
             <div class="col-md-3 col-sm-12">
