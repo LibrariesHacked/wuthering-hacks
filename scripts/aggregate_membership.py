@@ -9,7 +9,7 @@ import re
 from datetime import datetime
 import pandas
 
-MEMBERDATA = '..\\data\\newcastle_members.csv'
+MEMBERDATA = '..\\data\\dashboard_newcastle_members.csv'
 
 def read_member_data():
     member_data_frame = pandas.DataFrame(

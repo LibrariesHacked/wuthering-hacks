@@ -28,11 +28,13 @@
     "jquery": "^3.5.0",
     "jquery-csv": "^1.0.11",
     "leaflet": "^1.6.0",
+    "mapbox-gl": "^1.10.0",
     "mapbox-gl-leaflet": "0.0.11",
     "popper.js": "^1.16.1"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
-    "gulp-inject": "^5.0.5"
+    "gulp-inject": "^5.0.5",
+    "gulp-live-server": "0.0.31"
   }
 }
