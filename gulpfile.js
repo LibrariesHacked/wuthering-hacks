@@ -12,6 +12,7 @@ var paths = {
   src: '**/*',
   srcData: 'data/dashboard*.*',
   srcHTML: '*.html',
+  srcCNAME: 'CNAME',
   srcCSS: 'css/*.css',
   srcNodeCSS: [
     'node_modules/bootswatch/dist/sandstone/bootstrap.min.css',
@@ -67,6 +68,11 @@ gulp.task('html', function () {
 gulp.task('html:dist', function () {
   return gulp.src(paths.srcHTML)
     .pipe(htmlclean())
+    .pipe(gulp.dest(paths.dist));
+});
+
+gulp.task('cname:dist', function () {
+  return gulp.src(paths.srcCNAME)
     .pipe(gulp.dest(paths.dist));
 });
 
@@ -139,7 +145,7 @@ gulp.task('js:dist', function () {
 
 gulp.task('copy', gulp.series('data', 'html', 'mapstyle', 'fonts', 'cssnode', 'css', 'jsnode', 'js'));
 
-gulp.task('copy:dist', gulp.series('data:dist', 'html:dist', 'mapstyle:dist', 'fonts:dist', 'cssnode:dist', 'css:dist', 'jsnode:dist', 'js:dist'));
+gulp.task('copy:dist', gulp.series('data:dist', 'cname:dist', 'html:dist', 'mapstyle:dist', 'fonts:dist', 'cssnode:dist', 'css:dist', 'jsnode:dist', 'js:dist'));
 
 gulp.task('inject', function () {
   var target = gulp.src('tmp/*.html');
@@ -175,5 +181,5 @@ gulp.task('clean', function () {
 });
 
 gulp.task('deploy', function () {
-  return ghpages.publish('dist', function() {});
+  return ghpages.publish('dist', function () { });
 });
