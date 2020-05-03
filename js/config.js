@@ -19,7 +19,7 @@ var config = {
     catalogueLanguagesCsv: 'data/dashboard_catalogue_languages.csv',
     cataloguePublishersCsv: 'data/dashboard_catalogue_publishers.csv',
     membersCsv: 'data/dashboard_newcastle_members.csv',
-    postcodesGeoJson: 'data/dashbaord_postcode_districts.geojson',
+    postcodesGeoJson: 'data/dashboard_postcode_districts.geojson',
     mapTiles: '//{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
     mapAttribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
     mapToken: 'pk.eyJ1IjoibGlicmFyaWVzaGFja2VkIiwiYSI6IlctaDdxSm8ifQ.bxf1OpyYLiriHsZN33TD2A'
