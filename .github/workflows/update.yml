@@ -8,7 +8,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: download latest files
-      run: python ./scripts/download_latest.py
+      run: python3 ./scripts/download_latest.py
     - name: check for changes
       run: git status
     - name: stage changed files

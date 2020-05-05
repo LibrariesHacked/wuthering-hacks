@@ -1,4 +1,4 @@
-import urllib.request 
+import urllib.request
 
 files = [
   'https://raw.githubusercontent.com/ToonLibraries/library-open-data/master/computer-usage/2008-onwards-monthly-computer-use.csv',
