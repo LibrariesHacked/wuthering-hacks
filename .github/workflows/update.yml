@@ -15,7 +15,8 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git diff-index --quiet HEAD || git commit -a -m "Auto updating toonlibraries files"
+        git add .
+        git diff-index --quiet HEAD || git commit -m "Auto updating toonlibraries files"
     - name: fetch from master
       run: git fetch origin master
     - name: push code to master
