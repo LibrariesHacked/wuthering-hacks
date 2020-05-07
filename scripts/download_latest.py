@@ -1,7 +1,7 @@
 import urllib.request
 from pathlib import Path
 
-data_folder = Path('../data')
+data_folder = Path('./data')
 
 files = [
   'https://raw.githubusercontent.com/ToonLibraries/library-open-data/master/computer-usage/2008-onwards-monthly-computer-use.csv',
