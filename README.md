@@ -1,19 +1,16 @@
-Wuthering Hacks
-===============
+# Wuthering Hacks
 
-A data dashboard to display Newcastle libraries open data. Currently published at:
+![UpdateData](https://github.com/LibrariesHacked/wuthering-hacks/workflows/UpdateData/badge.svg)
 
-[https://newcastle.librarydata.uk](https://newcastle.librarydata.uk)
+A data dashboard to display Newcastle libraries open data. Currently published at [https://newcastle.librarydata.uk](https://newcastle.librarydata.uk)
 
-What is it?
------------
+## What is it?
 
 Newcastle public libraries publish as much of their data as possible under a Public Domain licence (https://creativecommons.org/publicdomain/zero/1.0/). Details of existing datasets can be found at [Libraries data sets](https://www.newcastle.gov.uk/your-council-and-democracy/open-data-and-access-information/open-data/data-sets/libraries-data-sets).
 
 They also have a GitHub account at [ToonLibraries](https://github.com/ToonLibraries), and an open data repository within this account at [library-open-data](https://github.com/ToonLibraries/library-open-data).
 
-Dashboard pages
----------------
+## Dashboard pages
 
 The dashboard splits visualisations into pages, focussing on different areas of the library data provided by Newcastle.
 
@@ -23,8 +20,7 @@ The dashboard splits visualisations into pages, focussing on different areas of 
 | Catalogue | Details on the library catalogue - from titles and items data |
 | Members | Details on membership by postcode area and date joined/active |
 
-Data provided
--------------
+## Data provided
 
 The dashboard uses CSVs published by Newcastle libraries under the Public Domain licence.
 
@@ -41,8 +37,7 @@ The dashboard uses CSVs published by Newcastle libraries under the Public Domain
 
 The code does not link directly to these files but uses a copy held within the project. This means that updates to those open data files need to be manually copied into this project. See Build section for instructions.
 
-Data definitions
-----------------
+## Data definitions
 
 The data that the dashboard uses is converted from the source data, and put into a format that is most efficient for the code to use.
 
@@ -173,8 +168,7 @@ The data is created using a [python script](https://github.com/libraries-hacked/
 
 This file is then used in the usage page of the data dashboard.
 
-Combining and aggregating catalogue and items
----------------------------------------------
+## Combining and aggregating catalogue and items
 
 Both the catalogue and item extracts are fairly large files (29MB and 27MB). Given that this project mainly processes data client-side (in the web browser), those files are too large to expect users to download.
 
@@ -211,8 +205,7 @@ The data is created using a [python script](https://github.com/libraries-hacked/
 
 These files are then used in the catalogue page of the data dashboard.
 
-Technologies used and licences
-------------------------------
+## Technologies used and licences
 
 The following technologies (with licences listed) are used in this project.
 
@@ -226,7 +219,6 @@ The following technologies (with licences listed) are used in this project.
 | Leaflet | JavaScript library for mapping. | [LeafletJS](http://leafletjs.com) | [Open Source](https://github.com/Leaflet/Leaflet/blob/master/LICENSE) |
 | CartoJS | Specific functions for mappping using data stored in Carto. | [CartoJS](https://carto.com/docs/carto-engine/carto-js) | [Open Source](https://github.com/CartoDB/cartodb.js/blob/develop/LICENSE) |
 
-Licence
--------
+## Licence
 
 This code is licensed under the MIT Licence.
