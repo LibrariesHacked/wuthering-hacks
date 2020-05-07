@@ -31,6 +31,7 @@ jobs:
       run: npm run build
     - name: Publish github pages
       run: |
+        npm install gh-pages -g
         git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/librarieshacked/wuthering-hacks.git
         npm run gh-pages -- -u "github-actions-bot <support+actions@github.com>"
       env:
