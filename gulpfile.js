@@ -15,7 +15,7 @@ var paths = {
   srcCNAME: 'CNAME',
   srcCSS: 'css/*.css',
   srcNodeCSS: [
-    'node_modules/bootswatch/dist/sandstone/bootstrap.min.css',
+    'node_modules/bootswatch/dist/materia/bootstrap.min.css',
     'node_modules/font-awesome/css/font-awesome.min.css',
     'node_modules/dc/dc.min.css',
     'node_modules/mapbox-gl/dist/mapbox-gl.css',
@@ -149,7 +149,7 @@ gulp.task('copy:dist', gulp.series('data:dist', 'cname:dist', 'html:dist', 'maps
 
 gulp.task('inject', function () {
   var target = gulp.src('tmp/*.html');
-  var sourcejs = gulp.src(['tmp/js/jquery.min.js', 'tmp/js/crossfilter.min.js', 'tmp/js/d3.min.js', 'tmp/js/dc.min.js', 'tmp/js/leaflet.js', 'tmp/js/mapbox-gl.js', 'tmp/js/*.js'], { read: false });
+  var sourcejs = gulp.src(['tmp/js/jquery.js', 'tmp/js/crossfilter.js', 'tmp/js/d3.js', 'tmp/js/dc.js', 'tmp/js/leaflet.js', 'tmp/js/mapbox-gl.js', 'tmp/js/*.js'], { read: false });
   var sourcecss = gulp.src('tmp/css/*.css', { read: false });
   return target
     .pipe(inject(sourcecss, { relative: true }))

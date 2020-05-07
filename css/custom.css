@@ -1,13 +1,10 @@
 ﻿body {
-    background-color: #F5F5F5;
+    padding-top: 40px;
+    background-color: #FAFAFA
 }
 
 #main {
-    padding-top: 10px
-}
-
-.nav {
-    margin-top: 10px
+    padding-top: 20px
 }
 
 /* Text */
@@ -15,6 +12,10 @@
 .big {
     font-weight: 700;
     font-size: 2.1em;
+}
+
+h4 {
+    padding-top: 30px
 }
 
 /* Custom colours */
