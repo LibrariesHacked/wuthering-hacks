@@ -7,16 +7,18 @@ import csv
 import os
 import re
 from datetime import datetime
+from pathlib import Path
 import pandas
 
-TITLEDATA = '..\\data\\Cataloguetitles-20190806.csv'
-ITEMDATA = '..\\data\\Catalogueitems-20190806.csv'
+data_folder = Path("../data/")
 
+TITLEDATA = 'Cataloguetitles-20190806.csv'
+ITEMDATA = 'Catalogueitems-20190806.csv'
 
 def read_catalogue_data():
     """Return a catalogue titles data object"""
     cat = {'records': {}, 'pub_years': {}}
-    path = os.path.join(os.path.dirname(__file__), TITLEDATA)
+    path = os.path.join(os.path.dirname(__file__), data_folder / TITLEDATA)
     catreader = csv.DictReader(open(
         path, 'r', encoding='utf-8'), delimiter=',', quotechar='"', lineterminator='\n')
     # Loop through the CSV
@@ -91,7 +93,7 @@ def read_item_data():
     """Return item data object"""
 
     itemreader = csv.DictReader(
-        open(os.path.join(os.path.dirname(__file__), ITEMDATA), 'r'),
+        open(os.path.join(os.path.dirname(__file__), data_folder / ITEMDATA), 'r'),
         delimiter=',', quotechar='"', lineterminator='\n')
 
     items = {'records': [], 'branches': {}, 'categories': {},
