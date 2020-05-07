@@ -181,5 +181,5 @@ gulp.task('clean', function () {
 });
 
 gulp.task('deploy', function () {
-  return ghpages.publish('dist', function () { });
+  return ghpages.publish('dist');
 });

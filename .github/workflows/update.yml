@@ -18,7 +18,7 @@ jobs:
         git add .
         git diff-index --quiet HEAD || git commit -m "Auto updating toonlibraries files"
     - name: fetch from master
-      run: git fetch origin master
+      run: git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
     - name: push code to master
       run: git push origin HEAD:master
     - name: Use Node.js
