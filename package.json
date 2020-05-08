@@ -27,7 +27,7 @@
     "dc": "^3.2.1",
     "dc.leaflet": "^0.4.0",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.5.0",
+    "jquery": "^3.5.1",
     "jquery-csv": "^1.0.11",
     "leaflet": "^1.6.0",
     "mapbox-gl": "^1.10.0",

@@ -9,6 +9,10 @@ jobs:
     - uses: actions/checkout@v2
     - name: download latest files
       run: python3 ./scripts/download_latest.py
+    - name: install pandas
+      run: python3 pip install pandas
+    - name: process usage files
+      run: python3 ./scripts/combine_usage.py
     - name: check for changes
       run: git status
     - name: commit changed files

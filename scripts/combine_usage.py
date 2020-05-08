@@ -2,30 +2,32 @@
 ## This script takes the usage CSV files,and combines them to produce a single monthly usage file
 
 import csv
-import os
 import pandas
+from pathlib import Path
 
-ENQUIRIES = '..\\data\\2008-onwards-monthly-enquiries.csv'
-ISSUES = '..\\data\\2008-onwards-monthly-issues-by-branch.csv'
-VISITS = '..\\data\\2008-onwards-monthly-visits.csv'
-SESSIONS = '..\\data\\2008-onwards-monthly-computer-use.csv'
-OUTPUT = '..\\data\\dashboard_usage.csv'
+data_folder = Path('./data')
+
+ENQUIRIES = '2008-onwards-monthly-enquiries.csv'
+ISSUES = '2008-onwards-monthly-issues-by-branch.csv'
+VISITS = '2008-onwards-monthly-visits.csv'
+SESSIONS = '2008-onwards-monthly-computer-use.csv'
+OUTPUT = 'dashboard_usage.csv'
 
 def run():
+	
+	idf = pandas.read_csv(open(data_folder / ISSUES))
+	issues = pandas.melt(idf, id_vars=['Library'], var_name='month', value_name='issues')
 
-	edf = pandas.DataFrame(pandas.read_csv(open(os.path.join(os.path.dirname(__file__), ENQUIRIES), 'r')), index=None)
+	edf = pandas.read_csv(open(data_folder / ENQUIRIES))
 	enquiries = pandas.melt(edf, id_vars=['Library'], var_name='month', value_name='enquiries')
 	
-	idf = pandas.DataFrame(pandas.read_csv(open(os.path.join(os.path.dirname(__file__), ISSUES), 'r')), index=None)
-	issues = pandas.melt(idf, id_vars=['Library'], var_name='month', value_name='issues')
-	
-	vdf = pandas.DataFrame(pandas.read_csv(open(os.path.join(os.path.dirname(__file__), VISITS), 'r')), index=None)
+	vdf = pandas.read_csv(open(data_folder / VISITS))
 	visits = pandas.melt(vdf, id_vars=['Library'], var_name='month', value_name='visits')
 
-	pcdf = pandas.DataFrame(pandas.read_csv(open(os.path.join(os.path.dirname(__file__), SESSIONS), 'r')), index=None)
+	pcdf = pandas.read_csv(open(data_folder / SESSIONS))
 	computers = pandas.melt(pcdf, id_vars=['Library'], var_name='month', value_name='sessions')
 
 	usage = enquiries.merge(visits).merge(issues).merge(computers)
-	usage.to_csv(os.path.join(os.path.dirname(__file__), OUTPUT), index=False, float_format='%.0f')
+	usage.to_csv(data_folder / OUTPUT, index=False, float_format='%.0f')
 
 run()
