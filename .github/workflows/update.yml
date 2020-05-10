@@ -7,11 +7,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.x'
     - name: download latest files
       run: python3 ./scripts/download_latest.py
     - name: install pandas
       run: |
-        python -m pip install --upgrade pip
+        python3 -m pip install --upgrade pip
         pip install pandas
     - name: process usage files
       run: python3 ./scripts/combine_usage.py
