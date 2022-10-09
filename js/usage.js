@@ -665,6 +665,10 @@
       // Hide the loading spinner
       $('#loader').hide()
 
+      // A rogue width property from boostrap is causing the charts to be too wide
+      var widthStyle = document.styleSheets[0].cssRules[110].style
+      widthStyle.removeProperty('width')
+
       var width = $(window).width()
       // Event: Resize Window.  Resize all the charts based on their new container widths.
       $(window).on('resize', function () {

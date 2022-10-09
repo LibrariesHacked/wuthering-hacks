@@ -15,9 +15,9 @@ var paths = {
   srcCNAME: 'CNAME',
   srcCSS: 'css/*.css',
   srcNodeCSS: [
-    'node_modules/bootswatch/dist/materia/bootstrap.min.css',
+    'node_modules/bootswatch/dist/zephyr/bootstrap.min.css',
     'node_modules/font-awesome/css/font-awesome.min.css',
-    'node_modules/dc/dc.min.css',
+    'node_modules/dc/dist/style/dc.css',
     'node_modules/mapbox-gl/dist/mapbox-gl.css',
     'node_modules/leaflet/dist/leaflet.css'
   ],
@@ -31,7 +31,7 @@ var paths = {
     'node_modules/jquery-csv/src/jquery.csv.js',
     'node_modules/crossfilter2/crossfilter.min.js',
     'node_modules/d3/dist/d3.js',
-    'node_modules/dc/dc.js',
+    'node_modules/dc/dist/dc.js',
     'node_modules/leaflet/dist/leaflet.js',
     'node_modules/dc.leaflet/dc.leaflet.js',
     'node_modules/mapbox-gl/dist/mapbox-gl.js',
@@ -170,7 +170,7 @@ gulp.task('inject', function () {
   var sourcejs = gulp.src(
     [
       'tmp/js/jquery.js',
-      'tmp/js/crossfilter.js',
+      'tmp/js/crossfilter.min.js',
       'tmp/js/d3.js',
       'tmp/js/dc.js',
       'tmp/js/leaflet.js',
