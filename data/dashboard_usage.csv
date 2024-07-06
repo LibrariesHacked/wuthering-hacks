@@ -3239,21 +3239,237 @@ Newburn,2024-2,204,394,562,15%
 Outer West,2024-2,206,1206,1329,14%
 Walker,2024-2,80,235,118,7%
 West End,2024-2,708,2898,570,45%
-Blakelaw,2024-3,43,70,103,
-City,2024-3,7003,29426,9808,
-Cruddas Park,2024-3,160,552,295,
-Denton Burn,2024-3,207,960,775,
+Blakelaw,2024-3,43,70,103,6%
+City,2024-3,7003,29426,9808,37%
+Cruddas Park,2024-3,160,552,295,17%
+Denton Burn,2024-3,207,960,775,26%
 Dinnington,2024-3,,,,
-East End,2024-3,741,1847,708,
+East End,2024-3,741,1847,708,45%
 Fawdon,2024-3,,,,
-Fenham,2024-3,648,4253,1787,
-Gosforth,2024-3,1444,5192,5096,
-High Heaton,2024-3,616,1950,1889,
+Fenham,2024-3,648,4253,1787,45%
+Gosforth,2024-3,1444,5192,5096,31%
+High Heaton,2024-3,616,1950,1889,12%
 Jesmond,2024-3,,,,
-Kenton,2024-3,191,1280,843,
+Kenton,2024-3,191,1280,843,23%
 Moorside,2024-3,,,,
 Newbiggin Hall,2024-3,,,,
-Newburn,2024-3,150,344,648,
-Outer West,2024-3,177,1275,1347,
-Walker,2024-3,81,273,221,
-West End,2024-3,879,2812,626,
+Newburn,2024-3,150,344,648,14%
+Outer West,2024-3,177,1275,1347,13%
+Walker,2024-3,81,273,221,8%
+West End,2024-3,879,2812,626,30%
+Blakelaw,2024-4,37,63,39,10%
+City,2024-4,7105,29581,9300,38%
+Cruddas Park,2024-4,232,496,213,9%
+Denton Burn,2024-4,209,762,621,17%
+Dinnington,2024-4,,,,
+East End,2024-4,652,1794,732,37%
+Fawdon,2024-4,,,,
+Fenham,2024-4,1008,4351,2094,48%
+Gosforth,2024-4,1649,4710,4983,23%
+High Heaton,2024-4,576,1944,1686,27%
+Jesmond,2024-4,,,,
+Kenton,2024-4,271,1250,901,11%
+Moorside,2024-4,,,,
+Newbiggin Hall,2024-4,,,,
+Newburn,2024-4,248,482,702,11%
+Outer West,2024-4,145,1187,1223,12%
+Walker,2024-4,64,172,99,8%
+West End,2024-4,963,2733,632,35%
+Blakelaw,2024-5,44,93,59,10%
+City,2024-5,6783,28787,9081,34%
+Cruddas Park,2024-5,525,485,365,13%
+Denton Burn,2024-5,168,1066,510,16%
+Dinnington,2024-5,,,,
+East End,2024-5,505,1586,655,42%
+Fawdon,2024-5,,,,
+Fenham,2024-5,825,4188,1965,42%
+Gosforth,2024-5,1349,3620,4772,44%
+High Heaton,2024-5,482,1776,1710,15%
+Jesmond,2024-5,,,,
+Kenton,2024-5,164,869,779,17%
+Moorside,2024-5,,,,
+Newbiggin Hall,2024-5,,,,
+Newburn,2024-5,388,547,823,27%
+Outer West,2024-5,249,1273,1343,8%
+Walker,2024-5,95,206,104,10%
+West End,2024-5,873,2605,356,31%
+Blakelaw,2024-6,19,69,65,9%
+City,2024-6,6284,25336,8286,35%
+Cruddas Park,2024-6,737,684,289,8%
+Denton Burn,2024-6,180,841,597,16%
+Dinnington,2024-6,,,,
+East End,2024-6,365,1677,627,45%
+Fawdon,2024-6,,,,
+Fenham,2024-6,843,4288,1806,37%
+Gosforth,2024-6,1225,3370,4999,21%
+High Heaton,2024-6,588,1930,1657,16%
+Jesmond,2024-6,,,,
+Kenton,2024-6,217,1164,663,14%
+Moorside,2024-6,,,,
+Newbiggin Hall,2024-6,,,,
+Newburn,2024-6,306,507,894,19%
+Outer West,2024-6,228,1087,1307,8%
+Walker,2024-6,87,166,100,6%
+West End,2024-6,913,2493,507,31%
+Blakelaw,2024-7,,,,
+City,2024-7,,,,
+Cruddas Park,2024-7,,,,
+Denton Burn,2024-7,,,,
+Dinnington,2024-7,,,,
+East End,2024-7,,,,
+Fawdon,2024-7,,,,
+Fenham,2024-7,,,,
+Gosforth,2024-7,,,,
+High Heaton,2024-7,,,,
+Jesmond,2024-7,,,,
+Kenton,2024-7,,,,
+Moorside,2024-7,,,,
+Newbiggin Hall,2024-7,,,,
+Newburn,2024-7,,,,
+Outer West,2024-7,,,,
+Walker,2024-7,,,,
+West End,2024-7,,,,
+Blakelaw,2024-8,,,,
+City,2024-8,,,,
+Cruddas Park,2024-8,,,,
+Denton Burn,2024-8,,,,
+Dinnington,2024-8,,,,
+East End,2024-8,,,,
+Fawdon,2024-8,,,,
+Fenham,2024-8,,,,
+Gosforth,2024-8,,,,
+High Heaton,2024-8,,,,
+Jesmond,2024-8,,,,
+Kenton,2024-8,,,,
+Moorside,2024-8,,,,
+Newbiggin Hall,2024-8,,,,
+Newburn,2024-8,,,,
+Outer West,2024-8,,,,
+Walker,2024-8,,,,
+West End,2024-8,,,,
+Blakelaw,2024-9,,,,
+City,2024-9,,,,
+Cruddas Park,2024-9,,,,
+Denton Burn,2024-9,,,,
+Dinnington,2024-9,,,,
+East End,2024-9,,,,
+Fawdon,2024-9,,,,
+Fenham,2024-9,,,,
+Gosforth,2024-9,,,,
+High Heaton,2024-9,,,,
+Jesmond,2024-9,,,,
+Kenton,2024-9,,,,
+Moorside,2024-9,,,,
+Newbiggin Hall,2024-9,,,,
+Newburn,2024-9,,,,
+Outer West,2024-9,,,,
+Walker,2024-9,,,,
+West End,2024-9,,,,
+Blakelaw,2024-10,,,,
+City,2024-10,,,,
+Cruddas Park,2024-10,,,,
+Denton Burn,2024-10,,,,
+Dinnington,2024-10,,,,
+East End,2024-10,,,,
+Fawdon,2024-10,,,,
+Fenham,2024-10,,,,
+Gosforth,2024-10,,,,
+High Heaton,2024-10,,,,
+Jesmond,2024-10,,,,
+Kenton,2024-10,,,,
+Moorside,2024-10,,,,
+Newbiggin Hall,2024-10,,,,
+Newburn,2024-10,,,,
+Outer West,2024-10,,,,
+Walker,2024-10,,,,
+West End,2024-10,,,,
+Blakelaw,2024-11,,,,
+City,2024-11,,,,
+Cruddas Park,2024-11,,,,
+Denton Burn,2024-11,,,,
+Dinnington,2024-11,,,,
+East End,2024-11,,,,
+Fawdon,2024-11,,,,
+Fenham,2024-11,,,,
+Gosforth,2024-11,,,,
+High Heaton,2024-11,,,,
+Jesmond,2024-11,,,,
+Kenton,2024-11,,,,
+Moorside,2024-11,,,,
+Newbiggin Hall,2024-11,,,,
+Newburn,2024-11,,,,
+Outer West,2024-11,,,,
+Walker,2024-11,,,,
+West End,2024-11,,,,
+Blakelaw,2024-12,,,,
+City,2024-12,,,,
+Cruddas Park,2024-12,,,,
+Denton Burn,2024-12,,,,
+Dinnington,2024-12,,,,
+East End,2024-12,,,,
+Fawdon,2024-12,,,,
+Fenham,2024-12,,,,
+Gosforth,2024-12,,,,
+High Heaton,2024-12,,,,
+Jesmond,2024-12,,,,
+Kenton,2024-12,,,,
+Moorside,2024-12,,,,
+Newbiggin Hall,2024-12,,,,
+Newburn,2024-12,,,,
+Outer West,2024-12,,,,
+Walker,2024-12,,,,
+West End,2024-12,,,,
+Blakelaw,2025-1,,,,
+City,2025-1,,,,
+Cruddas Park,2025-1,,,,
+Denton Burn,2025-1,,,,
+Dinnington,2025-1,,,,
+East End,2025-1,,,,
+Fawdon,2025-1,,,,
+Fenham,2025-1,,,,
+Gosforth,2025-1,,,,
+High Heaton,2025-1,,,,
+Jesmond,2025-1,,,,
+Kenton,2025-1,,,,
+Moorside,2025-1,,,,
+Newbiggin Hall,2025-1,,,,
+Newburn,2025-1,,,,
+Outer West,2025-1,,,,
+Walker,2025-1,,,,
+West End,2025-1,,,,
+Blakelaw,2025-2,,,,
+City,2025-2,,,,
+Cruddas Park,2025-2,,,,
+Denton Burn,2025-2,,,,
+Dinnington,2025-2,,,,
+East End,2025-2,,,,
+Fawdon,2025-2,,,,
+Fenham,2025-2,,,,
+Gosforth,2025-2,,,,
+High Heaton,2025-2,,,,
+Jesmond,2025-2,,,,
+Kenton,2025-2,,,,
+Moorside,2025-2,,,,
+Newbiggin Hall,2025-2,,,,
+Newburn,2025-2,,,,
+Outer West,2025-2,,,,
+Walker,2025-2,,,,
+West End,2025-2,,,,
+Blakelaw,2025-3,,,,
+City,2025-3,,,,
+Cruddas Park,2025-3,,,,
+Denton Burn,2025-3,,,,
+Dinnington,2025-3,,,,
+East End,2025-3,,,,
+Fawdon,2025-3,,,,
+Fenham,2025-3,,,,
+Gosforth,2025-3,,,,
+High Heaton,2025-3,,,,
+Jesmond,2025-3,,,,
+Kenton,2025-3,,,,
+Moorside,2025-3,,,,
+Newbiggin Hall,2025-3,,,,
+Newburn,2025-3,,,,
+Outer West,2025-3,,,,
+Walker,2025-3,,,,
+West End,2025-3,,,,
