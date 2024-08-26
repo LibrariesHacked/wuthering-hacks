@@ -1,4 +1,7 @@
 ﻿$(function () {
+  var renderAllWrapper = function () {
+    renderAllWrapper()
+  }
   if (window.location.pathname.indexOf('catalogue') != -1) {
     // Load in all the CSVs.
     // These are the main grouping of catalogue data, and the lookups for branches and categories
@@ -103,10 +106,8 @@
           return d
         })
         .html({
-          one:
-            '<small>Items</small><br/><span class="big colour1">%number</span>',
-          some:
-            '<small>Items</small><br/><span class="big colour1">%number</span>',
+          one: '<small>Items</small><br/><span class="big colour1">%number</span>',
+          some: '<small>Items</small><br/><span class="big colour1">%number</span>',
           none: '<small>Items</small><br/><span class="big colour1">None</span>'
         })
         .group(itemsNumGroup)
@@ -123,12 +124,9 @@
           return d
         })
         .html({
-          one:
-            '<small>Issues</small><br/><span class="big colour2">%number</span>',
-          some:
-            '<small>Issues</small><br/><span class="big colour2">%number</span>',
-          none:
-            '<small>Issues</small><br/><span class="big colour2">None</span>'
+          one: '<small>Issues</small><br/><span class="big colour2">%number</span>',
+          some: '<small>Issues</small><br/><span class="big colour2">%number</span>',
+          none: '<small>Issues</small><br/><span class="big colour2">None</span>'
         })
         .group(issuesNumGroup)
 
@@ -144,12 +142,9 @@
           return d
         })
         .html({
-          one:
-            '<small>Renewals</small><br/><span class="big colour3">%number</span>',
-          some:
-            '<small>Renewals</small><br/><span class="big colour3">%number</span>',
-          none:
-            '<small>Renewals</small><br/><span class="big colour3">None</span>'
+          one: '<small>Renewals</small><br/><span class="big colour3">%number</span>',
+          some: '<small>Renewals</small><br/><span class="big colour3">%number</span>',
+          none: '<small>Renewals</small><br/><span class="big colour3">None</span>'
         })
         .group(renewalsNumGroup)
 
@@ -165,10 +160,8 @@
           return d
         })
         .html({
-          one:
-            '<small>Cost</small><br/><span class="big colour4">£%number</span>',
-          some:
-            '<small>Cost</small><br/><span class="big colour4">£%number</span>',
+          one: '<small>Cost</small><br/><span class="big colour4">£%number</span>',
+          some: '<small>Cost</small><br/><span class="big colour4">£%number</span>',
           none: '<small>Cost</small><br/><span class="big colour4">£0</span>'
         })
         .group(costNumGroup)
@@ -180,9 +173,8 @@
         .html({
           some:
             '<strong>%filter-count</strong> selected out of <strong>%total-count</strong> records' +
-            " | <a href='javascript:dc.filterAll(); dc.renderAll();'>Reset All</a><br/> &nbsp",
-          all:
-            'All records selected. Please click on the graphs to filter the data.<br/> &nbsp'
+            " | <a href='javascript:dc.filterAll(); renderAllWrapper();'>Reset All</a><br/> &nbsp",
+          all: 'All records selected. Please click on the graphs to filter the data.<br/> &nbsp'
         })
 
       ////////////////////////////////////////////////////////////////
@@ -345,7 +337,7 @@
       })
 
       // Startup: Render all the charts
-      dc.renderAll()
+      renderAllWrapper()
 
       $('#loader').hide()
 
@@ -371,7 +363,7 @@
           catalogueRowBranchChart.width(
             document.getElementById('div-catalogue-branch').offsetWidth
           )
-          dc.renderAll()
+          renderAllWrapper()
         }
       })
     })

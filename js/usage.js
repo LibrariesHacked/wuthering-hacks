@@ -1,5 +1,10 @@
 ﻿$(function () {
+  var renderAllWrapper = function () {
+    dc.renderAll()
+  }
+
   var path = window.location.pathname
+
   if (path == '/index.html' || path == '/') {
     var parseDate = d3.timeParse('%Y-%m')
 
@@ -79,12 +84,9 @@
           return d
         })
         .html({
-          one:
-            '<small>Issues</small><br/><span class="big strong colour1">%number</span>',
-          some:
-            '<small>Issues</small><br/><span class="big strong colour1">%number</span>',
-          none:
-            '<small>Issues</small><br/><span class="big strong colour1">None</span>'
+          one: '<small>Issues</small><br/><span class="big strong colour1">%number</span>',
+          some: '<small>Issues</small><br/><span class="big strong colour1">%number</span>',
+          none: '<small>Issues</small><br/><span class="big strong colour1">None</span>'
         })
         .group(issuesNumGroup)
 
@@ -100,12 +102,9 @@
           return d
         })
         .html({
-          one:
-            '<small>Visits</small><br/><span class="big strong colour2">%number</span>',
-          some:
-            '<small>Visits</small><br/><span class="big strong colour2">%number</span>',
-          none:
-            '<small>Visits</small><br/><span class="big strong colour2">None</span>'
+          one: '<small>Visits</small><br/><span class="big strong colour2">%number</span>',
+          some: '<small>Visits</small><br/><span class="big strong colour2">%number</span>',
+          none: '<small>Visits</small><br/><span class="big strong colour2">None</span>'
         })
         .group(visitsNumGroup)
 
@@ -121,12 +120,9 @@
           return d
         })
         .html({
-          one:
-            '<small>Enquiries</small><br/><span class="big strong colour3">%number</span>',
-          some:
-            '<small>Enquiries</small><br/><span class="big strong colour3">%number</span>',
-          none:
-            '<small>Enquiries</small><br/><span class="big strong colour3">None</span>'
+          one: '<small>Enquiries</small><br/><span class="big strong colour3">%number</span>',
+          some: '<small>Enquiries</small><br/><span class="big strong colour3">%number</span>',
+          none: '<small>Enquiries</small><br/><span class="big strong colour3">None</span>'
         })
         .group(enquiriesNumGroup)
 
@@ -142,12 +138,9 @@
           return (d.total / d.count).toFixed(1)
         })
         .html({
-          one:
-            '<small>PC utilisation</small><br/><span class="big strong colour4">%number%</span>',
-          some:
-            '<small>PC utilisation</small><br/><span class="big strong colour4">%number%</span>',
-          none:
-            '<small>PC utilisation</small><br/><span class="big strong colour4">None</span>'
+          one: '<small>PC utilisation</small><br/><span class="big strong colour4">%number%</span>',
+          some: '<small>PC utilisation</small><br/><span class="big strong colour4">%number%</span>',
+          none: '<small>PC utilisation</small><br/><span class="big strong colour4">None</span>'
         })
         .group(pcNumGroup)
 
@@ -158,9 +151,8 @@
         .html({
           some:
             '<strong>%filter-count</strong> selected out of <strong>%total-count</strong> usage records' +
-            " | <a href='javascript:dc.filterAll(); dc.renderAll();'>Reset All</a><br/> &nbsp",
-          all:
-            'All records selected. Please click on the graphs to apply filters.<br/> &nbsp'
+            " | <a href='javascript:dc.filterAll(); renderAllWrapper()'>Reset All</a><br/> &nbsp",
+          all: 'All records selected. Please click on the graphs to apply filters.<br/> &nbsp'
         })
 
       // Usage dimensions
@@ -612,15 +604,7 @@
         .elasticX(true)
         .elasticY(true)
         .renderHorizontalGridLines(true)
-        .legend(
-          dc
-            .legend()
-            .x(0)
-            .y(0)
-            .horizontal(true)
-            .itemHeight(20)
-            .gap(15)
-        )
+        .legend(dc.legend().x(0).y(0).horizontal(true).itemHeight(20).gap(15))
         .x(d3.scaleTime().domain([minDate, maxDate]))
         .compose([
           dc
@@ -660,7 +644,7 @@
       })
 
       // Startup: Render all the charts
-      dc.renderAll()
+      renderAllWrapper()
 
       // Hide the loading spinner
       $('#loader').hide()
@@ -692,7 +676,7 @@
           pcBranchBarChart.width($('#div-pc-branch').width())
           pcMonthRowChart.width($('#div-pc-month').width())
 
-          dc.renderAll()
+          renderAllWrapper()
         }
       })
     })

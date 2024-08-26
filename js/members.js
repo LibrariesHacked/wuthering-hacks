@@ -1,4 +1,7 @@
 ﻿$(function () {
+  var renderAllWrapper = function () {
+    renderAllWrapper()
+  }
   if (window.location.pathname.indexOf('members') != -1) {
     var parseDate = d3.timeParse('%d/%m/%y %H:%M:%S')
     var parseDate2 = d3.timeParse('%d/%m/%Y %H:%M:%S')
@@ -51,12 +54,9 @@
             return d
           })
           .html({
-            one:
-              '<small class="colour1">Members</small><br/><span class="big strong colour1">%number</span>',
-            some:
-              '<small class="colour1">Members</small><br/><span class="big strong colour1">%number</span>',
-            none:
-              '<small class="colour1">Members</small><br/><span class="big strong colour1">None</span>'
+            one: '<small class="colour1">Members</small><br/><span class="big strong colour1">%number</span>',
+            some: '<small class="colour1">Members</small><br/><span class="big strong colour1">%number</span>',
+            none: '<small class="colour1">Members</small><br/><span class="big strong colour1">None</span>'
           })
           .group(membersNumGroup)
 
@@ -73,12 +73,9 @@
             return d
           })
           .html({
-            one:
-              '<small class="colour2">Libraries</small><br/><span class="big strong colour2">%number</span>',
-            some:
-              '<small class="colour2">Libraries</small><br/><span class="big strong colour2">%number</span>',
-            none:
-              '<small class="colour2">Libraries</small><br/><span class="big strong colour2">None</span>'
+            one: '<small class="colour2">Libraries</small><br/><span class="big strong colour2">%number</span>',
+            some: '<small class="colour2">Libraries</small><br/><span class="big strong colour2">%number</span>',
+            none: '<small class="colour2">Libraries</small><br/><span class="big strong colour2">None</span>'
           })
 
         branchesNumberDisplay.group({
@@ -105,12 +102,9 @@
             return d
           })
           .html({
-            one:
-              '<small class="colour3">Postcode districts</small><br/><span class="big strong colour3">%number</span>',
-            some:
-              '<small class="colour3">Postcode districts</small><br/><span class="big strong colour3">%number</span>',
-            none:
-              '<small class="colour3">Postcode districts</small><br/><span class="big strong colour3">None</span>'
+            one: '<small class="colour3">Postcode districts</small><br/><span class="big strong colour3">%number</span>',
+            some: '<small class="colour3">Postcode districts</small><br/><span class="big strong colour3">%number</span>',
+            none: '<small class="colour3">Postcode districts</small><br/><span class="big strong colour3">None</span>'
           })
         postcodedistrictsNumberDisplay.group({
           value: function () {
@@ -139,12 +133,9 @@
             return daysFull[d]
           })
           .html({
-            none:
-              '<small class="colour4">Popular joining day</small><br/><span class="big strong colour4">%number</span>',
-            one:
-              '<small class="colour4">Popular joining day</small><br/><span class="big strong colour4">%number</span>',
-            some:
-              '<small class="colour4">Popular joining day</small><br/><span class="big strong colour4">%number</span>'
+            none: '<small class="colour4">Popular joining day</small><br/><span class="big strong colour4">%number</span>',
+            one: '<small class="colour4">Popular joining day</small><br/><span class="big strong colour4">%number</span>',
+            some: '<small class="colour4">Popular joining day</small><br/><span class="big strong colour4">%number</span>'
           })
 
         popularJoiningNumberDisplay.group({
@@ -168,9 +159,8 @@
           .html({
             some:
               '<strong>%filter-count</strong> selected out of <strong>%total-count</strong> records' +
-              " | <a href='javascript:dc.filterAll(); dc.renderAll();'>Reset All</a><br/> &nbsp",
-            all:
-              'All records selected. Please click on the graphs to apply filters.<br/> &nbsp'
+              " | <a href='javascript:dc.filterAll(); renderAllWrapper();'>Reset All</a><br/> &nbsp",
+            all: 'All records selected. Please click on the graphs to apply filters.<br/> &nbsp'
           })
 
         var postcodedimension = membersNdx.dimension(function (d) {
@@ -357,7 +347,7 @@
           return false
         })
 
-        dc.renderAll()
+        renderAllWrapper()
 
         // Bit of a hack.  Search through the layer list and remove the tile layer
         postcodesChoro.map().eachLayer(function (l) {
@@ -386,7 +376,7 @@
               $('#div-members-hourjoined').width()
             )
             membersDayJoinedBarChart.width($('#div-members-dayjoined').width())
-            dc.renderAll()
+            renderAllWrapper()
           }
         })
       }

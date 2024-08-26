@@ -31,18 +31,18 @@
     "gulp-uglify": "^3.0.2"
   },
   "dependencies": {
-    "bootstrap": "^5.2.2",
-    "bootswatch": "^5.2.1",
-    "colorbrewer": "^1.5.2",
+    "bootstrap": "^5.3.3",
+    "bootswatch": "^5.3.3",
+    "colorbrewer": "^1.5.6",
     "crossfilter2": "^1.5.4",
-    "d3": "^7.6.1",
+    "d3": "^7.9.0",
     "dc": "^4.2.7",
     "dc.leaflet": "^0.5.6",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.6.1",
-    "jquery-csv": "^1.0.21",
-    "leaflet": "^1.9.2",
-    "mapbox-gl": "^1.13.2",
+    "jquery": "^3.7.1",
+    "jquery-csv": "^1.0.40",
+    "leaflet": "^1.9.4",
+    "mapbox-gl": "^1.13.3",
     "mapbox-gl-leaflet": "^0.0.15",
     "popper.js": "^1.16.1"
   }
