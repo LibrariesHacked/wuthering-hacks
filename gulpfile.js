@@ -15,7 +15,7 @@ var paths = {
   srcCNAME: 'CNAME',
   srcCSS: 'css/*.css',
   srcNodeCSS: [
-    'node_modules/bootswatch/dist/zephyr/bootstrap.min.css',
+    'node_modules/bootswatch/dist/flatly/bootstrap.min.css',
     'node_modules/font-awesome/css/font-awesome.min.css',
     'node_modules/dc/dist/style/dc.css',
     'node_modules/mapbox-gl/dist/mapbox-gl.css',
@@ -63,10 +63,7 @@ gulp.task('html', function () {
 })
 
 gulp.task('html:dist', function () {
-  return gulp
-    .src(paths.srcHTML)
-    .pipe(htmlclean())
-    .pipe(gulp.dest(paths.dist))
+  return gulp.src(paths.srcHTML).pipe(htmlclean()).pipe(gulp.dest(paths.dist))
 })
 
 gulp.task('cname:dist', function () {
